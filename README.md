@@ -1,2 +1,2 @@
 # BeSlab
-This repository contains the code to set up Bes Lab
+This repository contains the BeS Environment Scripts to Launch a BeSLab.
