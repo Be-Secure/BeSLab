@@ -1,2 +1,2 @@
-# BeSlab
-This repository contains the BeS Environment Scripts to Launch a BeSLab.
+# BeSLab
+BeS Environment Script Repository & BeS Playbooks to Launch a BeSLab.
