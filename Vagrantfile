@@ -2,12 +2,18 @@
 require_relative 'variables.rb'
 Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
-    vb.cpus = "1"
+    # vb.memory = "4096"
+    # vb.cpus = "2"
+    vb.gui = true
   end
   config.vm.define "beslab" do |bl|
     bl.vm.box = "ubuntu/focal64"
   end
+  config.vm.network "private_network", ip: "192.168.50.10"
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y xfce4
+  SHELL
   config.vm.provision "docker" do |docker|
     docker.pull_images "sonarqube"
     docker.run "sonarqube",
