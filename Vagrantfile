@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     bl.vm.box = "ubuntu/focal64"
   end
   config.vm.network "private_network", ip: "192.168.50.10"
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install -y xfce4
@@ -21,6 +22,10 @@ Vagrant.configure("2") do |config|
       auto_assign_name: false,
       daemonize: true
   end
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y sbom
+  SHELL
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install -y curl
