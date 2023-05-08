@@ -1,0 +1,5 @@
+$vb_provider = "virtualbox"
+$vb_memory = "1024"
+$vb_cpus = "1"
+$box_name = "ubuntu/focal64"
+$vm_name = "my-vm"
