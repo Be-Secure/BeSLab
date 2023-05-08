@@ -11,22 +11,20 @@ Vagrant.configure("2") do |config|
   config.vm.define $vm_name do |vm|
     vm.box = $box_name
   end
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y curl
+    curl -fsSL https://code-server.dev/install.sh | sh
+    sudo systemctl enable --now code-server@$USER
+  SHELL
 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
-  end  
-
-  # Update the system and install necessary packages
-#   config.vm.provision "shell", inline: <<-SHELL
-#     sudo apt-get update
-#     sudo apt-get install -y curl
-
-#     # Install VS Code
-#     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-#     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-#     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-#     sudo apt-get update
-#     sudo apt-get install -y code
-#   SHELL
+#install sonarqube with docker
+  config.vm.provision "docker" do |docker|
+    docker.pull_images "sonarqube"
+    docker.run "sonarqube",
+      args: "--name sonarqube -p 9000:9000 -p 9092:9092",
+      auto_assign_name: false,
+      daemonize: true
+  end
+  
 end
