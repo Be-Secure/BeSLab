@@ -1,0 +1,26 @@
+site_name: BeSLab Documentation
+
+repo_url: https://github.com/be-secure/BeSlab
+site_description: 'Low resource and self contained BeSLab for OSS red teaming and blue teaming environment'
+theme: readthedocs
+
+extra_javascript:
+  - js/fix_search.js
+
+markdown_extensions:
+  - toc:
+      permalink: True
+
+pages:
+  - Home: 'index.md'
+  - 'BeSLab Features': 'features/features.md'
+  - Design:
+    - 'BeSLab Components': 'design/BeSlab-components.md'
+    - 'BeS OAH VM Specification': 'design/BeSlab-vm-specification.md'
+    - 'BeS ROLE Specification': 'design/BeSlab-role-specification.md'
+    - 'BeSLab PI Specification': 'design/BeSlab-pi-specification.md'
+    - 'BeSLab Cluster Specification': 'design/BeSlab-cluster-specification.md'
+    - 'BeSLab PI Cluster Specification': 'design/BeSlab-pi-cluster-specification.md'
+  - Developer Info:
+    - 'How To Contribute': 'developer-info/how-to-contribute.md'
+    - 'Developer Resources': 'developer-info/developer-resources.md'
