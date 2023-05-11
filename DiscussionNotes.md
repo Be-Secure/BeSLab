@@ -4,7 +4,7 @@ Date : 9/May 2023
 -----------------------
 Include  BeSLab environments repo for the BeS community that can work seamlessly on oah-bes-vm in low cost/low resource settings.
 
-(Important to have this in place asap. I had a quick discussion with Samir & Sudhir.  Being able to present a roadmap for our OSS is critical for us to meaningfully engage community contributors & OSS security researchers.)
+
 
 a) OSS Security team/OSS Security Researcher (Active Contribution to BeS Community)
 
