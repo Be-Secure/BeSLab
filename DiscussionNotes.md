@@ -59,3 +59,26 @@ TO Do:
 - S/W to spinoff the lab
 - pre req vagrant ansible virtualbox (inspiration :SDKMan)
 ------------------------------
+11th May 2023
+
+------------------------------
+- Configuration file (genesis.yaml)
+  - Instructions of gitlab to be installed or gitlab name space to be pointed
+  - need a packagemanager or point to a package manager
+  - need to specify OS image or use a existing 
+- l0
+    - vagrant, Virtual box, oah shell, ansible roles required for installing infra component and configuring user profiles,besman (beslab installer script)
+    - new ansible roles for packagemanager , for desktop/GUI, Users in the OS image, roles to install BESman and Bes Developer toolkit)
+- l1
+    - Basic tool stack for lab 
+    - ansible roles and bes env and playbooks for besLab tools as determined by genesis file.
+    1. VS Code,eclipse
+    2. Sbom
+    3. Codeql
+    4. Docker
+    5. Java
+    6. sonar
+
+- l2 (User shoud be aware about the CE Environment playbooks and the assement report, results, enpoint of tools and various tools installed)
+    - project related tool sets
+    - CE repo script
