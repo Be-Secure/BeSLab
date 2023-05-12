@@ -6,5 +6,19 @@ virtualBox_vm_user:
 virtualBox_vm_pwd: 
 vm_gui: true
 besMan: true
-besDataStore_dirs: $HOME\
+besDataStore_dirs:
+  assessment_data_store: $HOME/besecure-assessment-datastore
+  poi_data_store: $HOME/besecure-osspoi-datastore
+toolSets:
+  vscode: true
+  eclipse: true
+  sonar: true
+  docker: true
+  sbom: true
+  codeql: true
+  java: true
+  git: true
+  gitlab: true
+ansibleRoles:
+  
 
