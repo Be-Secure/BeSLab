@@ -82,3 +82,17 @@ TO Do:
 - l2 (User shoud be aware about the CE Environment playbooks and the assement report, results, enpoint of tools and various tools installed)
     - project related tool sets
     - CE repo script
+
+-----------------------------
+12th May 2023
+
+-----------------------------
+
+bring out the declaration in the beslab_genesis file. 
+
+os images, package manager  ( declare if it would be self host or using community hosted),  Code collaboration platform tool ( declare if it would be self hosted or using community /public ) , Core BeS ansible role ( users, desktop , ide, common toolchain), other BeS tools ( dev sdk etc) , Bes Repos / BeS data stores (for tracking  assessment & reporting ), and collection of BeS tools as a services should all be there in genesis file
+
+ 
+
+
+
