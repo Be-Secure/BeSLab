@@ -1,0 +1,10 @@
+#this is the scledown version of the lab
+#OS specific
+virtualBox_vm_name:
+virtualBox_vm_OS:
+virtualBox_vm_user: 
+virtualBox_vm_pwd: 
+vm_gui: true
+besMan: true
+besDataStore_dirs: $HOME\
+
