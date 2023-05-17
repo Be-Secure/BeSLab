@@ -92,7 +92,14 @@ bring out the declaration in the beslab_genesis file. 
 
 os images, package manager  ( declare if it would be self host or using community hosted),  Code collaboration platform tool ( declare if it would be self hosted or using community /public ) , Core BeS ansible role ( users, desktop , ide, common toolchain), other BeS tools ( dev sdk etc) , Bes Repos / BeS data stores (for tracking  assessment & reporting ), and collection of BeS tools as a services should all be there in genesis file
 
- 
-
-
+ --------------------
+ 17th may 2023
+ 
+ --------------------
+- genesis file specification
+- BeSLabCLI - should provision the BesLab and launch the lab
+- BeSlab info command to display the endpoints and services running / BesLab export parameters that will be consumed by BeS environments and Bes Env script.
+- Genesis file for the cloud environment will be taken up later. all the service will be in a headless mode.
+- Launch the MKDocs for existing project 
+- BesLab and BesGPT to be announced
 
