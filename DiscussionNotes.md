@@ -68,7 +68,7 @@ TO Do:
   - need to specify OS image or use a existing 
 - l0
     - vagrant, Virtual box, oah shell, ansible roles required for installing infra component and configuring user profiles,besman (beslab installer script)
-    - new ansible roles for packagemanager , for desktop/GUI, Users in the OS image, roles to install BESman and Bes Developer toolkit)
+    - new ansible roles for packagemanager , for desktop/GUI, Users in the OS image,  )
 - l1
     - Basic tool stack for lab 
     - ansible roles and bes env and playbooks for besLab tools as determined by genesis file.
@@ -78,6 +78,10 @@ TO Do:
     4. Docker
     5. Java
     6. sonar
+    7. BESman
+    8. Bes Devkit (report generator)
+    9. BesLighthouse (capabilty to export vulunrability/ asseesment results to other labs and to BES comunity light house)(VeX)
+    10. Bes tools to import and export assesment result and share playbooks/environment
 
 - l2 (User shoud be aware about the CE Environment playbooks and the assement report, results, enpoint of tools and various tools installed)
     - project related tool sets
@@ -103,4 +107,7 @@ os images, package manager  ( declare if it would be self host or using communi
 - Genesis file for the cloud environment will be taken up later. all the service will be in a headless mode.
 - Launch the MKDocs for existing project 
 - BesLab and BesGPT to be announced
-
+-----------------------
+TODO 
+***Explore ansible agnostic way to install L1 using docker kubernetes, etc
+***tools to export and import bes assesment results from bes playbooks
