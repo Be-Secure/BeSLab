@@ -7,6 +7,8 @@ a) OSS Security team/OSS Security Researcher (Active Contribution to BeS Communi
 Usage Scenarios (Reasons to deploy/use/participate in BeS Community):
 
 Discover vulnerabilities (OSSPoI)
+Deep detection of a specific issues (unknown vulnerabilities)
+Security compliance and assessments
 Set up your own BeSLab environment
 Submit new BeS Environments
 Submit new BeS Playbooks
@@ -17,6 +19,8 @@ b) OSS Solution Developer (Passive Contributions to BeS Community)
 
 Usage Scenarios:
 
+Deep detection of known vulnerabilities
+Security compliance 
 Identify TAVOSS components from OSSPoI
 Understand the OSS security posture of OSSPoI from OSSVoI (Vulnerabilities of Interest)
  
