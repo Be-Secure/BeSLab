@@ -17,6 +17,7 @@ pages:
   - Design:
     - 'BeSLab Components': 'design/BeSlab-components.md'
     - 'BeS OAH VM Specification': 'design/BeSlab-vm-specification.md'
+    - 'BeSLab installer: 'design/BeSlab-installer-specification.md'
     - 'BeS ROLE Specification': 'design/BeSlab-role-specification.md'
     - 'BeSLab PI Specification': 'design/BeSlab-pi-specification.md'
     - 'BeSLab Cluster Specification': 'design/BeSlab-cluster-specification.md'
