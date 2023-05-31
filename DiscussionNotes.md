@@ -111,3 +111,29 @@ os images, package manager  ( declare if it would be self host or using communi
 TODO 
 ***Explore ansible agnostic way to install L1 using docker kubernetes, etc
 ***tools to export and import bes assesment results from bes playbooks
+
+----
+25th May Thursday
+----
+- BeSLab cli installer script → similar to get.besman.io/get.sdkman.io →Installs BeSLab cli.
+
+- BeSLab cli would install the prerequisites to bring up the BeSLab.
+
+- BeSLab cli would have a command to switch installation modes
+
+  - Two modes for BeSLab cli
+
+      - Host mode – virtualbox, vagrant
+
+      - bare metal (install everything on machine)
+
+- BeSLab cli uses oah to launch the lab in two modes.
+
+- BeSLab cli prescribes the roles to oah to install.
+
+- Ansible-role-oah-bes should talk to genesis.yaml file. Design the role so that it is driven by genesis file.
+
+- Update ansible-role-oah-bes with support for other bes tools required for the lab. Everything under L1.
+
+- If we add/delete/update a new service/tool in the genesis file, BeSLab cli would add it into the BeSLab.
+ 
