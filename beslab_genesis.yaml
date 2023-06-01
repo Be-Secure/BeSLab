@@ -5,20 +5,29 @@ virtualBox_vm_OS: ubuntu
 virtualBox_vm_user: ubuntu
 virtualBox_vm_pwd: ubuntu
 vm_gui: true
-besMan: true
 besDataStore_dirs:
   assessment_data_store: $HOME/besecure-assessment-datastore
   poi_data_store: $HOME/besecure-osspoi-datastore
 toolSets:
-  vscode: true
-  eclipse: true
-  sonar: true
-  docker: true
-  sbom: true
-  codeql: true
-  java: true
-  git: true
-  gitlab: true
-ansibleRoles:
+  - vscode: true
+  - eclipse: true
+  - sonar: true
+  - docker: true
+  - sbom: true
+  - codeql: true
+  - java: true
+  - git: true
+  - gitlab: true
+  - besman: true
+  - besdevkit: true
+github_urls:
+  - https://github.com/Be-Secure/besecure-assessment-datastore
+  - https://github.com/Be-Secure/besecure-osspoi-datastore
+  - https://github.com/Be-Secure/besecure-developer-toolkit
+package_manager:
+  - npm: true
+  - gradle: true
+  - maven: true
+  
   
 
