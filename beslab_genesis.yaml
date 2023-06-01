@@ -1,12 +1,12 @@
 #this is the scledown version of the lab
 #OS specific
-virtualBox_vm_name:
-virtualBox_vm_OS:
-virtualBox_vm_user: 
-virtualBox_vm_pwd: 
+virtualBox_vm_name: BesLab
+virtualBox_vm_OS: ubuntu
+virtualBox_vm_user: ubuntu
+virtualBox_vm_pwd: ubuntu
 vm_gui: true
 besMan: true
-besDataStore_repos:
+besDataStore_dirs:
   assessment_data_store: $HOME/besecure-assessment-datastore
   poi_data_store: $HOME/besecure-osspoi-datastore
 toolSets:
