@@ -152,8 +152,21 @@ June 2 2023
         1. host mode using oah-bes-vm/ansible
         2. bare metal mode using ansible and oah-bes-vm
         3. directly using besman without oah-bes-vm/ansible using BeSlab env scripts from BeSLab repository.
+            1. Minimum tools for rt and bt activities will be installed.
     9. Think about a case where you don’t use ansible → we directly install besman and all the tools are installed using env scripts.
     10. Prefix variable name inside genesis file BESLAB_<var_name> - These vars would be exported by BLIman. Eg:- BESLAB_OS_IMAGE. Note:- The prefix doesn’t go into the genesis file. It would be prefixed while exporting.
     11. BLIMAN_varname would be belong the installer script for BLIman. Eg:- BLIMAN_DIR.
-    12. The tools required for setting up the infrastructure of the lab would be installed in the machine itself using the env scripts/ansible. For eg:- for ansible, we need python. So python should be installed in the current machine. 
+    12. The tools required for setting up the infrastructure of the lab would be installed in the machine itself using the env scripts/ansible. For eg:- for ansible, we need python. So python should be installed in the current machine.
+    13. Mention the code collaboration platform for the lab - gitlab, github, bitbucket, openforge.
+    14. Give the code collaboration platform an option - self-hosted by the lab or public.
+    15. In a low resource setting of the BeSlab, the user would be pointed to the public resources - public github/gitlab.
+    16. Beyond code collaboration platform we would have option for opting a private/public -  
+        - artifact repositories - jfrog artifactory/binary artifacts - If private, We would install jfrog.
+        - image repositories - docker, runc/oci
+        - package managers for different languages - python(pip), java (maven, gradle)
+        - CI/CD tools - jenkins, gitrunner, etc
+        - sast, dast tools
+    17. After bringing up the lab `bli status` would list all the BESLAB_vars and their values. eg- BESLAB_GITLAB_URL will give you the url for accessing gitlab. This can be used by the BeSman environment scripts as the prefix to construct the url for accessing the code for a specific project.
+    18. `bli validate` - validate all the services/components are installed and available inside the lab. Eg:- It will ping the BESLAB_GITLAB_URL to test whether the gitlab is up and running and revert the message accordingly.
+    
  
