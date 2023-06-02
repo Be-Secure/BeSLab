@@ -136,4 +136,24 @@ TODO
 - Update ansible-role-oah-bes with support for other bes tools required for the lab. Everything under L1.
 
 - If we add/delete/update a new service/tool in the genesis file, BeSLab cli would add it into the BeSLab.
+
+---
+June 2 2023
+---
+
+    1. BLIMAN exports the env vars from genesis.yaml 
+    2. Source command should make the cli export the env vars from genesis file.
+    3. default_genesis.yaml
+    4. default yaml file can be placed at 3 levels – root | user_home | .bliman
+    5. customize yaml file at the user home level would override/shadow the default genesis.
+    6. BLIman would generate the config.yaml file for oah-bes-vm from genesis.yaml file export variables.
+    7. Use the genesis file to update the config files.
+    8. 3 approaches to install the BeSLab using BLIman→ 
+        1. host mode using oah-bes-vm/ansible
+        2. bare metal mode using ansible and oah-bes-vm
+        3. directly using besman without oah-bes-vm/ansible using BeSlab env scripts from BeSLab repository.
+    9. Think about a case where you don’t use ansible → we directly install besman and all the tools are installed using env scripts.
+    10. Prefix variable name inside genesis file BESLAB_<var_name> - These vars would be exported by BLIman. Eg:- BESLAB_OS_IMAGE. Note:- The prefix doesn’t go into the genesis file. It would be prefixed while exporting.
+    11. BLIMAN_varname would be belong the installer script for BLIman. Eg:- BLIMAN_DIR.
+    12. The tools required for setting up the infrastructure of the lab would be installed in the machine itself using the env scripts/ansible. For eg:- for ansible, we need python. So python should be installed in the current machine. 
  
