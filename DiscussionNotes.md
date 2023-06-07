@@ -170,7 +170,7 @@ June 2 2023
     18. `bli validate` - validate all the services/components are installed and available inside the lab. Eg:- It will ping the BESLAB_GITLAB_URL to test whether the gitlab is up and running and revert the message accordingly.
 
 ---
-June 7
+June 7 2023
 ----
 1. BLIman should visit the github to get the candidates instead of apis from the ref project.
 2. `TODO` - Create a sequence diagram on the end-to-end flow (Trigger is BLIman)
