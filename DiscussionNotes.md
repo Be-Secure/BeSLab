@@ -168,5 +168,11 @@ June 2 2023
         - sast, dast tools
     17. After bringing up the lab `bli status` would list all the BESLAB_vars and their values. eg- BESLAB_GITLAB_URL will give you the url for accessing gitlab. This can be used by the BeSman environment scripts as the prefix to construct the url for accessing the code for a specific project.
     18. `bli validate` - validate all the services/components are installed and available inside the lab. Eg:- It will ping the BESLAB_GITLAB_URL to test whether the gitlab is up and running and revert the message accordingly.
+
+---
+June 7
+----
+1. BLIman should visit the github to get the candidates instead of apis from the ref project.
+2. `TODO` - Create a sequence diagram on the end-to-end flow (Trigger is BLIman)
     
  
