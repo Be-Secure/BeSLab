@@ -174,5 +174,13 @@ June 7 2023
 ----
 1. BLIman should visit the github to get the candidates instead of apis from the ref project.
 2. `TODO` - Create a sequence diagram on the end-to-end flow (Trigger is BLIman)
+
+-----
+June 14 2023
+----
+
+1. Installer url should be user friendly.
+  -  Try to run it through github pages
+  -  Something on the lines of - `curl -L https://get.bliman.io | bash`
     
  
