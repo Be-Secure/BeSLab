@@ -1,14 +1,14 @@
 #this is the scledown version of the lab
 #OS specific
-virtualBox_vm_name: BesLab
-virtualBox_vm_OS: ubuntu
-virtualBox_vm_user: ubuntu
-virtualBox_vm_pwd: ubuntu
-vm_gui: true
-besDataStore_dirs:
+BESLAB_VM_NAME: BesLab
+BESLAB_VM_OS: ubuntu
+BESLAB_VM_USER: ubuntu
+BESLAB_VM_PWD: ubuntu
+BESLAB_VM_GUI: true
+BESLAB_DATASTORE_DIR:
   assessment_data_store: $HOME/besecure-assessment-datastore
   poi_data_store: $HOME/besecure-osspoi-datastore
-toolSets:
+BESLAB_TOOLS:
   - vscode: true
   - eclipse: true
   - sonar: true
@@ -20,11 +20,11 @@ toolSets:
   - gitlab: true
   - besman: true
   - besdevkit: true
-github_urls:
+BESLAB_GIT_URLS:
   - https://github.com/Be-Secure/besecure-assessment-datastore
   - https://github.com/Be-Secure/besecure-osspoi-datastore
   - https://github.com/Be-Secure/besecure-developer-toolkit
-package_manager:
+BESLAB_PACKGE_MANAGERS:
   - npm: true
   - gradle: true
   - maven: true
