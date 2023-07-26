@@ -182,5 +182,21 @@ June 14 2023
 1. Installer url should be user friendly.
   -  Try to run it through github pages
   -  Something on the lines of - `curl -L https://get.bliman.io | bash`
+
+---
+July 26
+----
+1. Once the lab is brought up,
+  - We will have env variables containing the endpoints/variables of the tools
+   - If its service, it should have the url of the service. Eg - In case of an issue tracker we need to specify the url of the repo.
+2. In case of drupal,
+  - Once we bring up the lab, it should contain all the tools required for doing a scan on the drupal project.
+  - The env scripts (RT) check if the necessary tools are already available by looking up the env variables.
+  - If the env vars are available, then the tool will already be setup.
+3. Env script is installing an environment a particular project. This is a one time activity. But in case of
+4. BeSLab env script, would install all the shared pool of tools/platform that can be leveraged by the rt/bt scripts over what would be installed by the rt/bt scripts.
+  - Shared pool of tools/platforms - code collaboration platform, artifact repo, image registry, package managers, internal datastores for the lab, housekeeping utilities for lab(bliman) - would extract info about the lab and activities inside it.
+  - The env script would interact with genesis file.
+  - The shared pool support the 10 different activities in the lab
     
  
