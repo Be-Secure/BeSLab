@@ -187,6 +187,7 @@ June 14 2023
 July 26
 ----
 A)
+
 1. Once the lab is brought up,
   - We will have env variables containing the endpoints/variables of the tools
    - If its service, it should have the url of the service. Eg - In case of an issue tracker we need to specify the url of the repo.
@@ -202,7 +203,9 @@ A)
 5. Start with preparing 3 genesis file for 3 lab profiles (modes).
 6. Roll out spec for genesis file.
 7. The genesis file has to be independent of the modes.
+
 B)
+
 1. Rework on the beslab genesis file variables. Make it abstracted out from the underlying launch mechanishm. Should be used acorss 3 modes.
 2. Comeback with whether we need a beslab roles apart from bes role?
 3. Have a mapping done b/w the lab, env scripts and the s/w components that should be installed. It should come out in our Be-Secure lingo - collection of envs and playbooks.
