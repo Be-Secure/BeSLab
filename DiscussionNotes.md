@@ -198,5 +198,8 @@ July 26
   - Shared pool of tools/platforms - code collaboration platform, artifact repo, image registry, package managers, internal datastores for the lab, housekeeping utilities for lab(bliman) - would extract info about the lab and activities inside it.
   - The env script would interact with genesis file.
   - The shared pool support the 10 different activities in the lab
+5. Start with preparing 3 genesis file for 3 lab profiles (modes).
+6. Roll out spec for genesis file.
+7. The genesis file has to be independent of the modes.  
     
  
