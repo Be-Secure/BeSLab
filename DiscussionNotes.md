@@ -186,6 +186,7 @@ June 14 2023
 ---
 July 26
 ----
+A)
 1. Once the lab is brought up,
   - We will have env variables containing the endpoints/variables of the tools
    - If its service, it should have the url of the service. Eg - In case of an issue tracker we need to specify the url of the repo.
@@ -200,6 +201,17 @@ July 26
   - The shared pool support the 10 different activities in the lab
 5. Start with preparing 3 genesis file for 3 lab profiles (modes).
 6. Roll out spec for genesis file.
-7. The genesis file has to be independent of the modes.  
-    
- 
+7. The genesis file has to be independent of the modes.
+B)
+1. Rework on the beslab genesis file variables. Make it abstracted out from the underlying launch mechanishm. Should be used acorss 3 modes.
+2. Comeback with whether we need a beslab roles apart from bes role?
+3. Have a mapping done b/w the lab, env scripts and the s/w components that should be installed. It should come out in our Be-Secure lingo - collection of envs and playbooks.
+4. Specify the repo from where the distribution happens for all the components that are required for the installation.
+5. Use a namespace in the genesis file to seperate out the enterprise version and the community version.
+6. The lab env scripts should prepare the set up of datastores even for the first two modes.
+7. Genesis file is not coupled with ansible.
+8. All variables inside the genesis file has to be converted into a export variable.
+9. When you load a genesis file, the env variables has to be refreshed.
+10. Any variable used by the lab env script has to be documented for the dev of bes lab scripts.
+11. Shared utility - shared across multiple environments.
+
