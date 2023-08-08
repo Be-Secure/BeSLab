@@ -1,33 +1,53 @@
+---
 #this is the scledown version of the lab
 #OS specific
+# VM configurations
 BESLAB_VM_NAME: BesLab
 BESLAB_VM_OS: ubuntu
+BESLAB_VM_GUI: true
+BESLAB_GUI: ubuntu-desktop
+BESLAB_VAGRANT_BOX: hashicorp/bionic64
 BESLAB_VM_USER: ubuntu
 BESLAB_VM_PWD: ubuntu
-BESLAB_VM_GUI: true
-BESLAB_DATASTORE_DIR:
-  assessment_data_store: $HOME/besecure-assessment-datastore
-  poi_data_store: $HOME/besecure-osspoi-datastore
-BESLAB_TOOLS:
-  - vscode: true
-  - eclipse: true
-  - sonar: true
-  - docker: true
-  - sbom: true
-  - codeql: true
-  - java: true
-  - git: true
-  - gitlab: true
-  - besman: true
-  - besdevkit: true
-BESLAB_GIT_URLS:
-  - https://github.com/Be-Secure/besecure-assessment-datastore
-  - https://github.com/Be-Secure/besecure-osspoi-datastore
-  - https://github.com/Be-Secure/besecure-developer-toolkit
-BESLAB_PACKGE_MANAGERS:
-  - npm: true
-  - gradle: true
-  - maven: true
-  
-  
+BESLAB_VAGRANT_HOSTNAME: BeSLab.dev
+BESLAB_VAGRANT_MACHINE_NAME: BesLab
+BESLAB_USER_ROLES: users
 
+# Code collaboration platform
+BESLAB_CODE_COLLABORATION_PLATFORM_SCOPE: public
+BESLAB_CODE_COLLABORATION_PLATFORM: github
+BESLAB_PLATFORM_URL: https://github.com
+
+# Internal datastores
+BESLAB_ASSESSMENT_DATASTORE_GITHUB_URL: "{{ BESLAB_COLLAB_PLATFORM_URL }}/Be-Secure/besecure-assessment-datastore"
+BESLAB_OSSPOI_DATASTORE_GITHUB_URL: "{{ BESLAB_COLLAB_PLATFORM_URL }}/Be-Secure/besecure-osspoi-datastore"
+BESLAB_ASSESSMENT_DATASTORE_DIR: "/home/{{ BESLAB_VM_USER }}/besecure-assessment-datastore"
+BESLAB_OSSPOI_DATASTORE_DIR: "/home/{{ BESLAB_VM_USER }}/besecure-osspoi-datastore"
+
+
+# Internal languages, tools, repos
+BESLAB_JAVA_FLAVOUR: openjdk
+BELAB_JAVA_VERSION: 1.8
+# BESLAB_JAVA_HOME: 
+BESLAB_PYTHON_VERSION: 3.10
+BESLAB_SBOM: spdx-sbom-generator
+BESLAB_LICENSE_COMPLIANCE: fossology
+BESLAB_SAST: sonarqube
+BESLAB_BES_TOOL:
+  - besman
+  - bes-dev-kit
+BESLAB_PACKAGE_MANAGER:
+  - npm
+  - gradle
+  - maven
+  - pip
+# Change the below to private if you have a private package manger repository.
+BESLAB_ARTIFACT_PATH: /etc
+BESLAB_PACKAGE_MANAGER_SCOPE: public
+BESLAB_ARTIFACT_REPO_SCOPE: public
+BESLAB_PRIVATE_ARTIFACT_REPOS:
+  - jfrog
+BESLAN_PUBLIC_ARTIFACT_REPO:
+  - maven
+BESLAB_IMAGE_REPOS:
+  - docker
