@@ -15,3 +15,18 @@ function __besman_install_spdx-sbom-generator()
     fi
 
 }
+
+function __besman_uninstall_spdx-sbom-generator()
+{
+        
+    local sbom_version artifact_path
+    sbom_version=$1
+    artifact_path=$2
+    if [[ -f "$artifact_path/spdx-sbom-generator" ]]; then
+        __besman_echo_yello "Removing spdx-sbom-generator"
+        rm "$artifact_path/spdx-sbom-generator"
+        rm "$artifact_path/spdx-sbom-generator-$sbom_version-linux-amd64.tar.gz"
+    else
+        __besman_echo_yello "spdx-sbom-generator not installed"
+    fi
+}

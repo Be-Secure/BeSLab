@@ -19,3 +19,13 @@ function __besman_install_docker()
     sudo usermod -aG docker "$USER"
 
 }
+
+function __besman_uninstall_fossology()
+{
+    local container_id
+    container_id=$(docker ps | grep "fossology" | cut -d " " -f 1)
+    __besman_echo_yellow "Stopping docker image"
+    docker stop "$container_id"
+    __besman_echo_yellow "Removing docker image"
+    docker rm "$container_id"
+}

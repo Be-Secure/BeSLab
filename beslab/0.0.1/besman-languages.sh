@@ -26,7 +26,9 @@ function __besman_install_java()
 function __besman_uninstall_java()
 {
     if [[ -n $(which java) ]]; then
-        __besman_echo "Uninstalling java"
+        __besman_echo_yellow "Uninstalling java"
         sudo apt purge --autoremove openjdk-*
+    else
+        __besman_echo_yellow "Java not found. Nothing to uninstall"
     fi
 }
