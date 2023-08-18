@@ -27,5 +27,12 @@ function __besman_install_beslab-env()
     fi
 }
 
+function __besman_uninstall_beslab()
+{
+    __besman_uninstall_java || return 1
+    if [[ $BESLAB_SAST == "sonarqube" ]]; then
+        __besman_uninstall_sonarqube "$BESLAB_SAST_VERSION" "$BESLAB_ARTIFACT_PATH"
+    fi
+}
 
 

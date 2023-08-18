@@ -7,7 +7,8 @@ function __besman_install_java()
     if [[ -n $(which java) ]]; then
         
         java_version=$(java -version)
-        if [[ $java_version == "$BESLAB_JAVA_VERSION" ]]; then
+        if echo "$java_version" | grep -q "$BESLAB_JAVA_VERSION"
+        then
             echo "Java found"
             return
         else
@@ -20,5 +21,13 @@ function __besman_install_java()
     else
         sudo apt install openjdk-"$BESLAB_JAVA_VERSION"-jdk
 
+    fi
+}
+
+function __besman_uninstall_java()
+{
+    if [[ -n $(which java) ]]; then
+        __besman_echo "Uninstalling java"
+        sudo apt purge --autoremove openjdk-*
     fi
 }
