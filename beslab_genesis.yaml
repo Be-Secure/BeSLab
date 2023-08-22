@@ -15,7 +15,6 @@ BESLAB_USER_ROLES: users
 
 # Code collaboration platforme
 BESLAB_CODE_COLLABORATION_PLATFORM_SCOPE: public
-BESLAB_CODE_COLLABORATION_PLATFORM: github
 BESLAB_PLATFORM_URL: https://github.com
 
 # Internal datastores
