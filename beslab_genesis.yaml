@@ -20,8 +20,8 @@ BESLAB_PLATFORM_URL: https://github.com
 
 # Internal datastores
 BESLAB_DATASTORE_SCOPE: public
-BESLAB_ASSESSMENT_DATASTORE_GITHUB_URL: "{{ BESLAB_PLATFORM_URL }}/Be-Secure/besecure-assessment-datastore"
-BESLAB_OSSPOI_DATASTORE_GITHUB_URL: "{{ BESLAB_PLATFORM_URL }}/Be-Secure/besecure-osspoi-datastore"
+BESLAB_ASSESSMENT_DATASTORE_URL: "{{ BESLAB_PLATFORM_URL }}/Be-Secure/besecure-assessment-datastore"
+BESLAB_OSSPOI_DATASTORE_URL: "{{ BESLAB_PLATFORM_URL }}/Be-Secure/besecure-osspoi-datastore"
 BESLAB_ASSESSMENT_DATASTORE_DIR: "/home/{{ BESLAB_USER }}/besecure-assessment-datastore"
 BESLAB_OSSPOI_DATASTORE_DIR: "/home/{{ BESLAB_USER }}/besecure-osspoi-datastore"
 
