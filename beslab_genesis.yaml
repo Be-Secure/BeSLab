@@ -6,7 +6,7 @@ BESLAB_VM_NAME: BesLab
 BESLAB_VM_OS: ubuntu
 BESLAB_VM_GUI: true
 BESLAB_GUI: ubuntu-desktop
-BESLAB_VAGRANT_BOX: ubuntu/focal64
+BESLAB_VAGRANT_BOX: hashicorp/bionic64
 BESLAB_USER: arun
 BESLAB_PWD: arun
 BESLAB_VAGRANT_HOSTNAME: BeSLab.dev
