@@ -7,11 +7,10 @@ BESLAB_VM_OS: ubuntu
 BESLAB_VM_GUI: true
 BESLAB_GUI: ubuntu-desktop
 BESLAB_VAGRANT_BOX: hashicorp/bionic64
-BESLAB_USER: arun
-BESLAB_PWD: arun
+BESLAB_USER: vagrant
+BESLAB_PWD: vagrant
 BESLAB_VAGRANT_HOSTNAME: BeSLab.dev
 BESLAB_VAGRANT_MACHINE_NAME: BesLab
-BESLAB_USER_ROLES: users
 
 # Code collaboration platforme
 BESLAB_CODE_COLLABORATION_PLATFORM_SCOPE: public
