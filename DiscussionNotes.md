@@ -227,4 +227,13 @@ Sep 6 2023
 4. The lab is set up for 2 entities.
    - An org such as o31e for a list of poi and the shared tool sets for all its security analysts.
    - For a user - pentester or security analyst for a single project.
+5. Explore ways of having the genesis file template as part of the initial script that installs BLIman.
+6. Installation of BLIman via curl and zip file. You can have clone as an alternative when the curl doesnt work.
+7. Try out installation of BLIman from both github and gitlab.
+
+-------------The below should be moved-------------
+1. Think of an approach to map playbooks with env scripts.
+   - metadata - data which contains the compatible env script names.
+   - naming convention for playbooks which indicate whether it belongs to a particular env script.
+2. Have a linting for bes env script repo and bes playbooks repo. To scan and tell whether it has a valid naming convention and it has the necessary hooks(for env script recyclable commands)
 
