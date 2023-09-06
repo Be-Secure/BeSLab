@@ -218,3 +218,13 @@ B)
 10. Any variable used by the lab env script has to be documented for the dev of bes lab scripts.
 11. Shared utility - shared across multiple environments.
 
+--------
+Sep 6 2023
+-------
+1. We should be able to recycle environments and should be aligned with the oah-bes-vm.
+2. Genesis file tells you what type a lab we want - How the lab has to be configured.
+3. The code collaboration platform inside the BLIman should be a variable. We can clone BeSLab from gitlab not just github.
+4. The lab is set up for 2 entities.
+   - An org such as o31e for a list of poi and the shared tool sets for all its security analysts.
+   - For a user - pentester or security analyst for a single project.
+
