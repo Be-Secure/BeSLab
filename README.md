@@ -1,5 +1,4 @@
-# BeSLab
-BeSLab: Empowering Open Source Project Security
+![BeSLab](./BeSLab-logo-horizontal.png)
 
 BeSLab is an open source security lab dedicated to fortifying open source projects against potential vulnerabilities. Designed to operate efficiently even in low-resource settings, BeSLab provides a comprehensive solution that grants complete control and transparency to application security and security operations teams. Additionally, it serves as a valuable resource for security researchers by streamlining the process of bringing open source projects under scrutiny and significantly reducing remediation time.
 
