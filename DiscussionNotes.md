@@ -1,3 +1,25 @@
+Date: 29/Feb 2024
+-----------------------
+Create the Arhitecture Diagram for BeSLab
+BeSLab & OSS assessment setup
+ 
+For Individuals(security analyst )
+1. Minimal Barebone without bliman(no attestation capabilities can be used for development of BeSPlaybooks)
+2. Mini BeSlab setup with default besecure.io or genesis file & user profile affiliated with a registered BeSLab( with attestation and provenance capabilities to track changes and sync up attestation results)
+ 
+For Organisations (BeSLab Admin)
+1. Public/hosted setup with genesis file of a register OASP ( A value proposition for organisation constrainted to use low resources settings for assessments, This deployment could feature saas based OSS security tools) and members(users) datastore. 
+2. Private with genesis file of a registered OASP but having a private gitlab instance(A deployment designed to operate at scale and optimise the assessment cycle time for various XoI components) and members datastore.
+
+Instructions
+1. Hide all the unnecessary components and interactions.
+2. Reuse the existing architecture.
+3. Don't change the position of elements across slides.
+4. Export/Import Schema does not contain assessment data into it. Its only the skeleton of projects.
+5. Assume things and pre-requisites to avoid unnecessary interactions.
+6. Make it simple and very high level view only.
+7. Add the missing parts in the slide sahred by Vinod to keep it consistent across slides.
+
 
 Date : 9/May 2023
 
