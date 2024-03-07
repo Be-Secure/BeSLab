@@ -36,7 +36,7 @@ With BeSLab, security professionals can leverage its suite of tools and function
 * Publish assessment reports
 * Attest a report
 * Verify a report issued by the lab
-* Distribute the [TAVOSS](##trusted-and-verified-open-source-software) version of an artifact
+* Distribute the [TAVOSS](#trusted-and-verified-open-source-software-tavoss) version of an artifact
 
 ## Types of BeSLab
 
