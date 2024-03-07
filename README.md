@@ -205,7 +205,7 @@ Lab hosted privately within an individual’s laptop or a virtual machine
       <td>PoI, MoI, TDoI, DoI and VoI</td>
     </tr>
     <tr>
-      <td>[TAVOSS](#trusted-and-verified-open-source-software-tavoss)</td>
+      <td>TAVOSS</td>
       <td>Trusted and Verified Open Source Software </td>
     </tr>
     <tr>
@@ -232,8 +232,8 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 </table>
 
 ### Trusted And Verified Open Source Software (TAVOSS).
+  - TAVOSS is software that is wetted and secure that can help address security concerns.
   - TAVOSS is set of princples and practices that can help adoption of open source in enterprises
-  - TAVOSS is software that is wetted and secure that an help address security concerns.
   - TAVOSS software is also accompanied by documentation and support which can help to address the lack of knowledge and cultural resistance. 
 
 ## Getting Started
