@@ -22,10 +22,10 @@ With BeSLab, security professionals can leverage its suite of tools and function
 
 #### Actors in a BeSLab
 
-* Organization - Owns the lab instance
-* BeSLab Admin – Seeds and manages the lab operations
-* Security Analyst – Member or contributor to a lab, who utilizes the lab for red teaming and blue teaming efforts
-* Subscribers - Organizations or individuals who subscribed to lab services
+* **Organization** - Owns the lab instance
+* **BeSLab Admin** – Seeds and manages the lab operations
+* **Security Analyst** – Member or contributor to a lab, who utilizes the lab for red teaming and blue teaming efforts
+* **Subscribers** - Organizations or individuals who subscribed to lab services
 
 #### Activities in a BeSLab
 
