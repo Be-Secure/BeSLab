@@ -205,7 +205,7 @@ Lab hosted privately within an individual’s laptop or a virtual machine
       <td>PoI, MoI, TDoI, DoI and VoI</td>
     </tr>
     <tr>
-      <td><code>[TAVOSS](#trusted-and-verified-open-source-software-tavoss)</code></td>
+      <td>[TAVOSS](#trusted-and-verified-open-source-software-tavoss)</td>
       <td>Trusted and Verified Open Source Software </td>
     </tr>
     <tr>
