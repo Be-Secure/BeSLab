@@ -36,7 +36,7 @@ With BeSLab, security professionals can leverage its suite of tools and function
 * Publish assessment reports
 * Attest a report
 * Verify a report issued by the lab
-* Distribute the TAVOSS version of an artifact
+* Distribute the [TAVOSS](##Trusted And Verified Open Source Software ) version of an artifact
 
 ## Types of BeSLab
 
@@ -123,6 +123,11 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 
 ## Glossary
 
+### Trusted And Verified Open Source Software (TAVOSS).
+  TAVOSS is set of princples and practices that can help adoption of open source in enterprises
+  TAVOSS is software that is wetted and secure that an help address security concerns.
+  TAVOSS software is also accompanied by documentation and support which can help to address the lack of knowledge and cultural resistance. 
+  
 <table>
   <thead>
     <tr>
@@ -205,7 +210,7 @@ Lab hosted privately within an individual’s laptop or a virtual machine
     </tr>
     <tr>
       <td><code>TAVOSS</code></td>
-      <td>Trusted and Verified Open Source Software is a patched distribution of PoI and MoI</td>
+      <td>Trusted and Verified Open Source Software </td>
     </tr>
     <tr>
       <td><code>OSS Assurance Service Provider (OASP)</code></td>
