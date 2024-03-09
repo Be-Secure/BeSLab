@@ -28,6 +28,9 @@ function __besman_install_beslab-env()
     if [[ ( -n "$BESLAB_SBOM" ) && ( "$BESLAB_SBOM" == "spdx-sbom-generator" ) ]]; then
         __besman_install_spdx-sbom-generator "$BESLAB_ARTIFACT_REPO_SCOPE" "$BESLAB_SBOM_VERSION"
     fi
+    if [[ ( -n "$BESLAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_CODECOLLAB_TOOL" == "gitlab") ]]; then
+        __besman_install_gitlab "V0.0.1" "$HOME"
+    fi
 }
 
 function __besman_uninstall_beslab()
@@ -51,8 +54,11 @@ function __besman_uninstall_beslab()
     if [[ ( -n "$BESLAB_LICENSE_COMPLIANCE" ) && ( "$BESLAB_LICENSE_COMPLIANCE" == "fossology" ) ]]; then
         __besman_uninstall_fossology
     fi
-     if [[ ( -n "$BESLAB_SBOM" ) && ( "$BESLAB_SBOM" == "spdx-sbom-generator" ) ]]; then
+    if [[ ( -n "$BESLAB_SBOM" ) && ( "$BESLAB_SBOM" == "spdx-sbom-generator" ) ]]; then
         __besman_uninstall_spdx-sbom-generator "$BESLAB_ARTIFACT_REPO_SCOPE" "$BESLAB_SBOM_VERSION"
+    fi
+    if [[ ( -n "$BESLAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_CODECOLLAB_TOOL" == "gitlab") ]]; then
+       __besman_uninstall_gitlab
     fi
 }
 
