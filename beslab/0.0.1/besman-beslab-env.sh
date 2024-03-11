@@ -31,7 +31,7 @@ function __besman_install_beslab-env()
     if [[ ( -n "$BESLAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_CODECOLLAB_TOOL" == "gitlab") ]]; then
         __besman_install_gitlab "V0.0.1" "$HOME"
     fi
-    if [[ ( -n "$BESLAB_BESLIGHTHOUSE_RELEASE_URL" ) ]]; then
+    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && 9 "$BESLAB_DASHBOARD_TOOL" == "beslighthouse" ]]; then
         __besman_install_beslighthouse
     fi
 }
@@ -62,6 +62,9 @@ function __besman_uninstall_beslab()
     fi
     if [[ ( -n "$BESLAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_CODECOLLAB_TOOL" == "gitlab") ]]; then
        __besman_uninstall_gitlab
+    fi
+    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && 9 "$BESLAB_DASHBOARD_TOOL" == "beslighthouse" ]]; then
+        __besman_uninstall_beslighthouse
     fi
 }
 
