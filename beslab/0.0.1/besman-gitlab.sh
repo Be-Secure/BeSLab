@@ -4,8 +4,11 @@ function __besman_create_gitlab_repos()
     repo_name="$1"
     
     # load personal_access_token (from hardcoded data)
-    personal_access_token=$(echo "$GITLAB_PERSONAL_ACCESS_TOKEN" | tr -d '\r')
-        
+    if [ ! -z $GITLAB_PERSONAL_ACCESS_TOKEN ];then
+      personal_access_token=$(echo "$GITLAB_PERSONAL_ACCESS_TOKEN" | tr -d '\r')
+    else    
+      personal_access_token=$(cat /etc/gitlab/initial_root_password | grep "^Password" | awk '{print $2}')
+    fi
 
     # Create the repository in the GitLab server
     { # try
@@ -24,9 +27,6 @@ function __besman_install_gitlab()
     local gitlab_version database_path
     gitlab_version=$1
     database_path=$2
-    #if [[ -d "$artifact_path/$sast_version" ]]; then
-    #    __besman_echo_yello "Sonarqube found"
-    #else
 
     __besman_echo_yellow "Updating system"
     sudo apt update
@@ -42,14 +42,11 @@ function __besman_install_gitlab()
     sudo apt update
     sudo apt install gitlab-ce
     __besman_echo_yellow "Install Gitlab-CE"
-    #fi
 
     [[ ! -f /etc/gitlab/gitlab.rb ]] && echo __besman_echo_red "Gitlab-CE not installed properly" && return 1
 
     sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb
     sudo gitlab-ctl reconfigure
-
-
 }
 
 function __besman_uninstall_gitlab()
