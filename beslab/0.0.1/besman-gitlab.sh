@@ -9,7 +9,7 @@ function __besman_create_gitlab_repos()
 
     # Create the repository in the GitLab server
     { # try
-        output=$(curl -f -X POST -H "PRIVATE_TOKEN: $personal_access_token" -H "Content-Type:application/json" http://127.0.0.1/api/v4/projects" -d "{ \"path\": \"$repo_name\", \"visibility\": \"public\" }")
+        output=$(curl -f -X POST -H "PRIVATE_TOKEN: $personal_access_token" -H "Content-Type:application/json" http://127.0.0.1/api/v4/projects -d "{ \"path\": \"$repo_name\", \"visibility\": \"public\" }")
 
         #output=$(curl -H "Content-Type:application/json" http://127.0.0.1/api/v4/projects?private_token="$personal_access_token" -d "{ \"path\": \"$repo_name\", \"visibility\": \"public\" }")
         echo "output=$output"
