@@ -5,7 +5,7 @@ BLIMAN_NAMESPACE: Be-Secure
 BLIMAN_REPO_URL: https://raw.githubusercontent.com/Be-Secure/BLIman/main
 BLIMAN_VERSION: 0.1.0
 BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
-BESLAB_CODE_COLLAB_TOOL: gitlab
+BESLAB_CODECOLLAB_TOOL: gitlab
 
 ###########################################################
 ##
