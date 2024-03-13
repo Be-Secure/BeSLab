@@ -1,26 +1,17 @@
 ---
-# Madatory BLIman repo info
+##########################################################
+## BLIMAN configurations for fetching of initial bliman 
+## code.
+##########################################################
 BLIMAN_HOSTED_URL: https://raw.githubusercontent.com
 BLIMAN_NAMESPACE: Be-Secure
 BLIMAN_REPO_URL: https://raw.githubusercontent.com/Be-Secure/BLIman/main
 BLIMAN_VERSION: 0.1.0
 BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
 
-###########################################################
-##
-##### Genesis file is the configuration file of BeSLab
-##
-###########################################################
-
-# [NOTE]
-### By default all features of lab are disabled.
-### To enable the specific feaure uncomment it.
-#
-
-###########################################################
-###########################################################
-## BeSLab Global Configurations
-###########################################################
+##########################################################
+#      BESLAB Configurations
+##########################################################
 
 # BESLAB_LAB_TYPE is type of lab to be installed. 
 # Values: personal, public, private.
@@ -90,7 +81,7 @@ BESLAB_LAB_MODE: lite
 
 ###########################################################
 ##
-##                    HOST MODE CONFIGS
+##                    LITE MODE CONFIGS
 ##
 ###########################################################
 
@@ -100,16 +91,17 @@ BESLAB_LAB_MODE: lite
 ##
 ###########################################################
 
-###########################################################
-# BESLAB Cloud provider configurations
-#    Application only if BESLAB_PRIVATE_LAB_INFRA is cloud.
-###########################################################
-
 # BESLAB_PRIVATE_LAB_INFRA_TYPE: Defines the infra type as
 #      cloud or on premises deployment of private lab.
 #   values: cloud, onprem
 ###########################################################
 BESLAB_PRIVATE_LAB_INFRA_TYPE: cloud
+
+###########################################################
+# BESLAB Cloud provider configurations
+#    Application only if BESLAB_PRIVATE_LAB_INFRA is set to
+#    cloud.
+###########################################################
 
 # BESLAB_PRIVATE_LAB_INFRA_PROVIDER: Defines the cloud
 #      provider foe the LAB deployment.
@@ -127,8 +119,8 @@ BESLAB_PRIVATE_LAB_INFRA_PROVIDER_ACCESS_TOKEN: ===dsfdgsrghtenygnryjwtgntryj
 #    on premises.
 ###########################################################
 
-# BESLAB_PRIVATE_LAB_SERVER_IPS: Public IP of the servers for the LAB
-#    installations to be used.
+# BESLAB_PRIVATE_LAB_SERVER_IPS: Public IP of the servers 
+#    for the LAB installations to be used.
 ###########################################################
 BESLAB_PRIVATE_LAB_SERVERS_IPS:
     - 10.20.0.1
@@ -149,16 +141,14 @@ BESLAB_PRIVATE_LAB_SERVER_SSH_PASS_LIST:
     - 10.50.0.1: Test@123
  
 ###########################################################
-###########################################################
 ##
-## Code Collabortion platfrom configurations. (Public and 
-##      Private)
+## Code Collabortion platfrom configurations.  
+##      (For both Public and Private deployments)
 ##
-###########################################################
 ###########################################################
 
 ###########################################################
-## Code Collab - Public configurations
+## Code Collab - only for public deployments.
 ###########################################################
 
 # BESLAB_PUBLIC_CODECOLLAB_PROVIDER_NAME: name of the public 
@@ -197,7 +187,7 @@ BESLAB_PRIVATE_LAB_SERVER_SSH_PASS_LIST:
 #BESLAB_PUBLIC_CODECOLLAB_LAB_NAMESPACE: ABC
  
 ############################################################
-## Code Collab - Private configurations.
+## Code Collab - only for Private deployments.
 ############################################################
 
 # BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: Tool to be used for the
