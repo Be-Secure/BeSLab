@@ -389,7 +389,7 @@ BESLAB_DASHBOARD_ADS_NAME: ossads-datastore
 BESLAB_DASHBOARD_OSAR_NAME: ossosar-datastore
 BESLAB_DASHBOARD_ATEESTATION_STORE_NAME: ossattestation-datastore
 
-# BESLAB_PACKAGE_MANAGER_SCOPR: default scopr for package
+# BESLAB_PACKAGE_MANAGER_SCOPE: default scope for package
 #   manager.
 ###########################################################
 #BESLAB_PACKAGE_MANAGER_SCOPE: public
