@@ -29,7 +29,7 @@ function __besman_install_beslab-env()
         __besman_install_spdx-sbom-generator "$BESLAB_ARTIFACT_REPO_SCOPE" "$BESLAB_SBOM_VERSION"
     fi
     if [[ ( -n "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" == "gitlab-ce") ]]; then
-        __besman_install_gitlab "16.2.1" "$HOME"
+        __besman_install_gitlab "16.9.2" "/opt/"
     fi
     if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && "$BESLAB_DASHBOARD_TOOL" == "beslighthouse" ]]; then
         __besman_install_beslighthouse
