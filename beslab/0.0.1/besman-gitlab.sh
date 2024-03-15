@@ -47,6 +47,10 @@ function __besman_install_gitlab()
 
     sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb
     sudo gitlab-ctl reconfigure
+
+    rootPass=`cat /etc/gitlab/initial_root_password`
+
+    __besman_echo_green "Gitlab root password = $rootPass"
 }
 
 function __besman_uninstall_gitlab()
