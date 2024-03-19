@@ -1,26 +1,17 @@
 #!/bin/bash
-function __besman_create_gitlab_repos()
+labToken="LabSeeding"
+function __besman_create_gitlabAdmin_token()
 {
-    repo_name="$1"
-    
-    # load personal_access_token (from hardcoded data)
-    if [ ! -z $GITLAB_PERSONAL_ACCESS_TOKEN ];then
-      personal_access_token=$(echo "$GITLAB_PERSONAL_ACCESS_TOKEN" | tr -d '\r')
-    else    
-      personal_access_token=$(cat /etc/gitlab/initial_root_password | grep "^Password" | awk '{print $2}')
-    fi
-
-    # Create the repository in the GitLab server
-    { # try
-        output=$(curl -f -X POST -H "PRIVATE_TOKEN: $personal_access_token" -H "Content-Type:application/json" http://127.0.0.1/api/v4/projects -d "{ \"path\": \"$repo_name\", \"visibility\": \"public\" }")
-
-        #output=$(curl -H "Content-Type:application/json" http://127.0.0.1/api/v4/projects?private_token="$personal_access_token" -d "{ \"path\": \"$repo_name\", \"visibility\": \"public\" }")
-        echo "output=$output"
-        true
-    } || { # catch
-        true
-    }
-
+    sudo gitlab-rails runner "u = User.new(username: 'gitlabAdmin', email: 'gitlabAdmin@test.com', name: 'Gitlab Admin ', password: 'Welc0me@123', password_confirmation: 'Welc0me@123', admin: true); u.assign_personal_namespace; u.skip_confirmation! ; u.save! ; token = u.personal_access_tokens.create(scopes: ['api','admin_mode'], name: 'install_token', expires_at: 365.days.from_now); token.set_token($labToken); token.save! "
+}
+function __besman_create_gitlab_repo()
+{
+    repoName="$1"
+    curl -k --request POST --header "PRIVATE-TOKEN: $labToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"example\",\"namespace\": \"O31E\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
+}
+function __besman_revoke_gitlabAdmin_token()
+{
+   sudo gitlab-rails runner "PersonalAccessToken.find_by_token($labToken).revoke!"
 }
 function __besman_install_gitlab()
 {
@@ -31,26 +22,38 @@ function __besman_install_gitlab()
     __besman_echo_yellow "Updating system"
     sudo apt update
     sudo apt upgrade -y
+    
     __besman_echo_yellow "Install dependencies"
     sudo apt install -y ca-certificates curl openssh-server tzdata
-    __besman_echo_yellow "Configure Postfix"
-    __besman_echo_yellow "Install Gitlab-CE dependencies"
     sudo apt update
     sudo apt install curl debian-archive-keyring lsb-release ca-certificates apt-transport-https software-properties-common -y
+    
     __besman_echo_yellow "Install Gitlab-CE"
     curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
     sudo apt update
     sudo apt install gitlab-ce
-    __besman_echo_yellow "Install Gitlab-CE"
-
+    
+    __besman_echo_yellow "Update gitlab configuration and start"
     [[ ! -f /etc/gitlab/gitlab.rb ]] && echo __besman_echo_red "Gitlab-CE not installed properly" && return 1
-
     sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb
     sudo gitlab-ctl reconfigure
 
-    rootPass=`cat /etc/gitlab/initial_root_password`
+    rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'`
+    #__besman_echo_green "Gitlab root password = $rootPass"
 
-    __besman_echo_green "Gitlab root password = $rootPass"
+    if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
+       __besman_echo_yellow "Create datastore projects in gitlab"
+       __besman_create_gitlabAdmin_token
+       old_ifs="$IFS"
+       IFS=","
+       labToken=LabSeeding
+       for repoName in $BESLAB_CODECOLLAB_DATASTORES
+       do
+           __besman_create_gitlab_repo "$repoName"
+       done
+       __besman_revoke_gitlabAdmin_token
+    fi
+    __besman_echo_green "Gitlab Installed Successfully!"
 }
 
 function __besman_uninstall_gitlab()
