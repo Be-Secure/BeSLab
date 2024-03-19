@@ -1,9 +1,24 @@
 #!/bin/bash
 labToken="LabSeeding"
-function __besman_create_gitlabAdmin_token()
+function __besman_create_gitlabuser()
 {
-    sudo gitlab-rails runner "u = User.new(username: 'gitlabAdmin', email: 'gitlabAdmin@test.com', name: 'Gitlab Admin ', password: 'Welc0me@123', password_confirmation: 'Welc0me@123', admin: true); u.assign_personal_namespace; u.skip_confirmation! ; u.save! ; token = u.personal_access_tokens.create(scopes: ['api','admin_mode'], name: 'install_token', expires_at: 365.days.from_now); token.set_token($labToken); token.save! "
+    userName="$1"
+    userEmail="$2"
+    userFirstName="$3"
+    userLastname="$4"
+    userPassword="$5"
+    isAdmin="$6"
+    
+    sudo gitlab-rails runner "User.new(username: $userName, email: $userEmail, name: $userFirstName $userLastName , password: $userPassword, password_confirmation: $userPassword, admin: $isAdmin); u.assign_personal_namespace; u.skip_confirmation! ; u.save! "
 }
+
+function __besman_create_gitlabuser_token()
+{
+    userName="$1"
+    userToken="$2"
+    sudo gitlab-rails runner "token = User.find_by_username($userName).personal_access_tokens.create(scopes: ['api','admin_mode'], name: 'install_token', expires_at: 365.days.from_now); token.set_token($userToken); token.save! "
+}
+
 function __besman_create_gitlab_repo()
 {
     repoName="$1"
@@ -43,7 +58,8 @@ function __besman_install_gitlab()
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
        __besman_echo_yellow "Create datastore projects in gitlab"
-       __besman_create_gitlabAdmin_token
+       __besman_create_gitlabuser "labAdmin" "labAdmin@domain.com" "LabAdmin" "Admin" "Welc0me@123" "true"
+       __besman_create_gitlabuser_token "ladadmin" "$labToken"
        old_ifs="$IFS"
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
