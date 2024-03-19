@@ -261,35 +261,13 @@ BESLAB_PRIVATE_LAB_CODECOLLAB_API_ACCESS_TOKEN: ==ccsvdsvfsbfbngdngdntgndt
 ## Code collab - Both public and private
 ###########################################################
 
-# BESLAB_CODECOLLAB_POI_NAME: Project of interest repository 
-#    name to be created in the code collab tool.
+# BESLAB_CODECOLLAB_DATASTORES: Name of datastores to be  
+#    created in code collab tool. (Both public and private)
 ###########################################################
-#BESLAB_CODECOLLAB_POI_NAME: osspoi-datastore
-
-# BESLAB_CODECOLLAB_MOI_NAME: Model of interest repository 
-#    name to be created in the code collab tool.
-###########################################################
-#BESLAB_CODECOLLAB_MOI_NAME: ossmoi-datastore
-
-# BESLAB_CODECOLLAB_TDOI_NAME: Training Dataset of interest 
-#    repository name to be created in the code collab tool.
-###########################################################
-#BESLAB_CODECOLLAB_TDOI_NAME: osstdoi-datastore
-
-# BESLAB_CODECOLLAB_DOI_NAME: Documents of interest repository 
-#    name to be created in the code collab tool.
-###########################################################
-#BESLAB_CODECOLLAB_DOI_NAME: besecure-doi-datastore
-
-# BESLAB_CODECOLLAB_ASSESSMENT_NAME: Assessment  
-#    datastore name to be created in code collab tool.
-###########################################################
-#BESLAB_CODECOLLAB_ASSESSMENT_NAME: assessment-datastore
-
-# BESLAB_CODECOLLAB_OSSR_NAME: OSSR   datastore name 
-#    to be created in code collab tool.
-###########################################################
-#BESLAB_CODECOLLAB_OSSR_NAME: assessment-datastore
+BESLAB_CODECOLLAB_DATASTORES:
+   - besecure-assessment-datastore
+   - besecure-assets-store
+   - besecure-ml-assessment-datastore
 
 ###########################################################
 ##
