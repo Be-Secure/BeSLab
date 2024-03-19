@@ -46,7 +46,6 @@ function __besman_install_gitlab()
        __besman_create_gitlabAdmin_token
        old_ifs="$IFS"
        IFS=","
-       labToken=LabSeeding
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
            __besman_create_gitlab_repo "$repoName"
