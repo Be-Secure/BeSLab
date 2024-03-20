@@ -15,7 +15,7 @@ function __besman_create_gitlabuser()
 function __besman_create_gitlabuser_token()
 {
     userName="$1"
-    userToken="$1_$2"
+    userToken="$1$2"
     tokenName="$1_install_token"
     sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode'], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
 }
@@ -24,13 +24,13 @@ function __besman_create_gitlab_repo()
 {
     repoName="$1"
     userName="$2"
-    userToken= "$1_$2"
-    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"example\",\"namespace\": \"O31E\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
+    userToken="$1$2"
+    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"example\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
 }
 function __besman_revoke_gitlabuser_token()
 {
    userName=$1
-   userTokenName="$1_$2"
+   userTokenName="$1$2"
    sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!"
 }
 function __besman_install_gitlab()
