@@ -25,7 +25,8 @@ function __besman_create_gitlab_repo()
     repoName="$1"
     userName="$2"
     userToken="$1$2"
-    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"example\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
+    repoDesc="$3"
+    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
 }
 function __besman_revoke_gitlabuser_token()
 {
@@ -69,7 +70,7 @@ function __besman_install_gitlab()
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
-           __besman_create_gitlab_repo "$repoName" "ladAdmin"
+           __besman_create_gitlab_repo "$repoName" "ladAdmin" "created $repoName for datastore"
        done
        __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
