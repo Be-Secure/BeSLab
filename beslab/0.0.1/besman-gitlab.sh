@@ -5,28 +5,34 @@ function __besman_create_gitlabuser()
     userName="$1"
     userEmail="$2"
     userFirstName="$3"
-    userLastname="$4"
+    userLastName="$4"
     userPassword="$5"
     isAdmin="$6"
     
-    sudo gitlab-rails runner "User.new(username: '$userName', email: '$userEmail', name: '$userFirstName $userLastName ', password: '$userPassword', password_confirmation: '$userPassword', admin: '$isAdmin'); u.assign_personal_namespace; u.skip_confirmation! ; u.save! "
+    sudo gitlab-rails runner "u = User.new(username: '$userName', email: '$userEmail', name: '$userFirstName $userLastName ', password: '$userPassword', password_confirmation: '$userPassword', admin: '$isAdmin'); u.assign_personal_namespace; u.skip_confirmation! ; u.save! "
 }
 
 function __besman_create_gitlabuser_token()
 {
     userName="$1"
-    userToken="$2"
-    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode'], name: 'install_token', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
+    userToken="$1$2"
+    tokenName="$1_install_token"
+    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode'], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
 }
 
 function __besman_create_gitlab_repo()
 {
     repoName="$1"
-    curl -k --request POST --header "PRIVATE-TOKEN: $labToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"example\",\"namespace\": \"O31E\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
+    userName="$2"
+    userToken="$1$2"
+    repoDesc="$3"
+    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
 }
-function __besman_revoke_gitlabAdmin_token()
+function __besman_revoke_gitlabuser_token()
 {
-   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$labToken').revoke!"
+   userName=$1
+   userTokenName="$1$2"
+   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!"
 }
 function __besman_install_gitlab()
 {
@@ -54,7 +60,7 @@ function __besman_install_gitlab()
     sudo gitlab-ctl reconfigure
 
     rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'`
-    #__besman_echo_green "Gitlab root password = $rootPass"
+    __besman_echo_green "Gitlab root password = $rootPass"
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
        __besman_echo_yellow "Create datastore projects in gitlab"
@@ -64,9 +70,9 @@ function __besman_install_gitlab()
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
-           __besman_create_gitlab_repo "$repoName"
+           __besman_create_gitlab_repo "$repoName" "ladAdmin" "created $repoName for datastore"
        done
-       __besman_revoke_gitlabAdmin_token
+       __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
     __besman_echo_green "Gitlab Installed Successfully!"
 }
