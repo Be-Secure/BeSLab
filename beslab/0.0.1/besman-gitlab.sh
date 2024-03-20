@@ -16,8 +16,8 @@ function __besman_create_gitlabuser_token()
 {
     userName="$1"
     userToken="$1$2"
-    tokenName="$1_install_token"
-    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode'], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
+    tokenName="token_for_$1_$2"
+    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode', 'read_repository', 'write_repository' ], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
 }
 
 function __besman_create_gitlab_repo()
