@@ -1,5 +1,5 @@
 #!/bin/bash
-labToken="LabSeeding"
+labToken="LabSeeding$RANDOM"
 function __besman_create_gitlabuser()
 {
     userName="$1"
@@ -24,8 +24,8 @@ function __besman_create_gitlab_repo()
 {
     repoName="$1"
     userName="$2"
-    userToken="$1$2"
-    repoDesc="$3"
+    userToken="$2$3"
+    repoDesc="$4"
     curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/'
 }
 function __besman_revoke_gitlabuser_token()
@@ -70,7 +70,7 @@ function __besman_install_gitlab()
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
-           __besman_create_gitlab_repo "$repoName" "ladAdmin" "created $repoName for datastore"
+           __besman_create_gitlab_repo "$repoName" "ladAdmin" "$labToken" "created $repoName for datastore"
        done
        __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
