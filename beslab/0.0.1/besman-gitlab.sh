@@ -70,7 +70,7 @@ function __besman_install_gitlab()
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
-           __besman_create_gitlab_repo "$repoName" "ladAdmin" "$labToken" "created $repoName for datastore"
+           __besman_create_gitlab_repo "$repoName" "labAdmin" "$labToken" "created $repoName for datastore"
        done
        __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
