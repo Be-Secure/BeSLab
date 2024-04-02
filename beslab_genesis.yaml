@@ -1,10 +1,6 @@
 ---
 
-##########################################################
-## BLIMAN configurations for fetching of initial bliman 
-## code.
-##########################################################
-
+# URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
 BLIMAN_HOSTED_URL: https://raw.githubusercontent.com
 BLIMAN_NAMESPACE: Be-Secure
@@ -12,274 +8,144 @@ BLIMAN_REPO_URL: https://raw.githubusercontent.com/Be-Secure/BLIman/main
 BLIMAN_VERSION: 0.1.0
 BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
 
-##########################################################
-#      BESLAB Configurations
-##########################################################
-
-# BESLAB_LAB_TYPE is type of lab to be installed. 
+# Type of lab to be installed. 
 # Values: personal, public, private.
-#    personal: Installs all the tools in personal system
-#              No separate code collab platform is used.
-#    public: Does use public code collab platform e.g
-#            github, gitlab etc.
-#    private: Does install private code collab platfrom
-#             on the organization infra.
-########################################################### 
+#    personal: Installs beslab in security analyst personal system only.
+#    public: Does use public code collab platform e.g github, gitlab etc.
+#    private: Installs beslab including provate code collab on the organization infra.
+######################################################################################### 
 BESLAB_LAB_TYPE: personal
 
-# BESLAB_LAB_MODE defines the type of BESLAB deployment
+# Defines the type of BESLAB deployment
 # Values: host, bare , lite
-#    host: Deploy the lab on a hosted VM launched by
-#          oah-bes-vm and vagrant on windows based system.
-#    bare: Deploy the lab on local system or remote system
-#          using Ansible playbooks.
-#    lite: Deploy lab on local system using only shell 
-#          scripts without use use of Ansible or any VM.
-###########################################################
+#    host: Deploy beslab on a hosted VM based system.
+#    bare: Deploy beslab on local system or remote system using Ansible playbooks.
+#    lite: Deploy beslab on low capcity system using only shell scripts only.
+#########################################################################################
 BESLAB_LAB_MODE: lite
 
-###########################################################
-##
-##                  HOST MODE CONFIGS
-##
-###########################################################
-
-# BESLAB_VM_NAME: Hostname for VM to be installed.
-# #########################################################
+# defines hostname for VM to be installed in HOST mode.
 #BESLAB_VM_NAME: BesLab
 
-# BESLAB_VM_OS: OS to be installed on VM.
-###########################################################
+# Tells which OS to be installed on VM when HOST mode is used
 #BESLAB_VM_OS: ubuntu
 
-# BESLAB_VM_GUI: Enable if need to install the Desktop UI
-###########################################################
+# Enable if need to install the Desktop UI for VM in Host mode.
 #BESLAB_VM_GUI: true
 
-# BESLAB_GUI: package for the desktop UI
-###########################################################
+# Package for the desktop UI required only if UI needed in Host mode.
 #BESLAB_GUI: ubuntu-desktop
 
-# BESLAB_VAGRANT_BOX: image to be used for the OS
-#     installation.
-###########################################################
+# Image to be used for the OS installation on VM in Host mode.
 #BESLAB_VAGRANT_BOX: hashicorp/bionic64
 
-# BESLAB_USER: User to be created on the VM installed.
-###########################################################
+# User to be created on the VM after installation in Host mode.
 #BESLAB_USER: vagrant
 
-# BESLAB_PWD: Home directory for the new user created on VM
-###########################################################
+# Home directory for the new user created on VM in Host mode.
 #BESLAB_PWD: vagrant
 
-# BESLAB_VAGRANT_HOSTNAME: hostname for the VM installed.
-###########################################################
+# Hostname to be set for the VM installed in Host mode.
 #BESLAB_VAGRANT_HOSTNAME: BeSLab.dev
 
-# BESLAB_VAGRANT_MACHINE_NAME: name to be assigned to the
-#     VM in virtual box.
-###########################################################
+# Name to be assigned to the VM in virtual box for host mode.
 #BESLAB_VAGRANT_MACHINE_NAME: BesLab
 
-###########################################################
-##
-##                    LITE MODE CONFIGS
-##
-###########################################################
-
-###########################################################
-##
-## Private lab INFRA configurations.
-##
-###########################################################
-
-# BESLAB_PRIVATE_LAB_INFRA_TYPE: Defines the infra type as
-#      cloud or on premises deployment of private lab.
+# Defines the infra type on which beslab to be deployed.
 #   values: cloud, onprem
-###########################################################
-BESLAB_PRIVATE_LAB_INFRA_TYPE: cloud
+#BESLAB_PRIVATE_LAB_INFRA_TYPE: cloud
 
-###########################################################
-# BESLAB Cloud provider configurations
-#    Application only if BESLAB_PRIVATE_LAB_INFRA is set to
-#    cloud.
-###########################################################
-
-# BESLAB_PRIVATE_LAB_INFRA_PROVIDER: Defines the cloud
-#      provider foe the LAB deployment.
+# Defines the cloud provider for the LAB deployment if lab ifra type is cloud.
 #   values: AWS, Azure, GCP
-###########################################################
-BESLAB_PRIVATE_LAB_INFRA_PROVIDER: AWS
+#BESLAB_PRIVATE_LAB_INFRA_PROVIDER: AWS
 
-# BESLAB_PRIVATE_LAB_INFRA_PROVIDER_ACCESS_TOKEN: Access
-#      token for infra provider CLI.
-###########################################################
-BESLAB_PRIVATE_LAB_INFRA_PROVIDER_ACCESS_TOKEN: ===dsfdgsrghtenygnryjwtgntryj
+# Access token for infra provider CLI if the infra type is cloud.
+#BESLAB_PRIVATE_LAB_INFRA_PROVIDER_ACCESS_TOKEN: ===dsfdgsrghtenygnryjwtgntryj
 
-###########################################################
-# BESLAB private infra config common for both cloud and 
-#    on premises.
-###########################################################
+# Public IP of the servers to be used for the beslab installation.
+#BESLAB_PRIVATE_LAB_SERVERS_IPS:
+#    - 10.20.0.1
+#    - 10.50.0.1
 
-# BESLAB_PRIVATE_LAB_SERVER_IPS: Public IP of the servers 
-#    for the LAB installations to be used.
-###########################################################
-BESLAB_PRIVATE_LAB_SERVERS_IPS:
-    - 10.20.0.1
-    - 10.50.0.1
+# List of Usernames to be used for ssh to the lab servers.
+# Note:
+#   [Should have root previllages.]
+#   [format is IP:Username e.g 10.20.0.1?root
+#BESLAB_PRIVATE_LAB_SERVER_SSH_USERNAME:
+#    - 10.20.0.1?root
+#    - 10.50.0.1?root
 
-# BESLAB_LAB_SERVER_SSH_USERNAME: Usrname to ssh the lab
-#    servers. Should have root previllages.
-#  All the servers would be accessed with the same username
-###########################################################
-BESLAB_PRIVATE_LAB_SERVER_SSH_USERNAME: root
+# List of passwords or token to access lab servers.
+#  Add list item in format <Server IP>?<Server pass/token>
+#BESLAB_PRIVATE_LAB_SERVER_SSH_PASS_LIST: 
+#    - 10.20.0.1?Welcome@123
+#    - 10.50.0.1?Test@123
 
-# BESLAB_LAB_SERVER_SSH_PASS_LIST: List of passwords or token
-#    to access lab servers.
-#  Add list item in format <Server IP>: <Server pass/token>
-###########################################################
-BESLAB_PRIVATE_LAB_SERVER_SSH_PASS_LIST: 
-    - 10.20.0.1: Welcome@123
-    - 10.50.0.1: Test@123
- 
-###########################################################
-##
-## Code Collabortion platfrom configurations.  
-##      (For both Public and Private deployments)
-##
-###########################################################
-
-###########################################################
-## Code Collab - only for public deployments.
-###########################################################
-
-# BESLAB_PUBLIC_CODECOLLAB_PROVIDER_NAME: name of the public 
-#   code collab platfrom. e.g Github, Gitlab etc.
-###########################################################
+# Name of the public code collab platfrom. e.g Github, Gitlab etc.
 #BESLAB_PUBLIC_CODECOLLAB_PROVIDER_NAME: github
 
-# BESLAB_PUBLIC_CODECOLLAB_PROVIDER_BROWSER_URL: URl of  
-#    the public code collab to use git commands.
-##########################################################
-# BESLAB_PUBLIC_CODECOLLAB_PROVIDER_BROWSER_URL: https://github.com
+# URL of  the public code collab to use git commands.
+#BESLAB_PUBLIC_CODECOLLAB_PROVIDER_BROWSER_URL: https://github.com
 
-# BESLAB_PUBLIC_CODECOLLAB_PROVIDER_DOWNLAOD_URL: URl of  
-#    the public code collab to use git commands.
-##########################################################
-# BESLAB_PUBLIC_CODECOLLAB_PROVIDER_DOWNLOAD_URL: https://raw.githubusercontent.com
+# URL of the public code collab to use git commands.
+#BESLAB_PUBLIC_CODECOLLAB_PROVIDER_DOWNLOAD_URL: https://raw.githubusercontent.com
 
-# BESLAB_PUBLIC_CODECOLLAB_USERNAME: username to be used
-#    for the access to public code collab platform.
-#########################################################
+# Username to be used for the access to public code collab platform.
 #BESLAB_PUBLIC_CODECOLLAB_USERNAME: abc@xyz.com
  
-# BESLAB_PUBLIC_CODECOLLAB_ACCESS_TOKEN: Key token to be 
-#   used for the access of public code collab platform.
-##########################################################
+# Key token to be used for the access of public code collab platform.
 #BESLAB_PUBLIC_CODECOLLAB_ACCESS_TOKEN: gihub_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-# BESLAB_PUBLIC_CODECOLLAB_AFFILIATE_NAMESPACE: namespace
-#    in the public code collab to fetch POI, MOI etc.
-###########################################################
+# Namespace in the public code collab to fetch lab data from.
 #BESLAB_PUBLIC_CODECOLLAB_AFFILIATE_NAMESPACE: Be-Secure
 
-# BESLAB_PUBLIC_CODECOLLAB_LAB_NAMESPACE: namespace
-#    for the Lab to be used for deployment.
-###########################################################
+# Namespace to be used for the deployment of the new lab.
 #BESLAB_PUBLIC_CODECOLLAB_LAB_NAMESPACE: ABC
- 
-############################################################
-## Code Collab - only for Private deployments.
-############################################################
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: Tool to be used for the
-#    private code collab plaform.
-# #########################################################
+# Code collab tool to be used for the private lab installation.
 BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: gitlab-ce
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: version for the
-#    private code collab version.
-###########################################################
+# Version of the code collab tool to be installed on the lab.
 BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 16.2.1
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_API_ACCESS_TOKEN: Access token 
-#    for the code collab tool to be accessed via API.
-# #########################################################
-BESLAB_PRIVATE_LAB_CODECOLLAB_API_ACCESS_TOKEN: ==ccsvdsvfsbfbngdngdntgndt
-
-# BESLAB_PRIVATE_LAB_CODECOLLAB_CICD_SERVERS_LIST: List of
-#   server public IPs to be used for CICD executions.
-#   [ Note: if commented or no value provided code collab
-#           tool's local system will be used for CICD. ]
-###########################################################
+# List of public IPs of the servers to be used for CICD executions.
+#   [ Note: if commented or no value provided code collab tool's local system will be used for CICD. ]
 #BESLAB_PRIVATE_LAB_CODECOLLAB_CICD_SERVERS_LIST: 
 #  - 127.0.0.1
 #  - 192.168.0.0
 #  - 172.0.0.0
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_DATABASE_PATH: path for
-#   database to store.
-###########################################################
+# Path for the database to store by the code collab tool.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_DATABASE_PATH: /opt/database
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_INSTALL_PATH: 
-#      Path to install the code collab tool.
-###########################################################
+# Path or directory to which code collab tool is installed.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_INSTALL_PATH: /opt/tool/
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_URL: Url for SMTP 
-#   server.
-###########################################################
+# URL to be used for the SMTP server for code collab tool.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_URL: https://smtp.xx.com
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_USER: user for SMTP.
-###########################################################
+# Username to be used for the SMTP server login by code collab tool.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_USER: abc
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_PASS: Password for 
-#   SMTP server.
-###########################################################
+# Password to be used by the code collab tool for login to the SMTP server.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_SMTP_USER: xxxxxxx
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT: Port to be used for
-#   code collab installation.
-###########################################################
+# Port to be used for code collab tool installation.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT: 8080
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_ADMIN_PASS: Admin 
-#   password for code collab tool.
-###########################################################
+# Deffault admin password to be set for the code collab tool installed.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_ADMIN_PASS: xxxxxxxx
 
-# BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_DOMAIN_NAME: Domain
-#   name to be used for code collab tool installed.
-###########################################################
+# Domain name to be used for code collab tool installed.
 #BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_DOMAIN_NAME: o31e.com
 
-###########################################################
-## Code collab - Both public and private
-###########################################################
-
-# BESLAB_CODECOLLAB_DATASTORES: Name of datastores to be  
-#    created in code collab tool. (Both public and private)
-###########################################################
+# List for the names of datastores to be created in code collab tool. (Both public and private)
 BESLAB_CODECOLLAB_DATASTORES:
    - besecure-assessment-datastore
    - besecure-assets-store
    - besecure-ml-assessment-datastore
 
-###########################################################
-##
-## Security TOOLS Configurations - Both Public and Private
-##
-###########################################################
-###########################################################
-
-## Code compilers or development or runtime tools.
-###########################################################
-# BESLAB_DEV_TOOLS: List of development tools needed to be 
-#                   installed.
+## List of compilers or development or runtime tools to be installed in beslab.
 #   values: - Java
 #           - GDB
 #           - Makefile
@@ -298,7 +164,6 @@ BESLAB_CODECOLLAB_DATASTORES:
 #           - docker
 #           - 
 #           etc
-###########################################################
 # BESLAB_DEV_TOOLS:
 #    - JAVA
 #    - Python
@@ -309,55 +174,39 @@ BESLAB_CODECOLLAB_DATASTORES:
 #    - docker
 #    - pip3
 
-## IF JAVA is to be installed.
-###########################################################
+## Configurations used for Java installation.
 BESLAB_JAVA_FLAVOUR: openjdk
 BESLAB_JAVA_VERSION: 8
 BESLAB_JAVA_HOME: /opt/tools/
 
-## IF Python is to be installed.
-###########################################################
+## Configuration to be used for python.
 #BESLAB_PYTHON_VERSION: 3.10
 
-## IF maven to be installed
-###########################################################
+## Configurations to be used for maven installations
 #BESLAB_MAVEN_VERSION: 
 
-## IF Gradle to be installed.
-###########################################################
+## Configurations to be used for the gradle installation.
 #BESLAB_GRADLE_VERSION:
 
-#[Note]: ADD the dev tool version in the format BESLAB_<tool name>_VERSION.
-#
 
-###########################################################
-# BESLAB_SBOM: SBOM generator tool to be installed.
-#    If commented no SBOM tool will be installed.
-###########################################################
+# Configurations for SBOM generator. If commented no SBOM generator will not be installed.
 #BESLAB_SBOM: spdx-sbom-generator
 #BESLAB_SBOM_VERSION: "v0.0.15"
 
-# BESLAB_LICENSE_COMPLIANCE: tool for licensing.
-#    If commented no Licensing tool will be installed.
-###########################################################
+# Configurations for the tool to be used for finding licensing gaps. If commented no Licensing tool will be installed.
 #BESLAB_LICENSE_COMPLIANCE: fossology
 
-# BESLAB_SAST: Static code analysis tool to be installed.
-#    If commented no SAST tool will be installed.
-###########################################################
+# COnfigurations for the tool to be used for the Static code analysis. If commented no SAST tool will be installed.
 #BESLAB_SAST: sonarqube
 #BESLAB_SAST_VERSION: "sonarqube-9.8.0.63668"
 
-# BESLAB_BES_TOOL: List of tools to be installed from 
-#    Be-Secure community.
+# List of tools to be installed from Be-Secure community.
 #BESLAB_BES_TOOL:
 #  - besman
 #  - bes-dev-kit
 #  - BesLighthouse
 
-## Applicable only if BeSLighthouse is to be installed.
-###########################################################
-
+## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: beslighthouse
 BESLAB_DASHBOARD_RELEASE_VERSION: 0.16.2
 BESLAB_DASHBOARD_RELEASE_URL: https://github.com/Be-Secure/BeSlighthouse/archive/refs/tags/0.16.2.tar.gz
@@ -370,32 +219,30 @@ BESLAB_DASHBOARD_ADS_NAME: ossads-datastore
 BESLAB_DASHBOARD_OSAR_NAME: ossosar-datastore
 BESLAB_DASHBOARD_ATEESTATION_STORE_NAME: ossattestation-datastore
 
-# BESLAB_PACKAGE_MANAGER_SCOPE: default scope for package
-#   manager.
-###########################################################
+# Default scope for package manager.
 #BESLAB_PACKAGE_MANAGER_SCOPE: public
 
-# BESLAB_ARTIFACT_REPO_SCOPE: default scopr of artifacts 
-###########################################################
+# Default scope of artifacts 
 #BESLAB_ARTIFACT_REPO_SCOPE: public
 
-# BESLAB_PRIVATE_ARTIFACT_REPOS: List of tools to be used 
-#    for artifacts repos for private access.
-#    If commented no private repo tool will be installed.
-###########################################################
+# List of tools to be used for artifacts repos for private access. If commented no private repo tool will be installed.
 #BESLAB_PRIVATE_ARTIFACT_REPOS:
 #  - jfrog
 
-# BESLAB_PUBLIC_ARTIFACT_REPOS: List of tools to be used 
-#    for artifacts repos for public access.
-#    If commented no public repo tool will be installed.
-###########################################################
+# List of tools to be used for artifacts repos for public access. If commented no public repo tool will be installed.
 #BESLAN_PUBLIC_ARTIFACT_REPO:
 #  - maven
 
-# BESLAB_IMAGE_REPOS: List of tools to be used 
-#    for container image repos.
-#    If commented no private repo tool will be installed.
-###########################################################
+# List of tools to be used  for container image repos. If commented no private repo tool will be installed.
 #BESLAB_IMAGE_REPOS:
 #  - docker
+#
+
+# Defines the lab type used by Besman.
+#    Values: organization, individual
+#    organization - lab type is organization if security analyst is associated to a organization.
+#    individual - if the security analyst is independant analyst.
+BESMAN_LAB_TYPE=organization
+
+# Name of the Lab security analyst is associated with.
+BESMAN_LAB_NAME=Be-Secure
