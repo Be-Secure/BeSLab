@@ -28,6 +28,15 @@ function __besman_install_beslighthouse()
 
     cd ./BeSLighthouse-0.16.2
 
+    PWD=`pwd`
+    if [ -d "$HOME/.besman" ];then
+
+        beslighthousedatafile="$HOME/.besman/beslighthousedata"
+    elif  [ -d "$HOME/.bliman" ];then
+         beslighthousedatafile="$HOME/.bliman/beslighthousedata"
+    fi
+    echo "BESLIGHTHOUSE_DIR: $PWD" > $beslighthousedatafile
+    
     which npm
 
     [[ xx"$?" == xx"1" ]] && sudo apt-get -y install npm 
