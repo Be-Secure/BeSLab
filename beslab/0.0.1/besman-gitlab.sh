@@ -1,5 +1,6 @@
 #!/bin/bash
 labToken="LabSeeding$RANDOM"
+besuserToken="BeSUserToken$RANDOM"
 function __besman_create_gitlabuser()
 {
     userName="$1"
@@ -40,6 +41,12 @@ function __besman_install_gitlab()
     gitlab_version=$1
     database_path=$2
 
+    if [ -d "$HOME/.besman" ];then
+      gitlab_user_data_file_path="$HOME/.besman/gitlabUserDetails"
+    elif [ -d "$HOME/.bliman" ];then
+      gitlab_user_data_file_path="$HOME/.bliman/gitlabUserDetails"
+    fi
+
     __besman_echo_yellow "Updating system"
     sudo apt update
     sudo apt upgrade -y
@@ -61,6 +68,16 @@ function __besman_install_gitlab()
 
     rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'`
     __besman_echo_green "Gitlab root password = $rootPass"
+
+    __besman_create_gitlabuser "besuser" "besuser@domain.com" "BesUser" "Admin" "Welc0me@123" "false"
+    __besman_create_gitlabuser_token "besuser" "$besuserToken"
+
+    if [ ! -f $gitlab_user_data_file_path ];then
+       touch $gitlab_user_data_file_path
+    fi
+
+    echo "GITLAB_USERNAME: besuser" > $gitlab_user_data_file_path
+    echo "GITLAB_USERTOKEN: besuser$besuserToken" >> $gitlab_user_data_file_path
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
        __besman_echo_yellow "Create datastore projects in gitlab"
