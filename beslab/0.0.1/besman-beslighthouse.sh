@@ -50,7 +50,7 @@ function __besman_install_beslighthouse()
     elif [ -d "$HOME/.bliman" ];then
       gitlab_user_data_file_path="$HOME/.bliman/gitlabUserDetails"
     fi
-
+I
     if [ -f $gitlab_user_data_file_path ];then
       GITUSER=`cat $gitlab_user_data_file_path | grep "GITLAB_USERNAME:" | awk '{print $2}'`
       GITUSERTOKEN=`cat $gitlab_user_data_file_path | grep "GITLAB_USERTOKEN:" | awk '{print $2}'`
@@ -61,8 +61,8 @@ function __besman_install_beslighthouse()
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path
     sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"," $beslighthouse_config_path
     myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
-    sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000/\"," $beslighthouse_config_path
-    sed -i "/\"gitlabUrl\"/c\"gitlabUrl\": \"http://$myip/\"," $beslighthouse_config_path
+    sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000\"," $beslighthouse_config_path
+    sed -i "/\"gitlabUrl\"/c\"gitlabUrl\": \"http://$myip\"," $beslighthouse_config_path
 
     mkdir -p $BESLAB_DASHBOARD_API_INSTALL_PATH
     
