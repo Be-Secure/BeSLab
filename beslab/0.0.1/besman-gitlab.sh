@@ -32,12 +32,12 @@ function __besman_create_gitlab_file()
     filepath=$7
 
     # Make a request to list projects and store the response in a variable
-    response=$(curl --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=besecure-assets-datastore")
+    response=$(curl --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=$repoName")
 
     # Parse the response to extract project ID
-    project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*')
+    project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*' | head -1)
 
-    echo "Project ID for '$PROJECT_NAME' is $project_id"
+    echo "Project ID for $repoName is $project_id"
 
     curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath
 
