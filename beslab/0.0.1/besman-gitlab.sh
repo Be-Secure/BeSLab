@@ -30,7 +30,17 @@ function __besman_create_gitlab_file()
     email="$5"
     content="$6"
     filepath=$7
-    curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\", \"author_email\": \"$email\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial fiel\" }" --url 'http://localhost/api/v4/projects/besecure-assets-store/repository/files/'"$filepath"
+
+    # Make a request to list projects and store the response in a variable
+    response=$(curl --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=besecure-assets-datastore")
+
+    # Parse the response to extract project ID
+    project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*')
+
+    echo "Project ID for '$PROJECT_NAME' is $project_id"
+
+    curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath
+
 }
 
 function __besman_create_gitlab_repo()
@@ -89,7 +99,7 @@ function __besman_install_gitlab()
     fi
 
     echo "GITLAB_USERNAME: labAdmin" > $gitlab_user_data_file_path
-    echo "GITLAB_USERTOKEN: besuser$besuserToken" >> $gitlab_user_data_file_path
+    echo "GITLAB_USERTOKEN: labAdmin$labToken" >> $gitlab_user_data_file_path
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
        __besman_echo_yellow "Create datastore projects in gitlab"
@@ -101,12 +111,12 @@ function __besman_install_gitlab()
        do
            __besman_create_gitlab_repo "$repoName" "labAdmin" "$labToken" "created $repoName for datastore"
        done
-       PWD=`pwd`
+       envpath="$HOME/.besman/envs"
        
-       masterJson=$(cat $PWD/besman-metadata.json)
-       radiusJson=$(cat $PWD/besman-radius.json)
-       opentofuJson=$(cat $PWD/besman-opentofu.json)
-       vulnerJson=$(cat $PWD/besman-vulner.json)
+       masterJson=$(cat $envpath/besman-metadata.json)
+       radiusJson=$(cat $envpath/besman-radius.json)
+       opentofuJson=$(cat $envpath/besman-opentofu.json)
+       vulnerJson=$(cat $envpath/besman-vulner.json)
 
        __besman_create_gitlab_file "bescure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $masterJson "projects%2Fproject-metadata.json"
        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $radiusJson "projects%2Fproject-version%2F471-radius-Versiondetails.json"
@@ -116,7 +126,7 @@ function __besman_install_gitlab()
         __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "models%2Fmodel-metadata.json"
 	__besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "dataset%2Fdataset-metadata.json"
 
-       __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
+       #__besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
     __besman_echo_green "Gitlab Installed Successfully!"
 }
