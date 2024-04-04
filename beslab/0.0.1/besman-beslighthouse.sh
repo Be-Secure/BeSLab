@@ -1,7 +1,19 @@
 #!/bin/bash
 function __besman_install_beslighthouse()
 {
-    local gitlab_version database_path
+    local beslight_ver beslight_path
+
+    if [ ! -z $1 ];then
+       beslight_ver=$1
+    else
+       beslight_ver=$BESLAB_DASHBOARD_RELEASE_VERSION
+    fi
+
+    if [ ! -z $2 ];then
+       beslight_path=$2
+    else
+       beslight_path=$BESLAB_DASHBOARD_INSTALL_PATH
+    fi
 
    __besman_echo_yellow "Install Node 20"
 
@@ -20,13 +32,17 @@ function __besman_install_beslighthouse()
 
     __besman_echo_yellow "Fetch BesLighthouse"
 
-    [[ ! -d /opt/beslighthouse ]] && mkdir -p /opt/beslighthouse && cd /opt/beslighthouse
+    [[ ! -d $beslight_path ]] && mkdir -p $beslight_path && cd $beslight_path 
 
-    curl -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/0.16.2.tar.gz
+    curl -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/{beslight_ver}.tar.gz
     
-    tar -xvzf BeSLighthouse-0.16.2.tar.gz
+    tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz
 
-    cd ./BeSLighthouse-0.16.2
+    cd ./BeSLighthouse-{beslight_ver}
+
+    cp -rf ./* ../
+
+    cd ../ && rm -rf ./BeSLighthouse-{beslight_ver}
 
     PWD=`pwd`
     if [ -d "$HOME/.besman" ];then
