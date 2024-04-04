@@ -34,25 +34,34 @@ function __besman_install_beslighthouse()
 
     [[ ! -d $beslight_path ]] && mkdir -p $beslight_path && cd $beslight_path 
 
-    curl -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/{beslight_ver}.tar.gz
+    curl -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz
     
     tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz
 
-    cd ./BeSLighthouse-{beslight_ver}
+    cd ./BeSLighthouse-${beslight_ver}
 
     cp -rf ./* ../
 
-    cd ../ && rm -rf ./BeSLighthouse-{beslight_ver}
+    cd ../ && rm -rf ./BeSLighthouse-${beslight_ver}
 
     PWD=`pwd`
     if [ -d "$HOME/.besman" ];then
-
         beslighthousedatafile="$HOME/.besman/beslighthousedata"
     elif  [ -d "$HOME/.bliman" ];then
          beslighthousedatafile="$HOME/.bliman/beslighthousedata"
     fi
     echo "BESLIGHTHOUSE_DIR: $PWD" > $beslighthousedatafile
     
+    if [ -f ./beslighthouse.sh ];then
+       cp ./beslighthouse.sh /usr/lib/beslighthouse.sh
+       chmod +x /usr/lib/beslighthouse.sh
+
+       cp beslighthouse.service /lib/systemd/system/
+
+       sudo systemctl daemon-reload
+       sudo systemctl enable beslighthouse.service
+    fi
+
     which npm
 
     [[ xx"$?" == xx"1" ]] && sudo apt-get -y install npm 
@@ -61,7 +70,12 @@ function __besman_install_beslighthouse()
 
     export NODE_OPTIONS=--openssl-legacy-provider
 
-    npm start &
+    
+    if [ -f ./beslighthouse.sh ];then
+       sudo systemctl start beslighthouse.service
+    else
+      npm start &
+    fi
 }
 
 function __besman_uninstall_gitlab()
