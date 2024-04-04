@@ -209,7 +209,8 @@ BESLAB_JAVA_HOME: /opt/tools/
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: beslighthouse
 BESLAB_DASHBOARD_RELEASE_VERSION: 0.17.1
-BESLAB_DASHBOARD_INSTALL_PATH: /opt/beslighthouse
+BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
+BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
 BESLAB_DASHBOARD_RELEASE_URL: https://github.com/Be-Secure/BeSlighthouse/archive/refs/tags/0.16.2.tar.gz
 BESLAB_DASHBOARD_DATASTORES_URL: https://github.com/Be-Secure/
 BESLAB_DASHBOARD_POI_NAME: osspoi-datastore
