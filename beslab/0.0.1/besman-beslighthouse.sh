@@ -42,7 +42,48 @@ function __besman_install_beslighthouse()
 
     cp -rf ./* ../
 
-    cd ../ && rm -rf ./BeSLighthouse-${beslight_ver}
+    cd .. && rm -rf ./BeSLighthouse-${beslight_ver}
+
+
+    if [ -d "$HOME/.besman" ];then
+      gitlab_user_data_file_path="$HOME/.besman/gitlabUserDetails"
+    elif [ -d "$HOME/.bliman" ];then
+      gitlab_user_data_file_path="$HOME/.bliman/gitlabUserDetails"
+    fi
+
+    if [ -f $gitlab_user_data_file_path ];then
+      GITUSER=`cat $gitlab_user_data_file_path | grep "GITLAB_USERNAME:" | awk '{print $2}'`
+      GITUSERTOKEN=`cat $gitlab_user_data_file_path | grep "GITLAB_USERTOKEN:" | awk '{print $2}'`
+    fi
+
+    beslighthouse_config_path=$beslight_path/src/apiDetailsConfig.json
+    sed -i '/"activeTool"/c\"activeTool": "gitlab"' $beslighthouse_config_path
+    sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path
+    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"," $beslighthouse_config_path
+    myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+    sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000/\"," $beslighthouse_config_path
+    sed -i "/\"gitlabUrl\"/c\"gitlabUrl\": \"http://$myip/\"," $beslighthouse_config_path
+
+    mkdir -p $BESLAB_DASHBOARD_API_INSTALL_PATH
+    
+    cd $BESLAB_DASHBOARD_API_INSTALL_PATH
+
+    git clone https://github.com/Be-Secure/beslighthouse-rest-api
+
+    cd beslighthouse-rest-api
+
+    pip install -r requirements.txt
+
+    if [ -f ./blrestapi.sh ];then
+	cp ./blrestapi.sh /usr/lib/blrestapi.sh
+	chmod +x /usr/lib/blrestapi.sh
+	cp ./blrestapi.service /lib/systemd/system/blrestapi.service
+	systemctl daemon-reload
+	systemctl enable blrestapi.service
+	systemctl start blrestapi.service
+    else
+       flask run --host="0.0.0.0" --port=5000 &
+    fi
 
     PWD=`pwd`
     if [ -d "$HOME/.besman" ];then
@@ -50,17 +91,14 @@ function __besman_install_beslighthouse()
     elif  [ -d "$HOME/.bliman" ];then
          beslighthousedatafile="$HOME/.bliman/beslighthousedata"
     fi
-    echo "BESLIGHTHOUSE_DIR: $PWD" > $beslighthousedatafile
-    
-    if [ -f ./beslighthouse.sh ];then
-       cp ./beslighthouse.sh /usr/lib/beslighthouse.sh
-       chmod +x /usr/lib/beslighthouse.sh
 
-       cp beslighthouse.service /lib/systemd/system/
-
-       sudo systemctl daemon-reload
-       sudo systemctl enable beslighthouse.service
+    if [ ! -z $beslighthousedatafile ];then
+       echo "BESLIGHTHOUSE_DIR: $beslight_path" > $beslighthousedatafile
+       echo "BESLIGHTHOUSE_API_DIR: $PWD" >>  $beslighthousedatafile 
     fi
+
+    
+    cd $beslight_path
 
     which npm
 
@@ -72,6 +110,11 @@ function __besman_install_beslighthouse()
 
     
     if [ -f ./beslighthouse.sh ];then
+       cp beslighthouse.service /lib/systemd/system/beslighthouse.service
+       cp beslighthouse.sh /usr/lib/beslighthouse.sh
+       chmod +x /usr/lib/beslighthouse.sh
+       sudo systemctl daemon-reload
+       sudo systemctl enable beslighthouse.service
        sudo systemctl start beslighthouse.service
     else
       npm start &
