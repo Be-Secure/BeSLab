@@ -21,6 +21,18 @@ function __besman_create_gitlabuser_token()
     sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode', 'read_repository', 'write_repository' ], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! "
 }
 
+function __besman_create_gitlab_file()
+{
+    repoName="$1"
+    userName="$2"
+    userToken="$2$3"
+    branchname="$4"
+    email="$5"
+    content="$6"
+    filepath=$7
+    curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\", \"author_email\": \"$email\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial fiel\" }" --url 'http://localhost/api/v4/projects/besecure-assets-store/repository/files/'"$filepath"
+}
+
 function __besman_create_gitlab_repo()
 {
     repoName="$1"
@@ -76,7 +88,7 @@ function __besman_install_gitlab()
        touch $gitlab_user_data_file_path
     fi
 
-    echo "GITLAB_USERNAME: besuser" > $gitlab_user_data_file_path
+    echo "GITLAB_USERNAME: labAdmin" > $gitlab_user_data_file_path
     echo "GITLAB_USERTOKEN: besuser$besuserToken" >> $gitlab_user_data_file_path
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
@@ -89,6 +101,21 @@ function __besman_install_gitlab()
        do
            __besman_create_gitlab_repo "$repoName" "labAdmin" "$labToken" "created $repoName for datastore"
        done
+       PWD=`pwd`
+       
+       masterJson=$(cat $PWD/besman-metadata.json)
+       radiusJson=$(cat $PWD/besman-radius.json)
+       opentofuJson=$(cat $PWD/besman-opentofu.json)
+       vulnerJson=$(cat $PWD/besman-vulner.json)
+
+       __besman_create_gitlab_file "bescure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $masterJson "projects%2Fproject-metadata.json"
+       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $radiusJson "projects%2Fproject-version%2F471-radius-Versiondetails.json"
+       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $opentofuJson "projects%2Fproject-version%2F472-opentofu-Versiondetails.json"
+       
+        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $vulnerJson "vulnerabilities%2Fvulnerability-metadata.json"
+        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "models%2Fmodel-metadata.json"
+	__besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "dataset%2Fdataset-metadata.json"
+
        __besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
     __besman_echo_green "Gitlab Installed Successfully!"

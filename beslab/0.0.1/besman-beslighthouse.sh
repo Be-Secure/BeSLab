@@ -59,10 +59,10 @@ function __besman_install_beslighthouse()
     beslighthouse_config_path=$beslight_path/src/apiDetailsConfig.json
     sed -i '/"activeTool"/c\"activeTool": "gitlab"' $beslighthouse_config_path
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path
-    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"," $beslighthouse_config_path
+    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"" $beslighthouse_config_path
     myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
     sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000\"," $beslighthouse_config_path
-    sed -i "/\"gitlabUrl\"/c\"gitlabUrl\": \"http://$myip\"," $beslighthouse_config_path
+    sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip\"," $beslighthouse_config_path
 
 
     which pip
