@@ -118,13 +118,14 @@ function __besman_install_gitlab()
        opentofuJson=$(cat $envpath/besman-opentofu.json)
        vulnerJson=$(cat $envpath/besman-vulner.json)
 
-       __besman_create_gitlab_file "bescure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $masterJson "projects%2Fproject-metadata.json"
+       sleep 150s
+       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $masterJson "projects%2Fproject-metadata.json"
        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $radiusJson "projects%2Fproject-version%2F471-radius-Versiondetails.json"
        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $opentofuJson "projects%2Fproject-version%2F472-opentofu-Versiondetails.json"
        
         __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" $vulnerJson "vulnerabilities%2Fvulnerability-metadata.json"
         __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "models%2Fmodel-metadata.json"
-	__besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "dataset%2Fdataset-metadata.json"
+	__besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "datasets%2Fdataset-metadata.json"
 
        #__besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     fi
