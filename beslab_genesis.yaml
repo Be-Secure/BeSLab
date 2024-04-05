@@ -241,10 +241,10 @@ BESLAB_DASHBOARD_ATEESTATION_STORE_NAME: ossattestation-datastore
 #
 
 # Defines the lab type used by Besman.
-#    Values: organization, individual
-#    organization - lab type is organization if security analyst is associated to a organization.
-#    individual - if the security analyst is independant analyst.
-BESMAN_LAB_TYPE=organization
+#    Values: Organization, Individual
+#    Organization - lab type is organization if security analyst is associated to a organization.
+#    Individual - if the security analyst is independant analyst.
+BESMAN_LAB_TYPE=Organization
 
 # Name of the Lab security analyst is associated with.
-BESMAN_LAB_NAME=Be-Secure
+BESMAN_LAB_NAME=O31E
