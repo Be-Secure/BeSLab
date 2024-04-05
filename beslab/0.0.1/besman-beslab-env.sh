@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function __besman_install_beslab-env()
+function __besman_install()
 {
     __besman_install_java || return 1
     if [[ $BESLAB_SBOM == "spdx-sbom-generator" ]]; then
@@ -36,7 +36,7 @@ function __besman_install_beslab-env()
     fi
 }
 
-function __besman_uninstall_beslab()
+function __besman_uninstall()
 {
     __besman_uninstall_java || return 1
     if [[ $BESLAB_SAST == "sonarqube" ]]; then
