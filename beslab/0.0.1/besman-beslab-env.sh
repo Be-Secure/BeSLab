@@ -1,7 +1,47 @@
 #!/bin/bash
+function __sanity_check ()
+{
+	local mandatory_env_variables=(
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION
+BESLAB_CODECOLLAB_DATASTORES
+BESLAB_DASHBOARD_TOOL
+BESLAB_DASHBOARD_RELEASE_VERSION
+BESMAN_LAB_TYPE
+BESMNA_LAB_NAME
+)
+
+local undefined_vars=()
+
+for env_var in "${mandatory_env_variables[@]}"
+do
+   if [ -z "${!env_var}" ];then
+	undefined_vars+=("$env_var")
+   fi
+done
+
+
+if [ ! -z $undefined_vars ];then
+     echo ""
+     echo "ERROR:"
+     echo "Following variables are not defined in Genesis file. Define them and retry."
+     echo ""
+     for und_var in "${undefined_vars[@]}"
+     do
+        echo "$und_var"
+     done
+     echo "Exiting ..."
+     echo ""
+     exit 1
+fi
+
+
+}
 
 function __besman_install()
-{
+{   
+    __sanity_check
+
     __besman_install_java || return 1
     if [[ $BESLAB_SBOM == "spdx-sbom-generator" ]]; then
         __besman_install_spdx-sbom-generator "$BESLAB_SBOM_VERSION" "$BESLAB_ARTIFACT_PATH"
