@@ -1,4 +1,4 @@
-![BeSLab](./BeSLab-logo-horizontal.png)
+![BeSLab](./docs/images/BeSLab-logo-horizontal.png)
 
 An open source security lab blueprint dedicated to fortifying open source projects, models, training dataset against potential vulnerabilities. Designed to operate efficiently even in low-resource settings, BeSLab provides a comprehensive solution that grants complete control and transparency to application security and security operations teams. Additionally, it serves as a valuable resource for security researchers by streamlining the process of bringing open source projects under scrutiny and significantly reducing remediation time.
 
@@ -43,17 +43,17 @@ With BeSLab, security professionals can leverage its suite of tools and function
 #### Private Lab
 Lab hosted privately inside an organization’s private code collaboration platform
 
-![Private Lab](./images/private-lab.png)
+![Private Lab](./docs/images/private-lab.png)
 
 #### Public Lab
 Lab hosted in a community namespace of a public code collaboration platform like GitHub
 
-![Public Lab](./images/public-lab.png)
+![Public Lab](./docs/images/public-lab.png)
 
 #### Personal Lab
 Lab hosted privately within an individual’s laptop or a virtual machine
 
-![Personal Lab](./images/personal-lab.png)
+![Personal Lab](./docs/images/personal-lab.png)
 
 #### Glossary of terms used in the above diagrams
 <table>
@@ -119,7 +119,7 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 
 #### BeSLab Instances Interactions
 
-![Lab Interactions](./images/lab-interactions.png)
+![Lab Interactions](./docs/images/lab-interactions.png)
 
 ## Glossary
 
