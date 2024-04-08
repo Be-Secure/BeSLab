@@ -84,32 +84,37 @@ function __besman_install_gitlab()
     sudo apt install gitlab-ce
     
     __besman_echo_yellow "Update gitlab configuration and start"
-    [[ ! -f /etc/gitlab/gitlab.rb ]] && echo __besman_echo_red "Gitlab-CE not installed properly" && return 1
+    [[ ! -f /etc/gitlab/gitlab.rb ]] && __besman_echo_red "Gitlab-CE not installed properly" && return 1
     sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb
     sudo gitlab-ctl reconfigure
 
     rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'`
     __besman_echo_green "Gitlab root password = $rootPass"
 
-    __besman_create_gitlabuser "besuser" "besuser@domain.com" "BesUser" "Admin" "Welc0me@123" "false"
-    __besman_create_gitlabuser_token "besuser" "$besuserToken"
+    #__besman_create_gitlabuser "besuser" "besuser@domain.com" "BesUser" "Admin" "Welc0me@123" "false"
+    #__besman_create_gitlabuser_token "besuser" "$besuserToken"
 
     if [ ! -f $gitlab_user_data_file_path ];then
        touch $gitlab_user_data_file_path
     fi
 
-    echo "GITLAB_USERNAME: labAdmin" > $gitlab_user_data_file_path
-    echo "GITLAB_USERTOKEN: labAdmin$labToken" >> $gitlab_user_data_file_path
+    echo "GITLAB_USERNAME: $BESMAN_LAB_NAME" > $gitlab_user_data_file_path
+    echo "GITLAB_USERTOKEN: $BESMAN_LAB_NAME$labToken" >> $gitlab_user_data_file_path
 
     if [ ! -z $BESLAB_CODECOLLAB_DATASTORES ];then
+       if [ -z $BESMAN_LAB_NAME ];then
+           __besman_echo_red "BESMAN_LAB_NAME is not defined in genesis file. Define BESMAN_LAB_NAME in the genesis file and retry. Exiting ..."
+	   exit 1
+       fi
+
        __besman_echo_yellow "Create datastore projects in gitlab"
-       __besman_create_gitlabuser "labAdmin" "labAdmin@domain.com" "LabAdmin" "Admin" "Welc0me@123" "true"
-       __besman_create_gitlabuser_token "labAdmin" "$labToken"
+       __besman_create_gitlabuser $BESMAN_LAB_NAME "labAdmin@domain.com" $BESMAN_LAB_NAME "Admin" "Welc0me@123" "true"
+       __besman_create_gitlabuser_token $BESMAN_LAB_NAME $labToken
        old_ifs="$IFS"
        IFS=","
        for repoName in $BESLAB_CODECOLLAB_DATASTORES
        do
-           __besman_create_gitlab_repo "$repoName" "labAdmin" "$labToken" "created $repoName for datastore"
+           __besman_create_gitlab_repo $repoName $BESMAN_LAB_NAME $labToken "created $repoName for datastore"
        done
        envpath="$HOME/.besman/envs"
        
@@ -118,16 +123,23 @@ function __besman_install_gitlab()
        opentofuJson=$(cat $envpath/besman-opentofu.json)
        vulnerJson=$(cat $envpath/besman-vulner.json)
 
-       sleep 150s
-       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "projects%2Fproject-metadata.json"
-       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "projects%2Fproject-version%2F471-radius-Versiondetails.json"
-       __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "projects%2Fproject-version%2F472-opentofu-Versiondetails.json"
+       sleep 50s
+       assement_store_repo_name="besecure-assets-store"
+       assement_store_branch="main"
+       assement_store_email="$BESMAN_LAB_NAME@$BESMAN_LAB_NAME.com"
+
+       __besman_create_gitlab_file $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch $assement_store_email "" "projects%2Fproject-metadata.json"
+       __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "projects%2Fproject-version%2F471-radius-Versiondetails.json"
+       __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "projects%2Fproject-version%2F472-opentofu-Versiondetails.json"
        
-        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "vulnerabilities%2Fvulnerability-metadata.json"
-        __besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "models%2Fmodel-metadata.json"
-	__besman_create_gitlab_file "besecure-assets-store" "labAdmin" "$labToken" "main" "besuser@domain.com" "" "datasets%2Fdataset-metadata.json"
+        __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "vulnerabilities%2Fvulnerability-metadata.json"
+        __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "models%2Fmodel-metadata.json"
+	__besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "datasets%2Fdataset-metadata.json"
 
        #__besman_revoke_gitlabuser_token "labAdmin" "$labToken"
+    else
+        __besman_echo_red "BESLAB_CODECOLLAB_DATASTORES not defined in genesis file. Define the BESLAB_CODECOLLAB_DATASTORES in genesis file and retry. Exiting ..."
+        exit 1
     fi
     __besman_echo_green "Gitlab Installed Successfully!"
 }
