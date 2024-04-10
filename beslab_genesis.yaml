@@ -4,10 +4,10 @@
 ## Possible inputs: Organization, Individual
 ##  Organization - lab type is organization if security analyst is affiliated to a organization.
 ##  Individual - If the security analyst is independant analyst.
-BESMAN_LAB_TYPE=Organization
+BESMAN_LAB_TYPE: Organization
 
 ## Name of the Lab
-BESMAN_LAB_NAME=O31E
+BESMAN_LAB_NAME: O31E
 
 ## Type of lab to be installed. 
 ## Possible inputs: personal, public, private.
@@ -22,6 +22,14 @@ BESLAB_LAB_TYPE: personal
 ##  bare: Deploy beslab on local system or remote system using ansible playbooks.
 ##  lite: Deploy beslab on low capcity system using only shell scripts only.
 BESLAB_LAB_MODE: lite
+
+## Version of beslab to be installed.
+## Possible inputs: latest, dev, <version number in x.x.x format>.
+##  latest: will install the latest released version of BeSLab (default).
+##  dev: To install the development version of BeSLab.
+##  x.x.x: valid version number to be installed in the format x.x.x e.g 0.1.0.
+##  [ Note: default is latest released version ]
+BESLAB_VERSION: latest
 
 ## URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
