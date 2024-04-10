@@ -1,3 +1,3 @@
-Be-Secure/BeSLab/src-env,0.0.0
-Be-Secure/BeSLab/src-env,latest
-Be-Secure/BeSLab/src-env,dev
+Be-Secure/BeSLab/beslab-env,0.0.0
+Be-Secure/BeSLab/beslab-env,latest
+Be-Secure/BeSLab/beslab-env,dev
