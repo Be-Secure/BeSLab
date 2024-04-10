@@ -42,7 +42,7 @@ function __besman_install()
 {   
     __sanity_check
 
-    __besman_install_java || return 1
+    #__besman_install_java || return 1
     if [[ $BESLAB_SBOM == "spdx-sbom-generator" ]]; then
         __besman_install_spdx-sbom-generator "$BESLAB_SBOM_VERSION" "$BESLAB_ARTIFACT_PATH"
     fi
