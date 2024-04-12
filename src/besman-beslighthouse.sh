@@ -20,11 +20,11 @@ function __besman_install_beslighthouse()
    chmod +x nvm_install.sh
    ./nvm_install.sh 2>&1 | __beslab_log
    source ~/.bashrc 2>&1 | __beslab_log
-   installed_node_version=`node -v`
+   #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
-   nvm install $latest_node_version  2>&1 | __beslab_log
-   nvm use $latest_node_version  2>&1 | __beslab_log
+   nvm install $latest_node_version
+   nvm use $latest_node_version
 
    __besman_echo_green "Installed node version is $node_version"
 
@@ -54,7 +54,7 @@ function __besman_install_beslighthouse()
     sed -i '/"activeTool"/c\"activeTool": "gitlab"' $beslighthouse_config_path  2>&1 | __beslab_log
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path 2>&1 | __beslab_log
     sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"" $beslighthouse_config_path 2>&1 | __beslab_log
-    myip="$(dig +short myip.opendns.com @resolver1.opendns.com)" 2>&1 | __beslab_log
+    myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
     sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000\"," $beslighthouse_config_path 2>&1 | __beslab_log
     sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip\"," $beslighthouse_config_path 2>&1 | __beslab_log
 
@@ -78,6 +78,8 @@ function __besman_install_beslighthouse()
 	systemctl daemon-reload 2>&1 | __beslab_log
 	systemctl enable blrestapi.service 2>&1 | __beslab_log
 	systemctl start blrestapi.service 2>&1 | __beslab_log
+
+	sleep 20s
 
 	if [ systemctl is-active --quiet "blrestapi.service" ];then
           __besman_echo_green "Service beslighthouse proxy started successfully."
