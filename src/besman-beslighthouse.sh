@@ -18,8 +18,9 @@ function __besman_install_beslighthouse()
    __besman_echo_yellow "Installing node 20"
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh > nvm_install.sh
    chmod +x nvm_install.sh
-   ./nvm_install.sh 2>&1 | __beslab_log
-   source ~/.bashrc 2>&1 | __beslab_log
+   ./nvm_install.sh 
+   
+   source ~/.bashrc
    #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
