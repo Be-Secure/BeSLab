@@ -81,8 +81,8 @@ function __besman_install_beslighthouse()
 	systemctl start blrestapi.service 2>&1 | __beslab_log
 
 	sleep 20s
-
-	if [ systemctl is-active --quiet "blrestapi.service" ];then
+        is_active_restapi=`systemctl is-active "blrestapi.service"`
+	if [ ${is_active_restapi} == "active" ];then
           __besman_echo_green "Service beslighthouse proxy started successfully."
         else
           __besman_echo_red"   Beslighthouse proxy service failed to start."
@@ -90,7 +90,7 @@ function __besman_install_beslighthouse()
           __besman_echo_red "   Start besdlighthouse proxy manually by following the below steps:"
           __besman_echo_red "       cd /opt/beslighthouse-rest-api"
           __besman_echo_red "       flask run --host="0.0.0.0" --port=5000 &"
-	  return 1
+	  #return 1
 
         fi
 
@@ -133,7 +133,9 @@ function __besman_install_beslighthouse()
 
        sleep 100s
 
-       if [ systemctl is-active --quiet "beslighthouse.service" ];then
+       is_active_besl=`systemctl is-active "beslighthouse.service"`
+
+       if [ $is_active_besl == "active" ];then
           __besman_echo_green "Service beslighthouse started successfully."
        else
           __besman_echo_red"   Beslighthouse service failed to start."
@@ -141,7 +143,7 @@ function __besman_install_beslighthouse()
           __besman_echo_red "   Start besdlighthouse manually by following the below steps:"
 	  __besman_echo_red "       cd /opt/beslighthouse"
 	  __besman_echo_red "       npm start &"
-	  return 1
+	  #return 1
        fi
     else
       __besman_echo_yellow "Strating beslighthouse without service ..."	    
