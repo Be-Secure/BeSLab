@@ -28,8 +28,8 @@ BESLAB_LAB_MODE: lite
 ##  latest: will install the latest released version of BeSLab (default).
 ##  dev: To install the development version of BeSLab.
 ##  x.x.x: valid version number to be installed in the format x.x.x e.g 0.1.0.
-##  [ Note: default is latest released version ]
-BESLAB_VERSION: latest
+##  [ Note: default is dev released version ]
+BESLAB_VERSION: dev
 
 ## URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
@@ -222,7 +222,7 @@ BESLAB_JAVA_HOME: /opt/tools/
 
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: beslighthouse
-BESLAB_DASHBOARD_RELEASE_VERSION: 0.17.4
+BESLAB_DASHBOARD_RELEASE_VERSION: 0.17.5
 BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
 BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
 BESLAB_DASHBOARD_RELEASE_URL: https://github.com/Be-Secure/BeSlighthouse/archive/refs/tags/0.16.2.tar.gz
