@@ -39,7 +39,7 @@ function __besman_create_gitlab_file()
 
     echo "Project ID for $repoName is $project_id"
 
-    curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
+    curl -sS --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
 
 }
 
@@ -49,7 +49,7 @@ function __besman_create_gitlab_repo()
     userName="$2"
     userToken="$2$3"
     repoDesc="$4"
-    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/' 2>&1 | __beslab_log
+    curl -ksS --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/' 2>&1 | __beslab_log
 }
 function __besman_revoke_gitlabuser_token()
 {

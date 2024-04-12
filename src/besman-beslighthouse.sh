@@ -20,17 +20,22 @@ function __besman_install_beslighthouse()
    chmod +x nvm_install.sh
    ./nvm_install.sh 2>&1 | __beslab_log
    source ~/.bashrc 2>&1 | __beslab_log
-   node_version=`node -v` 
-   nvm install v20.11.1  2>&1 | __beslab_log
+   installed_node_version=`node -v`
+   latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
+
+   nvm install $latest_node_version  2>&1 | __beslab_log
+   nvm use $latest_node_version  2>&1 | __beslab_log
+
    __besman_echo_green "Installed node version is $node_version"
 
    __besman_echo_yellow "Fetching BesLighthouse version ${beslight_ver} from github Be-Secure namespace."
-   [[ ! -d $beslight_path ]] && mkdir -p $beslight_path && cd $beslight_path 
-   curl -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz 2>&1 | __beslab_log
+   [[ ! -d $beslight_path ]] && mkdir -p $beslight_path
+   cd $beslight_path 
+   curl -sS -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz 2>&1 | __beslab_log
    tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz 2>&1 | __beslab_log
-   cd ./BeSLighthouse-${beslight_ver} 2>&1 | __beslab_log
-   cp -rf ./* ../ 2>&1 | __beslab_log
-   cd .. && rm -rf ./BeSLighthouse-${beslight_ver} 2>&1 | __beslab_log
+   cd ./BeSLighthouse-${beslight_ver}
+   mv ./* ../
+   cd .. && rm -rf ./BeSLighthouse-${beslight_ver}
    __besman_echo_green "Fetched beslighthouse to /opt/beslighthouse"
 
     if [ -d "$HOME/.besman" ];then
@@ -73,6 +78,19 @@ function __besman_install_beslighthouse()
 	systemctl daemon-reload 2>&1 | __beslab_log
 	systemctl enable blrestapi.service 2>&1 | __beslab_log
 	systemctl start blrestapi.service 2>&1 | __beslab_log
+
+	if [ systemctl is-active --quiet "blrestapi.service" ];then
+          __besman_echo_green "Service beslighthouse proxy started successfully."
+        else
+          __besman_echo_red"   Beslighthouse proxy service failed to start."
+          __besman_echo_red "   Check the service using \"systemctl status blrestapi.service\""
+          __besman_echo_red "   Start besdlighthouse proxy manually by following the below steps:"
+          __besman_echo_red "       cd /opt/beslighthouse-rest-api"
+          __besman_echo_red "       flask run --host="0.0.0.0" --port=5000 &"
+	  return 1
+
+        fi
+
 	__besman_echo_green "beslighthouse proxy service is started ..."
     else
        flask run --host="0.0.0.0" --port=5000 & 
@@ -96,7 +114,7 @@ function __besman_install_beslighthouse()
     [[ xx"$?" != xx"0" ]] && sudo apt-get -y install npm 2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing beslighthouse dependencies ..."
-    npm install --force 2>&1 | __beslab_log
+    npm install 2>&1 | __beslab_log
     #export NODE_OPTIONS=--openssl-legacy-provider
 
     if [ -f ./beslighthouse.sh ];then
@@ -109,6 +127,9 @@ function __besman_install_beslighthouse()
        sudo systemctl start beslighthouse.service 2>&1 | __beslab_log
        __besman_echo_green "Beslighthouse service is set ..."
        __besman_echo_yellow "Starting beslighthouse service ..."
+
+       sleep 100s
+
        if [ systemctl is-active --quiet "beslighthouse.service" ];then
           __besman_echo_green "Service beslighthouse started successfully."
        else
@@ -117,6 +138,7 @@ function __besman_install_beslighthouse()
           __besman_echo_red "   Start besdlighthouse manually by following the below steps:"
 	  __besman_echo_red "       cd /opt/beslighthouse"
 	  __besman_echo_red "       npm start &"
+	  return 1
        fi
     else
       __besman_echo_yellow "Strating beslighthouse without service ..."	    
