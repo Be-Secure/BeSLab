@@ -10,7 +10,7 @@ function __besman_create_gitlabuser()
     userPassword="$5"
     isAdmin="$6"
     
-    sudo gitlab-rails runner "u = User.new(username: '$userName', email: '$userEmail', name: '$userFirstName $userLastName ', password: '$userPassword', password_confirmation: '$userPassword', admin: '$isAdmin'); u.assign_personal_namespace; u.skip_confirmation! ; u.save! " | __beslab_log
+    sudo gitlab-rails runner "u = User.new(username: '$userName', email: '$userEmail', name: '$userFirstName $userLastName ', password: '$userPassword', password_confirmation: '$userPassword', admin: '$isAdmin'); u.assign_personal_namespace; u.skip_confirmation! ; u.save! " 2>&1 | __beslab_log
 }
 
 function __besman_create_gitlabuser_token()
@@ -18,7 +18,7 @@ function __besman_create_gitlabuser_token()
     userName="$1"
     userToken="$1$2"
     tokenName="token_for_$1_$2"
-    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode', 'read_repository', 'write_repository' ], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! " | __beslab_log
+    sudo gitlab-rails runner "token = User.find_by_username('$userName').personal_access_tokens.create(scopes: ['api','admin_mode', 'read_repository', 'write_repository' ], name: '$tokenName', expires_at: 365.days.from_now); token.set_token('$userToken'); token.save! " 2>&1 | __beslab_log
 }
 
 function __besman_create_gitlab_file()
@@ -39,7 +39,7 @@ function __besman_create_gitlab_file()
 
     echo "Project ID for $repoName is $project_id"
 
-    curl -sS --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath | __beslab_log
+    curl --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
 
 }
 
@@ -49,13 +49,13 @@ function __besman_create_gitlab_repo()
     userName="$2"
     userToken="$2$3"
     repoDesc="$4"
-    curl -ksS --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/' | __beslab_log
+    curl -k --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/' 2>&1 | __beslab_log
 }
 function __besman_revoke_gitlabuser_token()
 {
    userName=$1
    userTokenName="$1$2"
-   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!" | __beslab_log
+   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!"  2>&1 | __beslab_log
 }
 function __besman_install_gitlab()
 {
@@ -70,24 +70,24 @@ function __besman_install_gitlab()
     fi
 
     __besman_echo_yellow "Updating system"
-    sudo apt update | __beslab_log
-    sudo apt upgrade -y | __beslab_log
+    sudo apt update 2>&1 | __beslab_log
+    sudo apt upgrade -y 2>&1 | __beslab_log
     
     __besman_echo_yellow "Install dependencies"
-    sudo apt install -y ca-certificates curl openssh-server tzdata | __beslab_log
-    sudo apt update | __beslab_log
-    sudo apt install curl debian-archive-keyring lsb-release ca-certificates apt-transport-https software-properties-common -y | __beslab_log
+    sudo apt install -y ca-certificates curl openssh-server tzdata 2>&1 | __beslab_log
+    sudo apt update 2>&1 | __beslab_log
+    sudo apt install curl debian-archive-keyring lsb-release ca-certificates apt-transport-https software-properties-common -y 2>&1 | __beslab_log
     
     __besman_echo_yellow "Install Gitlab-CE"
-    curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash | __beslab_log
-    sudo apt update | __beslab_log
-    sudo apt install gitlab-ce | __beslab_log
+    curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash 2>&1 | __beslab_log
+    sudo apt update 2>&1 | __beslab_log
+    sudo apt install gitlab-ce 2>&1 | __beslab_log
     
     __besman_echo_yellow "Configuring gitlab ..."
     __besman_echo_yellow "Please wait ..."
     [[ ! -f /etc/gitlab/gitlab.rb ]] && __besman_echo_red "Gitlab-CE not installed properly" && return 1
-    sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb | __beslab_log
-    sudo gitlab-ctl reconfigure | __beslab_log
+    sed -i "/^external_url/c external_url 'http://gitlab.abc.com'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+    sudo gitlab-ctl reconfigure 2>&1 | __beslab_log
 
     rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'
     __besman_echo_green "Gitlab is installed succussfully ..."`
