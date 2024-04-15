@@ -21,6 +21,9 @@ function __besman_install_beslighthouse()
    ./nvm_install.sh 
    
    source ~/.bashrc
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
    #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
