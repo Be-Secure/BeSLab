@@ -116,9 +116,12 @@ function __besman_install_beslighthouse()
 
     __besman_echo_yellow "Installing npm if not installed already ..."
     cd $beslight_path
-    which npm
-    [[ xx"$?" != xx"0" ]] && sudo apt-get -y install npm 2>&1 | __beslab_log
-
+    #which npm
+    #[[ xx"$?" != xx"0" ]] && sudo apt-get -y install npm 2>&1 | __beslab_log
+    
+    ln -s  $HOME/.nvm/versions/node/${latest_node_version}/bin/node /usr/bin/node
+    ln -s  $HOME/.nvm/versions/node/${latest_node_version}/bin/npm /usr/bin/npm
+    
     __besman_echo_yellow "Installing beslighthouse dependencies ..."
     npm install 2>&1 | __beslab_log
     #export NODE_OPTIONS=--openssl-legacy-provider
