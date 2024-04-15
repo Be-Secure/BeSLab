@@ -14,7 +14,7 @@ BESMAN_LAB_NAME: O31E
 ##  personal: Installs beslab in security analyst personal system only.
 ##  public: Does use public code collab platform e.g github, gitlab etc.
 ##  private: Installs beslab including provate code collab on the organization infra.
-BESLAB_LAB_TYPE: personal
+BESLAB_LAB_TYPE: private
 
 ## Defines the type of BESLAB deployment
 ## Possible inputs: host, bare, lite
