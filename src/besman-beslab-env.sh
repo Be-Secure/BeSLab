@@ -2,13 +2,14 @@
 function __sanity_check ()
 {
 	local mandatory_env_variables=(
-BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL
-BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION
 BESLAB_CODECOLLAB_DATASTORES
 BESLAB_DASHBOARD_TOOL
 BESLAB_DASHBOARD_RELEASE_VERSION
 BESMAN_LAB_TYPE
 BESMAN_LAB_NAME
+BESMAN_VER
+BESLAB_VERSION
+BLIMAN_VERSION
 )
 
 local undefined_vars=()
@@ -20,27 +21,29 @@ do
    fi
 done
 
-
-if [ ! -z $undefined_vars ];then
-     echo ""
-     echo "ERROR:"
-     echo "Following variables are not defined in Genesis file. Define them and retry."
-     echo ""
-     for und_var in "${undefined_vars[@]}"
-     do
-        echo "$und_var"
-     done
-     echo "Exiting ..."
-     echo ""
-     exit 1
+if [ ! $(type -t "__beslab_echo_red")"" == "function" ];then
+   source $HOME/.besman/envs/besman-beslab-utils.sh
 fi
 
-
+if [ ! -z $undefined_vars ];then
+     __besman_echo_red ""
+     __besman_echo_red "ERROR:"
+     __besman_echo_red "Following variables are not assigned value in the genesis.yaml file. Assign value to them first and retry."
+     __besman_echo_red ""
+     for und_var in "${undefined_vars[@]}"
+     do
+        __besman_echo_red "$und_var"
+     done
+     __besman_echo_red "Exiting ..."
+     __besman_echo_red ""
+     exit 1
+fi
 }
 
 function __besman_install()
 {   
     __sanity_check
+    __beslab_createlogfile
 
     #__besman_install_java || return 1
     if [[ $BESLAB_SBOM == "spdx-sbom-generator" ]]; then
@@ -71,14 +74,14 @@ function __besman_install()
     if [[ ( -n "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" == "gitlab-ce") ]]; then
         __besman_install_gitlab
     fi
-    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && "$BESLAB_DASHBOARD_TOOL" == "beslighthouse" ]]; then
+    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && "$BESLAB_DASHBOARD_TOOL" == "BeSLighthouse" ]]; then
         __besman_install_beslighthouse
     fi
 }
 
 function __besman_uninstall()
 {
-    __besman_uninstall_java || return 1
+    #__besman_uninstall_java || return 1
     if [[ $BESLAB_SAST == "sonarqube" ]]; then
         __besman_uninstall_sonarqube "$BESLAB_SAST_VERSION" "$BESLAB_ARTIFACT_PATH"
     fi
@@ -103,7 +106,7 @@ function __besman_uninstall()
     if [[ ( -n "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" ) && ( "$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL" == "gitlab-ce") ]]; then
        __besman_uninstall_gitlab
     fi
-    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && "$BESLAB_DASHBOARD_TOOL" == "beslighthouse" ]]; then
+    if [[ ( -n "$BESLAB_DASHBOARD_TOOL" ) && "$BESLAB_DASHBOARD_TOOL" == "BeSLighthouse" ]]; then
         __besman_uninstall_beslighthouse
     fi
 }
