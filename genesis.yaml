@@ -10,7 +10,7 @@ BESMAN_LAB_TYPE: Organization
 BESMAN_LAB_NAME: DemoLab
 
 ## Version of BeSMan in Github to be installed.
-BESMAN_VERSION: 0.3.3
+BESMAN_VER: 0.3.3
 
 ## Type of lab to be installed. 
 ## Possible inputs: personal, public, private.
