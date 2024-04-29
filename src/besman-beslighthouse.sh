@@ -17,11 +17,11 @@ function __besman_install_beslighthouse()
     fi
 
    __besman_echo_yellow "Installing node 20. Please wait ..."
-   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh > nvm_install.sh
+   curl --silent -o nvm_install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh 2>&>>$BESLAB_LOG_FILE
    chmod +x nvm_install.sh
-   source nvm_install.sh 2>&1 | __beslab_log
+   source nvm_install.sh 2>&1>>$BESLAB_LOG_FILE
    
-   source ~/.bashrc 2>&1 | __beslab_log
+   source ~/.bashrc 2>&1>>$BESLAB_LOG_FILE
 
    export NVM_DIR="$HOME/.nvm"
 
@@ -31,7 +31,7 @@ function __besman_install_beslighthouse()
    #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
-   nvm install $latest_node_version 2>&1>$BESLAB_LOG_FILE
+   nvm install $latest_node_version 2>&1>>$BESLAB_LOG_FILE
    #nvm use $latest_node_version
 
    __besman_echo_green "Installed node version $node_version"
@@ -39,8 +39,8 @@ function __besman_install_beslighthouse()
    __besman_echo_yellow "Installing BesLighthouse version ${beslight_ver} from github Be-Secure namespace."
    [[ ! -d $beslight_path ]] && mkdir -p $beslight_path
    cd $beslight_path 
-   curl --silent -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz 2>&1 | __beslab_log
-   tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz 2>&1 | __beslab_log
+   curl --silent -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz 2>&1>>$BESLAB_LOG_FILE
+   tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz 2>&1>>$BESLAB_LOG_FILE
    cd ./BeSLighthouse-${beslight_ver}
    mv ./* ../
    cd .. && rm -rf ./BeSLighthouse-${beslight_ver}
@@ -66,16 +66,16 @@ function __besman_install_beslighthouse()
     sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip\"," $beslighthouse_config_path  2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing pip if not installed already"
-    which pip
+    which pip 2>&>>$BESLAB_LOG_FILE
     [[ xx"$?" != xx"0" ]] && sudo apt-get -y install python3-pip 2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing proxy for BeSLighthouse ..."
     mkdir -p $BESLAB_DASHBOARD_API_INSTALL_PATH| __beslab_log
     cd $BESLAB_DASHBOARD_API_INSTALL_PATH
-    git clone https://github.com/Be-Secure/beslighthouse-rest-api 2>&1 | __beslab_log
+    git clone --quiet https://github.com/Be-Secure/beslighthouse-rest-api 2>&1>>$BESLAB_LOG_FILE
     cd beslighthouse-rest-api 
     __besman_echo_yellow "Installing dependencies for proxy ..."
-    pip install -r requirements.txt 2>&1 | __beslab_log
+    pip install -r requirements.txt 2>&1>>$BESLAB_LOG_FILE
     
     if [ -f ./blrestapi.sh ];then
 	__besman_echo_yellow "Enabling proxy service ..."    
@@ -125,7 +125,7 @@ function __besman_install_beslighthouse()
     ln -s  $HOME/.nvm/versions/node/${latest_node_version}/bin/npm /usr/bin/npm 2>&1 | __beslab_log
     
     __besman_echo_yellow "Installing BeSLighthouse dependencies ..."
-    npm install 2>&1 | __beslab_log
+    npm install 2>&1>>$BESLAB_LOG_FILE
     #export NODE_OPTIONS=--openssl-legacy-provider
 
     if [ -f ./beslighthouse.sh ];then
