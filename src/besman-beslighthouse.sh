@@ -3,6 +3,7 @@ function __besman_install_beslighthouse()
 {
     local beslight_ver beslight_path
 
+
     if [ ! -z $1 ];then
        beslight_ver=$1
     else
@@ -30,7 +31,7 @@ function __besman_install_beslighthouse()
    #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
-   nvm install $latest_node_version
+   nvm install $latest_node_version 2>&1>$BESLAB_LOG_FILE
    #nvm use $latest_node_version
 
    __besman_echo_green "Installed node version $node_version"

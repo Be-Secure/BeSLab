@@ -33,7 +33,7 @@ function __besman_create_gitlab_file()
     filepath=$7
 
     # Make a request to list projects and store the response in a variable
-    response=$(curl --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=$repoName")
+    response=$(curl --silent --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=$repoName")
 
     # Parse the response to extract project ID
     project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*' | head -1)
@@ -69,6 +69,7 @@ function __besman_install_gitlab()
     gitlab_version=$1
     database_path=$2
 
+    __beslab_createlogfile
     if [ -d "$HOME/.besman" ];then
       gitlab_user_data_file_path="$HOME/.besman/gitlabUserDetails"
     elif [ -d "$HOME/.bliman" ];then
@@ -84,7 +85,7 @@ function __besman_install_gitlab()
     sudo apt install curl debian-archive-keyring lsb-release ca-certificates apt-transport-https software-properties-common -y 2>&1 | __beslab_log
     
     __besman_echo_yellow "Installing Gitlab Community Edition. Please wait ..."
-    curl --silent https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh 2>&1 | sudo bash
+    curl --silent https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash 2>&1>$BESLAB_LOG_FILE
     sudo apt update 2>&1 | __beslab_log
 
     if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION ];then

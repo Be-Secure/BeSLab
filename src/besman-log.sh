@@ -28,6 +28,7 @@ __beslab_createlogfile () {
 }
 
 __beslab_log() {
+   __beslab_createlogfile	
    datetime=$(date)
    while IFS= read -r line; do
      echo "$datetime : $line" >> $BESLAB_LOG_FILE
