@@ -124,7 +124,7 @@ BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
 BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: gitlab-ce
 
 ## Version of the code collab tool to be installed on the lab.
-BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 16.10.3.ce.0
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 16.10.3-ce.0
 
 ## List of public IPs of the servers to be used for CICD executions.
 ## [ Note: if commented or no value provided code collab tool's local system will be used for CICD. ]
