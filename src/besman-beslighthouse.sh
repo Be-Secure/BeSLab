@@ -66,7 +66,7 @@ function __besman_install_beslighthouse()
     sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip\"," $beslighthouse_config_path  2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing pip if not installed already"
-    which pip 2>&>>$BESLAB_LOG_FILE
+    which pip 2>&1>>$BESLAB_LOG_FILE
     [[ xx"$?" != xx"0" ]] && sudo apt-get -y install python3-pip 2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing proxy for BeSLighthouse ..."
