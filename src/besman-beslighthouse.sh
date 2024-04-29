@@ -17,7 +17,7 @@ function __besman_install_beslighthouse()
     fi
 
    __besman_echo_yellow "Installing node 20. Please wait ..."
-   curl --silent -o nvm_install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh 2>&>>$BESLAB_LOG_FILE
+   curl --silent -o nvm_install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh 2>&1>>$BESLAB_LOG_FILE
    chmod +x nvm_install.sh
    source nvm_install.sh 2>&1>>$BESLAB_LOG_FILE
    
