@@ -19,7 +19,7 @@ function __besman_install_beslighthouse()
    __besman_echo_yellow "Installing node 20. Please wait ..."
    curl --silent -o nvm_install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh 2>&1>>$BESLAB_LOG_FILE
    chmod +x nvm_install.sh
-   source nvm_install.sh 2>&1>>$BESLAB_LOG_FILE
+   source nvm_install.sh 2>&1 |  __beslab_log
    
    source ~/.bashrc 2>&1>>$BESLAB_LOG_FILE
 
@@ -31,7 +31,7 @@ function __besman_install_beslighthouse()
    #installed_node_version=`node -v`
    latest_node_version=`nvm list-remote | grep "Latest LTS: Iron" | awk '{print $1}'`
 
-   nvm install $latest_node_version 2>&1>>$BESLAB_LOG_FILE
+   nvm install $latest_node_version 2>&1 |  __beslab_log
    #nvm use $latest_node_version
 
    __besman_echo_green "Installed node version $node_version"
@@ -75,7 +75,7 @@ function __besman_install_beslighthouse()
     git clone --quiet https://github.com/Be-Secure/beslighthouse-rest-api 2>&1>>$BESLAB_LOG_FILE
     cd beslighthouse-rest-api 
     __besman_echo_yellow "Installing dependencies for proxy ..."
-    pip install -r requirements.txt 2>&1>>$BESLAB_LOG_FILE
+    pip install -r requirements.txt 2>&1 |  __beslab_log
     
     if [ -f ./blrestapi.sh ];then
 	__besman_echo_yellow "Enabling proxy service ..."    
