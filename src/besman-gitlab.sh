@@ -88,7 +88,9 @@ function __besman_install_gitlab()
     sudo apt update | __beslab_log
 
     if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION ];then
-       res=$(sudo apt install gitlab-ce=$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION -y)
+       __besman_echo_yellow "Gitlab vesion defined is $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION ..."
+       #res=$(sudo apt install gitlab-ce=$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION -y)
+       sudo apt install gitlab-ce=$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION -y
        if [[ $res == *"Version"*"was not Found"* ]];then
           __besman_echo_red "Gitlab version $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION is not found. Please correct the version in genesis file and retry."
 	  __besman_echo_red "Exiting ..."
