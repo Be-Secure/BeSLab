@@ -242,17 +242,48 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 - Configure genesis file to meet the lab requirements
 - Install BLIman 
 ```
-curl -L https://be-secure.github.io/BLIman/get.bliman.io | bash
+curl -o bliman_setup.sh https://raw.githubusercontent.com/Be-Secure/BLIman/main/bliman_setup.sh | bash
 ```
+
+```
+chmod +x bliman_setup.sh
+```
+
+```
+./bliman_setup.sh install --version <BLIman release version>
+```
+
+```
+source $HOME/.bliman/bin/bliman-init.sh
+```
+
+BLIman release version: version number of the rleased BLIman in fomrat 0.4.1 or v0.4.1. check the released version number for BLIman [here] (https://github.com/Be-Secure/BLIman/releases)  
+
+- Verify the bliman is installed.
+```
+bli help
+```
+
+- Edit the genesis.yaml installed in the current working directory.
+- Load the genesis file
+```
+bli load
+```
+
 - Initiliaze BLIman. This installs BeSman
 ```
-bli init light
+bli initmode lite
+```
+
+```
+source $HOME/.besman/bin/besman-init.sh
+```
+
+- Verify besman installation
+```
+bes help
 ```
 - Launch the lab. Downloads the environment scripts for lab from BeSLab repository and executes it.
 ```
-bli launch
-```
-- Verify the lab installation
-```
-bli status
+bli launchlab
 ```
