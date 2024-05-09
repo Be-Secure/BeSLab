@@ -252,54 +252,115 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 - Have a good understanding of the genesis.yaml file. The lab configuration is completely driven through the genesis file.
 - You could use the available Jupyter notebooks for lab deployment [here](https://github.com/Be-Secure/BeSLab/tree/master/notebooks), or follow the manual process described below.  
 
-#### Manual steps to seed a private BeSLab instance
+## Pre-requisites
+- Ubuntu VM - Minimum 4vCPU, 8GB RAM, 16GB Disk Space
+- curl
+- unzip
+- bash
+```
+[Note:]
+AWS Specific Configurations:
+AWS VM installed with Ubuntu 22.04 does contains some aws specific packages which are installed with older versions so system pop warning messages for those packages and kernel being old version. These pop ups does hamper the non-interactive installation of BeSLab. So to suppress these warning during installation follow the below steps.
 
-##### Pre-requisites
+Open file “/etc/needrestart/needrestart.conf”
+Change following parameters and save the changes.
 
-- Install BLIman 
-```
-curl -o bliman_setup.sh https://raw.githubusercontent.com/Be-Secure/BLIman/main/bliman_setup.sh
-```
+  Uncomment and set $nrconf{restart} = 'a'
+  Uncomment $nrconf{kernelhints} = -1;
 
-```
-chmod +x bliman_setup.sh
-```
-
-```
-./bliman_setup.sh install --version <BLIman release version>
-```
-
-```
-source $HOME/.bliman/bin/bliman-init.sh
+Save and exit the file.
 ```
 
-BLIman release version: version number of the rleased BLIman in fomrat 0.4.1 or v0.4.1. check the released version number for BLIman [here] (https://github.com/Be-Secure/BLIman/releases)  
+# Installation
+Choose any one installation method below.
 
-- Verify the bliman is installed.
+## 1. Steps for installing BeSlab instance remotely. (Using Jupter Notebook)
+
+1. Login to the BeSLab server.
+2. Install python and pip on the server.
+```
+sudo apt-get -y install python3-pip
+``` 
+3. Install Jypyer Notebook. Follow the instructions.
+```
+sudo python3 -m pip install jupyter
+```
+4. generate the jupyter notebook config file.
+```
+jupyter notebook --generate-config
+```
+
+5. Edit the jupyter config file.
+```
+vi $HOME/.jupyter/jupyter_notebook_config.py
+```
+   Change following and save
+   <br>
+   ```
+   c.ServerApp.ip = 'localhost' to c.ServerApp.ip = '0.0.0.0'
+   ```
+   ```
+   Uncomment c.ServerApp.open_browser = False
+   ```
+6. Save and close
+
+7. Run the jupyter notebook.
+```
+   jupyter notebook --allow-root
+```
+Note down the token from the screen and port number.
+
+8. Login to the remote machine.
+
+9. Open the jupyter notebook UI on the browser. Enter the IP or Domain name of the BeSLab Server and port number captured in previous step.
+
+10. In the Jupyter notebook UI, enter the token copied from step 7 above.
+
+11. Downalod the Jupyter notebook from [here](https://github.com/Be-Secure/BeSLab/tree/master/notebooks) to the remote server.
+
+12. Click on upload button on right top corner.
+
+13. Upload the Jupyter playbook downloaded to the remote machine.
+
+14. Read the notebook and follow the instructions.
+
+
+## 2. Steps to seed a private BeSLab instance (manual installation)
+
+Execute below steps on the machine where BeSLab needs to be installed.
+
+1. Install BLIman following instructions [here](https://github.com/Be-Secure/BLIman/blob/main/README.md#installing-bliman)
+
+2. Verify the bliman is installed.
 ```
 bli help
 ```
-
-- Edit the genesis.yaml installed in the current working directory.
-- Load the genesis file
+3. Edit the genesis.yaml installed in the current working directory.
+4. Load the genesis file
 ```
 bli load
 ```
-
-- Initiliaze BLIman. This installs BeSman
+5. Initiliaze BLIman. This installs BeSman
 ```
-bli initmode lite
+bli initmode <mode name>
 ```
+\<mode name\> can be any one of \(host, bare and lite\). Only lite mode is avalilable as of now.
+Example: `bli initmode lite`
 
+6. Initiaze besman
 ```
 source $HOME/.besman/bin/besman-init.sh
 ```
 
-- Verify besman installation
+7. Verify besman installation
 ```
 bes help
 ```
-- Launch the lab. Downloads the environment scripts for lab from BeSLab repository and executes it.
+8. Launch the lab. Downloads the environment scripts for lab from BeSLab repository and executes it.
 ```
 bli launchlab
 ```
+9. Verify the lab installation 
+- (Private lab in lite mode)
+  * Open GitLab. Go to browser and enter `http://gitlab-server-IP`. (Give the actual IP or domain name). Login with the default credentials (Lab name configured in genesis.yaml / Welc0me@123). Change the default password upon login.
+  * Open BeSLighthouse. Go to browser and enter `http://BeSLighthouse-IP:3000`. (Give the actual IP or domain name). BeSLighthouse UI should open up. Click the "Projects Of Interest" tab and verify that it shows an empty list.
