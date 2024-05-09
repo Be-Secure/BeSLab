@@ -274,9 +274,10 @@ Choose any one installation method described below.
 
 #### Method 1. Using the Jupyter notebook 
 
-1. Login to the dedicated machine for this BeSLab instance.
+1. Login to the dedicated machine for this BeSLab instance and switch to sudo user.
 2. Install python and pip on the server.
     ```
+    sudo apt-get update; apt-get upgrade -y
     sudo apt-get -y install python3-pip
     ``` 
 3. Install Jupyter Notebook.
@@ -312,34 +313,35 @@ Choose any one installation method described below.
 #### Method 2. Manual Installation
 Execute below steps on the machine where BeSLab needs to be installed.
 
-1. Install BLIman following instructions [here](https://github.com/Be-Secure/BLIman/blob/main/README.md#installing-bliman)
-2. Verify the BLIman is installed.
+1. Login to the dedicated machine for this BeSLab instance and switch to sudo user.
+2. Install BLIman following instructions [here](https://github.com/Be-Secure/BLIman/blob/main/README.md#installing-bliman)
+3. Verify the BLIman is installed.
     ```
     bli help
     ```
-3. Edit the genesis.yaml installed in the current working directory.
-4. Load the genesis file
+4. Edit the genesis.yaml installed in the current working directory.
+5. Load the genesis file
     ```
     bli load
     ```
-5. Initiliaze BLIman. This installs the BeSman utility under the hood. 
+6. Initiliaze BLIman. This installs the BeSman utility under the hood. 
     ```
     bli initmode <mode name>
     ```
     \<mode name\> can be any one of \(host, bare and lite\). Only lite mode is avalilable as of now.
     Example: `bli initmode lite`
-6. Initiaze BeSman
+7. Initiaze BeSman
     ```
     source $HOME/.besman/bin/besman-init.sh
     ```
-7. Verify besman installation
+8. Verify besman installation
     ```
     bes help
     ```
-8. Launch the lab
+9. Launch the lab
     ```
     bli launchlab
     ```
-9. Verify the lab installation 
+10. Verify the lab installation 
     * Open GitLab. Go to browser and enter `http://gitlab-server-IP`. (Give the actual IP or domain name). Login with the default credentials (Lab name configured in genesis.yaml / Welc0me@123). Change the default password upon login.
     * Open BeSLighthouse. Go to browser and enter `http://BeSLighthouse-IP:3000`. (Give the actual IP or domain name). BeSLighthouse UI should open up. Click the "Projects Of Interest" tab and verify that it shows an empty list.
