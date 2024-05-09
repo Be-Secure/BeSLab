@@ -272,7 +272,7 @@ Choose any one installation method described below.
   Save and exit the file.
   ```
 
-#### Method 1. Using the Jupyter notebook 
+#### Method 1. Using Jupyter notebook 
 
 1. Login to the dedicated machine for this BeSLab instance and switch to sudo user.
 2. Install python and pip on the server.
