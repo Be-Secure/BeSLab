@@ -166,7 +166,7 @@ function __besman_install_gitlab()
         exit 1
     fi
     __besman_echo_green "#########################################################################################################"
-    __besman_echo_green "                               Gitlab-CE is configured and resy to use                                   "
+    __besman_echo_green "                               Gitlab-CE is configured and ready to use                                   "
     __besman_echo_green "#########################################################################################################"
 }
 
