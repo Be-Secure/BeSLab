@@ -250,9 +250,10 @@ Lab hosted privately within an individual’s laptop or a virtual machine
   * Public Lab (Work in progress) - Community lab hosted in any public code collaboration repository.
   * Personal Lab (Work in progress) - Owned by an individual for learning and research purpose.
 - Have a good understanding of the genesis.yaml file. The lab configuration is completely driven through the genesis file.
-- You could use the available Jupyter notebooks for lab deployment [here](https://github.com/Be-Secure/BeSLab/tree/master/notebooks), or follow the manual process described below.  
+- You could use the available Jupyter [notebooks](https://github.com/Be-Secure/BeSLab/tree/master/notebooks) for lab deployments, or follow the manual process described below.  
 
 ### Seed a Private Lab
+Choose any one installation method described below.
 
 #### Pre-requisites for a private BeSLab deployment
 - Ubuntu VM - Minimum 4vCPU, 8GB RAM, 16GB Disk Space
@@ -270,9 +271,8 @@ Lab hosted privately within an individual’s laptop or a virtual machine
 
   Save and exit the file.
   ```
-Choose any one installation method below.
 
-##### Method 1. Using the Jupyter notebook 
+#### Method 1. Using the Jupyter notebook 
 
 1. Login to the dedicated machine for this BeSLab instance.
 2. Install python and pip on the server.
@@ -299,17 +299,17 @@ Choose any one installation method below.
    ```
 6. Save and close
 7. Run the Jupyter notebook.
-  ```
-  jupyter notebook --allow-root
-  ```
-  Note down the token and port number from the screen.
+    ```
+    jupyter notebook --allow-root
+    ```
+    Note down the token and port number from the screen.
 8. Open Jupyter notebook UI on your browser using the IP/Domain and port you captured in the previous step.
-9. In the Jupyter notebook UI, enter the token copied from step 7.
-10. Downalod the Jupyter notebook from this [location](https://github.com/Be-Secure/BeSLab/tree/master/notebooks).
+9. Provide the token copied from step 7 in the Jupyter UI.
+10. Downalod the notebook from this [location](https://github.com/Be-Secure/BeSLab/tree/master/notebooks).
 11. Click on upload button on right top corner of Jupyter Notebook UI and point to notebook downloaded in the previous step.
 12. Read through the notebook and follow the instructions.
 
-##### Method 2. Manual Installation
+#### Method 2. Manual Installation
 Execute below steps on the machine where BeSLab needs to be installed.
 
 1. Install BLIman following instructions [here](https://github.com/Be-Secure/BLIman/blob/main/README.md#installing-bliman)
