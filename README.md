@@ -237,12 +237,28 @@ Lab hosted privately within an individual’s laptop or a virtual machine
   - TAVOSS software is also accompanied by documentation and support which can help to address the lack of knowledge and cultural resistance. 
 
 ## Getting Started
-#### Seed a new BeSLab instance
-- Lab admin affiliates the new lab into OASP registry (maintained at BeSecure Community Lab) and downloads the genesis file template.
-- Configure genesis file to meet the lab requirements
+
+#### General Instructions
+- [BLIman](https://github.com/Be-Secure/BLIman) is a command line utility to deploy and manage a BeSLab instance.
+- Decide on the BeSLab mode and the deployment type for each lab mode.
+- Lab modes
+  * Lite Mode
+  * Host Mode (Work in progress)
+  * Bare Mode (Work in progress)
+- Deployment types for each lab mode.
+  * Private Lab - Owned by an organization for commercial usage.
+  * Public Lab (Work in progress) - Community lab hosted in any public code collaboration repository.
+  * Personal Lab (Work in progress) - Owned by an individual for learning and research purpose.
+- Have a good understanding of the genesis.yaml file. The lab configuration is completely driven through the genesis file.
+- You could use the available Jupyter notebooks for lab deployment [here](https://github.com/Be-Secure/BeSLab/tree/master/notebooks), or follow the manual process described below.  
+
+#### Manual steps to seed a private BeSLab instance
+
+##### Pre-requisites
+
 - Install BLIman 
 ```
-curl -o bliman_setup.sh https://raw.githubusercontent.com/Be-Secure/BLIman/main/bliman_setup.sh | bash
+curl -o bliman_setup.sh https://raw.githubusercontent.com/Be-Secure/BLIman/main/bliman_setup.sh
 ```
 
 ```
