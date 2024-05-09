@@ -89,18 +89,18 @@ function __besman_install_beslighthouse()
 	sleep 10s
         is_active_restapi=`systemctl is-active "blrestapi.service"`
 	if [ ${is_active_restapi} == "active" ];then
-          __besman_echo_green " ###########  Service beslighthouse proxy started successfully. ###########"
+          __besman_echo_green " ###########  Service BeSLighthouse proxy started successfully. ###########"
         else
           __besman_echo_red"   Beslighthouse proxy service failed to start."
           __besman_echo_red "   Check the service using \"systemctl status blrestapi.service\""
-          __besman_echo_red "   Start besdlighthouse proxy manually by following the below steps:"
+          __besman_echo_red "   Start BeSLighthouse proxy manually by following the below steps:"
           __besman_echo_red "       cd /opt/beslighthouse-rest-api"
           __besman_echo_red "       flask run --host="0.0.0.0" --port=5000 &"
 	  #return 1
 
         fi
 
-	__besman_echo_green "beslighthouse proxy service is started ..."
+	__besman_echo_green "BeSLighthouse proxy service is started ..."
     else
        flask run --host="0.0.0.0" --port=5000 & 
     fi
@@ -136,7 +136,7 @@ function __besman_install_beslighthouse()
        sudo systemctl daemon-reload 2>&1 | __beslab_log
        sudo systemctl enable beslighthouse.service 2>&1 | __beslab_log
        sudo systemctl start beslighthouse.service 2>&1 | __beslab_log
-       __besman_echo_yellow "Starting beslighthouse service. Please wait ..."
+       __besman_echo_yellow "Starting BeSLighthouse service. Please wait ..."
 
        sleep 100s
        is_active_besl=`systemctl is-active "beslighthouse.service"`
@@ -148,16 +148,16 @@ function __besman_install_beslighthouse()
        else
           __besman_echo_red"   Beslighthouse service failed to start."
 	  __besman_echo_red "   Check the service using \"systemctl status beslighthouse.service\""
-          __besman_echo_red "   Start besdlighthouse manually by following the below steps:"
-	  __besman_echo_red "       cd /opt/beslighthouse"
+          __besman_echo_red "   Start BeSLighthouse manually by following the below steps:"
+	  __besman_echo_red "       cd /opt/BeSLighthouse"
 	  __besman_echo_red "       npm start &"
 	  #return 1
        fi
     else
-      __besman_echo_yellow "Strating beslighthouse without service. Please wait ..."	    
+      __besman_echo_yellow "Strating BeSLighthouse without service. Please wait ..."	    
       npm start &
       sleep 150s
-      __besman_echo_yellow "Started beslighthouse ..."
+      __besman_echo_yellow "Started BeSLighthouse ..."
     fi
 }
 
