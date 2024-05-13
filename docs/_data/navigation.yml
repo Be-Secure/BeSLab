@@ -36,30 +36,16 @@ docs:
         url: /docs/quick-start-guide/
   - title: Customization
     children:
-      - title: "Configuration"
+      - title: "Genesis file"
         url: /docs/configuration/
-      # - title: "Overriding Theme Defaults"
-      #   url: /docs/overriding-theme-defaults/
-      # - title: "Navigation"
-      #   url: /docs/navigation/
-      # - title: "UI Text"
-      #   url: /docs/ui-text/
-      # - title: "Authors"
-      #   url: /docs/authors/
-      # - title: "Layouts"
-      #   url: /docs/layouts/
-  - title: Content
+  - title: Architecture
     children:
-      - title: "Working with Posts"
+      - title: "Private Lab"
         url: /docs/posts/
-      - title: "Working with Pages"
+      - title: "Public Lab"
         url: /docs/pages/
-      - title: "Working with Collections"
+      - title: "Personal Lab"
         url: /docs/collections/
-      - title: "Helpers"
-        url: /docs/helpers/
-      - title: "Utility Classes"
-        url: /docs/utility-classes/
 
 # sidebar navigation list sample
 sidebar-sample:
