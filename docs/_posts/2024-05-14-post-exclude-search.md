@@ -1,9 +1,9 @@
 ---
-permalink: /about/
-title: "BeS (Be-Secure) Initiative Overview"
-excerpt: "Minimal Mistakes is a flexible two-column Jekyll theme."
-last_modified_at: 2022-05-27T11:59:26-04:00
-toc: true
+title:  "BeS (Be-Secure) Initiative Overview"
+search: false
+categories: 
+  - Jekyll
+last_modified_at: 2018-02-19T08:06:00-05:00
 ---
 
 The widespread adoption of open-source software (OSS) across industries has brought immense innovation but also unique security challenges. Traditional security solutions often struggle to keep pace with the ever-evolving OSS landscape.

@@ -20,9 +20,9 @@ feature_row:
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/mm-responsive-feature.png
-    alt: "Light weight"
-    title: "Light weight"
-    excerpt: "The lab is designed to operate efficiently even in low-resource settings."
+    alt: "Deployment of Lab"
+    title: "Deployment of Lab"
+    excerpt: "BeSLab enables flexible lab deployment via high-power virtual machines, cloud networks, or personal machines with minimal resources."
     url: "/docs/layouts/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
