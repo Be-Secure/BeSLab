@@ -28,7 +28,9 @@ jobs:
           bundle install
 
       - name: Build Jekyll Site
-        run: bundle exec jekyll build
+        run: |
+          pwd
+          bundle exec jekyll build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
