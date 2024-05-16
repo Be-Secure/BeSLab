@@ -1,7 +1,7 @@
 ---
 title: "Quick-Start Guide"
 permalink: /docs/quick-start-guide/
-excerpt: "How to quickly install and setup Minimal Mistakes for use with GitHub Pages."
+excerpt: "How to quickly install and setup for BeSLab."
 last_modified_at: 2024-05-05T08:48:05-04:00
 redirect_from:
   - /theme-setup/
@@ -9,7 +9,7 @@ toc: true
 ---
 
 
-**Note:** BeSLab only suported on Ubuntu based system.
+**Note:** BeSLab only suported on Ubuntu version 22.04 based system.
 {: .notice--warning}
 
 ## Pre-requisites for private BeSLab deployment

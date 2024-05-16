@@ -3,7 +3,7 @@ title:  "BeS (Be-Secure) Initiative Overview"
 search: false
 categories: 
   - Jekyll
-last_modified_at: 2018-02-19T08:06:00-05:00
+last_modified_at: 2024-05-16T08:06:00-05:00
 ---
 
 The widespread adoption of open-source software (OSS) across industries has brought immense innovation but also unique security challenges. Traditional security solutions often struggle to keep pace with the ever-evolving OSS landscape.

@@ -1,8 +1,8 @@
 ---
 permalink: /about/
 title: "BeS (Be-Secure) Initiative Overview"
-excerpt: "Minimal Mistakes is a flexible two-column Jekyll theme."
-last_modified_at: 2022-05-27T11:59:26-04:00
+excerpt: "About page for BeSLab."
+last_modified_at: 2024-05-16T11:59:26-04:00
 toc: true
 ---
 

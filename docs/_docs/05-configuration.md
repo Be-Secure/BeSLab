@@ -1,7 +1,7 @@
 ---
 title: "BeSLab Configuration File"
 permalink: /docs/configuration/
-excerpt: "Settings for configuring and customizing the theme."
+excerpt: "Configuring for BeSLab."
 last_modified_at: 2021-05-11T10:40:42-04:00
 toc: true
 ---
@@ -12,7 +12,7 @@ This configuration file, named `genesis.yaml`, is utilized by the BLIman (Be-Sec
 
 ## Usage
 
-The `genesis.yaml` file contains various configuration options that define the setup of the BeSLab instance. These options include specifying the lab type, lab name, version of BeSMan (Be-Secure Management), deployment mode, version of BeSLab, URLs and paths for retrieving necessary files, configuration for Java, dashboard tool settings, and more.
+The `genesis.yaml` file contains various configuration options that define the setup of the BeSLab instance. These options include specifying the lab type, lab name, version of BeSMan (Be-Secure Management), deployment mode, version of BeSLab, URLs and paths for retrieving necessary files, configuration for Java, dashboard tool settings, code collaboration tool, and more.
 
 ## File Contents
 
