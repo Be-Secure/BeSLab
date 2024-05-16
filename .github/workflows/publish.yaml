@@ -21,7 +21,8 @@ jobs:
       - name: Install Jekyll and Dependencies
         run: |
           cd docs
-          gem install bundler
+          gem install bundler -v 2.5.9
+          bundle update --bundler
           bundle install
 
       - name: Build Jekyll Site
