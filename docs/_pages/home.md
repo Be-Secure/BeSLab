@@ -23,14 +23,14 @@ feature_row:
     alt: "Deployment of Lab"
     title: "Deployment of Lab"
     excerpt: "BeSLab enables flexible lab deployment via high-power virtual machines, cloud networks, or personal machines with minimal resources."
-    url: "/docs/layouts/"
+    url: "/docs/deployment/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /images/time.png
     alt: "Reduced turn around time"
     title: "Reduced turn around time"
     excerpt: "Streamlining the process of evaluating open source projects and significantly reducing remediation time."
-    url: "/docs/license/"
+    url: "/docs/reduce-turn-around-time/"
     btn_class: "btn--primary"
     btn_label: "Learn more"      
 ---

@@ -1,8 +1,8 @@
 ---
 title: "Private Lab"
-permalink: /docs/posts/
-excerpt: "Suggestions and Front Matter defaults for working with posts."
-last_modified_at: 2018-03-20T15:59:57-04:00
+permalink: /docs/private-lab/
+excerpt: "Architechure of Private Lab."
+last_modified_at: 2024-05-16T15:59:57-04:00
 ---
 
 Lab hosted privately inside an organization’s private code collaboration platform

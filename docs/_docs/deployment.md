@@ -1,8 +1,8 @@
 ---
 title: "BeSLab Deployment Guide"
-permalink: /docs/layouts/
-excerpt: "Descriptions and samples of all layouts included with the theme and how to best use them."
-last_modified_at: 2020-08-30T21:27:40-04:00
+permalink: /docs/deployment/
+excerpt: "Deployment of BeSLab on Hot, Bare and Lite mode."
+last_modified_at: 2024-05-16T21:27:40-04:00
 toc: true
 toc_label: "Included Layouts"
 toc_icon: "columns"

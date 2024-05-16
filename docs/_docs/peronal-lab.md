@@ -1,8 +1,8 @@
 ---
 title: "Personal Lab"
-permalink: /docs/collections/
-excerpt: "Suggestions and Front Matter defaults for working with collections."
-last_modified_at: 2018-03-20T16:00:02-04:00
+permalink: /docs/peronal-lab/
+excerpt: "Architechure of Personal Lab."
+last_modified_at: 2024-05-16T16:00:02-04:00
 ---
 
 Lab hosted privately within an individual’s laptop or a virtual machine

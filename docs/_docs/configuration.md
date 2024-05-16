@@ -2,7 +2,7 @@
 title: "BeSLab Configuration File"
 permalink: /docs/configuration/
 excerpt: "Configuring for BeSLab."
-last_modified_at: 2021-05-11T10:40:42-04:00
+last_modified_at: 2024-05-16T10:40:42-04:00
 toc: true
 ---
 

@@ -25,7 +25,7 @@ main:
   - title: "blogs"
     url: /year-archive/
   - title: "community"
-    url: /about/
+    url: /community/
 
 
 # documentation links
@@ -41,11 +41,11 @@ docs:
   - title: Architecture
     children:
       - title: "Private Lab"
-        url: /docs/posts/
+        url: /docs/private-lab/
       - title: "Public Lab"
-        url: /docs/pages/
+        url: /docs/public-lab/
       - title: "Personal Lab"
-        url: /docs/collections/
+        url: /docs/peronal-lab/
 
 # sidebar navigation list sample
 sidebar-sample:

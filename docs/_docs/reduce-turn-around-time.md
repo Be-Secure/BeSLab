@@ -1,7 +1,7 @@
 ---
 title: "Reduce Turn Around Time"
-permalink: /docs/license/
-excerpt: "License for Minimal Mistakes Jekyll Theme."
+permalink: /docs/reduce-turn-around-time/
+excerpt: "Turn Around Time for BeSLab."
 last_modified_at: 2018-01-10T11:22:01-05:00
 ---
 

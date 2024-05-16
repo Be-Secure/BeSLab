@@ -1,7 +1,7 @@
 ---
-permalink: /about/
-title: "BeS (Be-Secure) Initiative Overview"
-excerpt: "About page for BeSLab."
+permalink: /community/
+title: "BeS (Be-Secure) community"
+excerpt: "community page for BeSLab."
 last_modified_at: 2024-05-16T11:59:26-04:00
 toc: true
 ---

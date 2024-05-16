@@ -1,8 +1,8 @@
 ---
 title: "Public Lab"
-permalink: /docs/pages/
-excerpt: "Suggestions and Front Matter defaults for working with pages."
-last_modified_at: 2016-11-03T11:13:12-04:00
+permalink: /docs/public-lab/
+excerpt: "Architechure of Public Lab."
+last_modified_at: 2024-05-16T11:13:12-04:00
 ---
 
 Lab hosted in a community namespace of a public code collaboration platform like GitHub
