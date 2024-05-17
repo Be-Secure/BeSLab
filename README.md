@@ -237,22 +237,111 @@ Lab hosted privately within an individual’s laptop or a virtual machine
   - TAVOSS software is also accompanied by documentation and support which can help to address the lack of knowledge and cultural resistance. 
 
 ## Getting Started
-#### Seed a new BeSLab instance
-- Lab admin affiliates the new lab into OASP registry (maintained at BeSecure Community Lab) and downloads the genesis file template.
-- Configure genesis file to meet the lab requirements
-- Install BLIman 
-```
-curl -L https://be-secure.github.io/BLIman/get.bliman.io | bash
-```
-- Initiliaze BLIman. This installs BeSman
-```
-bli init light
-```
-- Launch the lab. Downloads the environment scripts for lab from BeSLab repository and executes it.
-```
-bli launch
-```
-- Verify the lab installation
-```
-bli status
-```
+
+### Considerations
+- [BLIman](https://github.com/Be-Secure/BLIman) is a command line utility to deploy and manage a BeSLab instance.
+- Decide on the BeSLab mode and the deployment type for each lab mode.
+- Lab modes
+  * Lite Mode
+  * Host Mode (Work in progress)
+  * Bare Mode (Work in progress)
+- Deployment types for each lab mode.
+  * Private Lab - Owned by an organization for commercial usage.
+  * Public Lab (Work in progress) - Community lab hosted in any public code collaboration repository.
+  * Personal Lab (Work in progress) - Owned by an individual for learning and research purpose.
+- Have a good understanding of the genesis.yaml file. The lab configuration is completely driven through the genesis file.
+- You could use the available Jupyter [notebooks](https://github.com/Be-Secure/BeSLab/tree/master/notebooks) for lab deployments, or follow the manual process described below.  
+
+### Seed a Private Lab
+Choose any one installation method described below.
+
+#### Pre-requisites for a private BeSLab deployment
+- Ubuntu VM - Minimum 4vCPU, 8GB RAM, 16GB Disk Space
+- curl
+- unzip
+- bash
+- AWS Specific Configurations
+  <br>AWS VM installed with Ubuntu 22.04 does contains some aws specific packages which are installed with older versions so system pop warning messages for those packages and kernel being old version. These pop ups does hamper the non-interactive installation of BeSLab. So to suppress these warning during installation follow the below steps.
+  ```
+  Open file “/etc/needrestart/needrestart.conf”
+  Change following parameters and save the changes.
+
+  Uncomment and set $nrconf{restart} = 'a'
+  Uncomment $nrconf{kernelhints} = -1;
+
+  Save and exit the file.
+  ```
+
+#### Method 1. Using Jupyter notebook 
+
+1. Login to the dedicated machine for this BeSLab instance and switch to sudo user.
+2. Install python and pip on the server.
+    ```
+    sudo apt-get update; apt-get upgrade -y
+    sudo apt-get -y install python3-pip
+    ``` 
+3. Install Jupyter Notebook.
+    ```
+    sudo python3 -m pip install jupyter
+    ```
+4. Generate the Jupyter notebook config file.
+    ```
+    jupyter notebook --generate-config
+    ```
+5. Edit the Jupyter config file.
+    ```
+    vi $HOME/.jupyter/jupyter_notebook_config.py
+    ```
+   Change following and save
+   <br>
+   ```
+   c.ServerApp.ip = '0.0.0.0'
+   Uncomment c.ServerApp.open_browser = False
+   ```
+6. Save and close
+7. Run the Jupyter notebook.
+    ```
+    jupyter notebook --allow-root
+    ```
+    Note down the token and port number from the screen.
+8. Open Jupyter notebook UI on your browser using the IP/Domain and port you captured in the previous step.
+9. Provide the token copied from step 7 in the Jupyter UI.
+10. Downalod the notebook from this [location](https://github.com/Be-Secure/BeSLab/tree/master/notebooks).
+11. Click on upload button on right top corner of Jupyter Notebook UI and point to notebook downloaded in the previous step.
+12. Read through the notebook and follow the instructions.
+
+#### Method 2. Manual Installation
+Execute below steps on the machine where BeSLab needs to be installed.
+
+1. Login to the dedicated machine for this BeSLab instance and switch to sudo user.
+2. Install BLIman following instructions [here](https://github.com/Be-Secure/BLIman/blob/main/README.md#installing-bliman)
+3. Verify the BLIman is installed.
+    ```
+    bli help
+    ```
+4. Edit the genesis.yaml installed in the current working directory.
+5. Load the genesis file
+    ```
+    bli load
+    ```
+6. Initiliaze BLIman. This installs the BeSman utility under the hood. 
+    ```
+    bli initmode <mode name>
+    ```
+    \<mode name\> can be any one of \(host, bare and lite\). Only lite mode is avalilable as of now.
+    Example: `bli initmode lite`
+7. Initiaze BeSman
+    ```
+    source $HOME/.besman/bin/besman-init.sh
+    ```
+8. Verify besman installation
+    ```
+    bes help
+    ```
+9. Launch the lab
+    ```
+    bli launchlab
+    ```
+10. Verify the lab installation 
+    * Open GitLab. Go to browser and enter `http://gitlab-server-IP`. (Give the actual IP or domain name). Login with the default credentials (Lab name configured in genesis.yaml / Welc0me@123). Change the default password upon login.
+    * Open BeSLighthouse. Go to browser and enter `http://BeSLighthouse-IP:3000`. (Give the actual IP or domain name). BeSLighthouse UI should open up. Click the "Projects Of Interest" tab and verify that it shows an empty list.

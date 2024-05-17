@@ -1,0 +1,59 @@
+name: GitHub Pages
+
+on:
+  push:
+    paths:
+      - 'docs/*'
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Install Jekyll and Dependencies
+        run: |
+          cd docs
+          ruby --version
+          bundle --version
+          # gem install bundler -v 2.5.9
+          # bundle update --bundler
+          bundle install
+
+      - name: Build Jekyll Site
+        run: |
+          cd docs
+          bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # deploy_key: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+
+  # release:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+  #       with:
+  #         tag_name: ${{ github.ref }}
+  #         release_name: Release ${{ github.ref }}
+  #         draft: false
+  #         prerelease: false
