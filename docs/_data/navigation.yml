@@ -22,9 +22,9 @@ foo:
 main:
   - title: "Learn"
     url: /docs/quick-start-guide/
-  - title: "blogs"
+  - title: "Blog"
     url: /year-archive/
-  - title: "community"
+  - title: "Community"
     url: /community/
 
 
