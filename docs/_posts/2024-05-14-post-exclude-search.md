@@ -1,10 +1,13 @@
 ---
-title:  "BeS (Be-Secure) Initiative Overview"
+title:  "BeS(Be-Secure) Community Initiative"
 search: false
 categories: 
-  - Jekyll
+  - BeSLab
 last_modified_at: 2024-05-16T08:06:00-05:00
 ---
+
+
+[BeS(Be-Secure) Community Initiative](https://opensourcesecurity.substack.com/p/be-secure-bes-community-initiative)
 
 The widespread adoption of open-source software (OSS) across industries has brought immense innovation but also unique security challenges. Traditional security solutions often struggle to keep pace with the ever-evolving OSS landscape.
 
@@ -55,3 +58,5 @@ The BeS initiative empowers organizations, individuals, and OASPs to take charge
 - Collaboration for Faster Remediation
 
 The BeS initiative is a testament to the power of open-source collaboration. By offering flexible tools and fostering a global knowledge-sharing community, BeS empowers security specialists to navigate the ever-evolving world of open-source security, regardless of their industry or domain.
+
+[Cross posted from opensource security blogs.](https://opensourcesecurity.substack.com/p/be-secure-bes-community-initiative)

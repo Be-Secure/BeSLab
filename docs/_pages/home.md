@@ -10,7 +10,7 @@ header:
       url: "/docs/quick-start-guide/"
 excerpt: >
   An open source security lab blueprint dedicated to fortifying open source projects, models, training dataset against potential vulnerabilities.<br />
-  <small><a href="https://github.com/Be-Secure/BeSLab/releases/tag/v0.2.0">Latest release v0.2.0</a></small>
+  <small><a href="https://github.com/Be-Secure/BeSLab/releases/tag/v0.2.1">Latest release v0.2.1</a></small>
 feature_row:
   - image_path: /images/settings.png
     alt: "customizable"

@@ -10,7 +10,7 @@ BESMAN_LAB_TYPE: Organization
 BESMAN_LAB_NAME: DemoLab
 
 ## Version of BeSMan in Github to be installed.
-BESMAN_VER: 0.3.3
+BESMAN_VER: 0.4.0
 
 ## Type of lab to be installed. 
 ## Possible inputs: personal, public, private.
@@ -32,7 +32,7 @@ BESLAB_LAB_MODE: lite
 ##  dev: To install the development version of BeSLab.
 ##  x.x.x: valid version number to be installed in the format x.x.x e.g 0.1.0.
 ##  [ Note: default is dev released version ]
-BESLAB_VERSION: dev
+BESLAB_VERSION: latest
 
 ## URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
@@ -124,7 +124,7 @@ BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
 BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: gitlab-ce
 
 ## Version of the code collab tool to be installed on the lab.
-BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 16.10.3-ce.0
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 17.1.0-ce.0
 
 ## List of public IPs of the servers to be used for CICD executions.
 ## [ Note: if commented or no value provided code collab tool's local system will be used for CICD. ]
@@ -225,7 +225,7 @@ BESLAB_JAVA_HOME: /opt/tools/
 
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: BeSLighthouse
-BESLAB_DASHBOARD_RELEASE_VERSION: 0.17.6
+BESLAB_DASHBOARD_RELEASE_VERSION: 0.18.0
 BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
 BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
 BESLAB_DASHBOARD_RELEASE_URL: https://github.com/Be-Secure/BeSlighthouse/archive/refs/tags/0.16.2.tar.gz
