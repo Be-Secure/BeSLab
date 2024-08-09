@@ -10,7 +10,7 @@ BESMAN_LAB_TYPE: Organization
 BESMAN_LAB_NAME: DemoLab
 
 ## Version of BeSMan in Github to be installed.
-BESMAN_VER: 0.3.3
+BESMAN_VER: 0.5.0
 
 ## Type of lab to be installed. 
 ## Possible inputs: personal, public, private.
@@ -33,6 +33,10 @@ BESLAB_LAB_MODE: lite
 ##  x.x.x: valid version number to be installed in the format x.x.x e.g 0.1.0.
 ##  [ Note: default is dev released version ]
 BESLAB_VERSION: dev
+
+## Domain name to be used for the beslab.
+## Example inputs: xyz.abc.com
+BESLAB_DOMAIN_NAME: abc.xyz.com 
 
 ## URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
@@ -124,7 +128,10 @@ BLIMAN_LAB_URL: https://raw.githubusercontent.com/Be-Secure/BeSLab/main
 BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL: gitlab-ce
 
 ## Version of the code collab tool to be installed on the lab.
-BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 16.10.3-ce.0
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_VERSION: 17.2.1-ce.0
+
+## Port on which the code collab tool to be installed on the beslab.
+BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT: 8081
 
 ## List of public IPs of the servers to be used for CICD executions.
 ## [ Note: if commented or no value provided code collab tool's local system will be used for CICD. ]
@@ -225,17 +232,10 @@ BESLAB_JAVA_HOME: /opt/tools/
 
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: BeSLighthouse
-BESLAB_DASHBOARD_RELEASE_VERSION: 0.17.6
+BESLAB_DASHBOARD_PORT: 80
+BESLAB_DASHBOARD_RELEASE_VERSION: 0.19.0
 BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
 BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
-BESLAB_DASHBOARD_RELEASE_URL: https://github.com/Be-Secure/BeSlighthouse/archive/refs/tags/0.16.2.tar.gz
-BESLAB_DASHBOARD_DATASTORES_URL: https://github.com/Be-Secure/
-BESLAB_DASHBOARD_POI_NAME: osspoi-datastore
-BESLAB_DASHBOARD_MOI_NAME: ossmoi-datastore
-BESLAB_DASHBOARD_TDOI_NAME: osstdoi-datastore
-BESLAB_DASHBOARD_DOI_NAME: ossdoi-datastore
-BESLAB_DASHBOARD_ADS_NAME: ossads-datastore
-BESLAB_DASHBOARD_OSAR_NAME: ossosar-datastore
 BESLAB_DASHBOARD_ATEESTATION_STORE_NAME: ossattestation-datastore
 
 ## Default scope for package manager.

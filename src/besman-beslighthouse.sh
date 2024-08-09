@@ -40,6 +40,12 @@ function __besman_install_beslighthouse()
    [[ ! -d $beslight_path ]] && mkdir -p $beslight_path
    cd $beslight_path 
    curl --silent -LJO https://github.com/Be-Secure/BeSLighthouse/archive/refs/tags/${beslight_ver}.tar.gz 2>&1>>$BESLAB_LOG_FILE
+
+   if [ ! -f BeSLighthouse-${beslight_ver}.tar.gz ];then
+      __besman_echo_red "Error in downloading the BeSLighthouse version ${beslight_ver}."
+      return 1
+   fi
+
    tar -xvzf BeSLighthouse-${beslight_ver}.tar.gz 2>&1>>$BESLAB_LOG_FILE
    cd ./BeSLighthouse-${beslight_ver}
    mv ./* ../
@@ -56,18 +62,21 @@ function __besman_install_beslighthouse()
       GITUSERTOKEN=`cat $gitlab_user_data_file_path | grep "GITLAB_USERTOKEN:" | awk '{print $2}'`
    fi
 
-    __besman_echo_yellow "Configuring BeSLighthouse datastore paths"
+    __besman_echo_yellow "Configuring Code Collab tool access for BeSLighthouse ..."
     beslighthouse_config_path=$beslight_path/src/apiDetailsConfig.json
-    sed -i '/"activeTool"/c\"activeTool": "gitlab"' $beslighthouse_config_path  2>&1 | __beslab_log
+    sed -i '/"activeTool"/c\"activeTool": "gitlab",' $beslighthouse_config_path  2>&1 | __beslab_log
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path 2>&1 | __beslab_log
     sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"" $beslighthouse_config_path  2>&1 | __beslab_log
     myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
     sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000\"," $beslighthouse_config_path  2>&1 | __beslab_log
-    sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ]; then
+      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    else
+      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip:8081\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    fi
 
-    __besman_echo_yellow "Installing pip if not installed already"
     which pip 2>&1>>$BESLAB_LOG_FILE
-    [[ xx"$?" != xx"0" ]] && sudo apt-get -y install python3-pip 2>&1 | __beslab_log
+    [[ xx"$?" != xx"0" ]] && __besman_echo_yellow "Installing pip ..." && sudo apt-get -y install python3-pip 2>&1 | __beslab_log
 
     __besman_echo_yellow "Installing proxy for BeSLighthouse ..."
     mkdir -p $BESLAB_DASHBOARD_API_INSTALL_PATH| __beslab_log
@@ -100,7 +109,6 @@ function __besman_install_beslighthouse()
 
         fi
 
-	__besman_echo_green "BeSLighthouse proxy service is started ..."
     else
        flask run --host="0.0.0.0" --port=5000 & 
     fi
@@ -128,6 +136,23 @@ function __besman_install_beslighthouse()
     npm install 2>&1>>$BESLAB_LOG_FILE
     #export NODE_OPTIONS=--openssl-legacy-provider
 
+    __besman_echo_yellow "Setting BeSLighthouse port ..."
+    if [ ! -z $BESLAB_DASHBOARD_PORT ];then
+      if [ -f package.json ];then	    
+        sed -i "/\"start\": \"react-scripts start\"/c \    \"start\": \"PORT=$BESLAB_DASHBOARD_PORT react-scripts start\"," package.json
+      else
+	__besman_echo_red "File package.json not found in current directory. Can not change the BeSLighthouse port."
+	__besman_echo_red "Change the port manually in package.json and restart BeSLighthouse service."
+      fi
+    else
+      if [ -f package.json ];then
+        sed -i "/\"start\": \"react-scripts start\"/c \    \"start\": \"PORT=80 react-scripts start\"," package.json
+      else
+        __besman_echo_red "File package.json not found in current directory. Can not change the BeSLighthouse port."
+        __besman_echo_red "Change the port manually in package.json and restart BeSLighthouse service."
+      fi
+    fi
+
     if [ -f ./beslighthouse.sh ];then
        __besman_echo_yellow "Enabling BeSLighthouse service ..." 	    
        cp beslighthouse.service /lib/systemd/system/beslighthouse.service | __beslab_log
@@ -138,7 +163,7 @@ function __besman_install_beslighthouse()
        sudo systemctl start beslighthouse.service 2>&1 | __beslab_log
        __besman_echo_yellow "Starting BeSLighthouse service. Please wait ..."
 
-       sleep 100s
+       sleep 150s
        is_active_besl=`systemctl is-active "beslighthouse.service"`
 
        if [ $is_active_besl == "active" ];then
@@ -154,10 +179,13 @@ function __besman_install_beslighthouse()
 	  #return 1
        fi
     else
-      __besman_echo_yellow "Strating BeSLighthouse without service. Please wait ..."	    
+      __besman_echo_yellow "Strating BeSLighthouse without service. Please wait for BeSLighthouse to UP ..."	    
       npm start &
       sleep 150s
-      __besman_echo_yellow "Started BeSLighthouse ..."
+      __besman_echo_green " ###############################################################################"
+      __besman_echo_green " ######### BeSLighthouse version $beslight_ver started successfully ############"
+      __besman_echo_green " ###############################################################################"
+
     fi
 }
 
