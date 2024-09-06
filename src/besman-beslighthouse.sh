@@ -66,13 +66,25 @@ function __besman_install_beslighthouse()
     beslighthouse_config_path=$beslight_path/src/apiDetailsConfig.json
     sed -i '/"activeTool"/c\"activeTool": "gitlab",' $beslighthouse_config_path  2>&1 | __beslab_log
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path 2>&1 | __beslab_log
-    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"" $beslighthouse_config_path  2>&1 | __beslab_log
-    myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
-    sed -i "/\"apiUrl\"/c\"apiUrl\": \"http://$myip:5000\"," $beslighthouse_config_path  2>&1 | __beslab_log
-    if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ]; then
-      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    if [ ! -z $BESLAB_DOMAIN_NAME ];then
+        labMainURL="http://$BESLAB_DOMAIN_NAME"
     else
-      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"http://$myip:8081\"," $beslighthouse_config_path  2>&1 | __beslab_log
+	myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"    
+        labMainURL="http://$myip"
+    fi
+
+    sed -i "/\"apiUrl\"/c\"apiUrl\": \"$labMainURL:5000\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ]; then
+      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"$labMainURL:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    else
+      sed -i "/\"gitLabUrl\"/c\"gitLabUrl\": \"$labMainURL:8081\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    fi
+
+    if [ ! -z $BESMAN_LAB_NAME ]; then
+      sed -i "/\"labName\"/c\"labName\": \"$BESMAN_LAB_NAME\"" $beslighthouse_config_path  2>&1 | __beslab_log
+    else
+      sed -i "/\"labName\"/c\"labName\": \"Be-Secure\"" $beslighthouse_config_path  2>&1 | __beslab_log
     fi
 
     which pip 2>&1>>$BESLAB_LOG_FILE

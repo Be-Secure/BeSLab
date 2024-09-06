@@ -2,6 +2,25 @@
 labToken="LabSeeding$RANDOM"
 besuserToken="BeSUserToken$RANDOM"
 
+if [ ! -z $BESLAB_DOMAIN_NAME ];then
+   if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
+      gitlabURL="http://$BESLAB_DOMAIN_NAME:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
+      gitlabLocalHost="http://localhost:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
+   else
+      gitlabURL="http://$BESLAB_DOMAIN_NAME:8081"
+      gitlabLocalHost="http://localhost:8081"
+   fi
+else
+   if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
+      gitlabURL="http://demolab.com:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
+      gitlabLocalHost="http://localhost:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
+   else
+      gitlabURL="http://demolab.com:8081"
+      gitlabLocalHost="http://localhost:8081"
+   fi
+fi
+
+
 function add_users_from_file () 
 {
    pass='Welc0me@123'
@@ -10,7 +29,7 @@ function add_users_from_file ()
 
       if [[ ! -z $labname && "$labname" =~ ^gitlab && ! -z $email && ! -z $username && ! -z $firstname ]];then
 
-          sudo gitlab-rails runner "u = User.new(username: '$userName', email: '$email', name: '$firstname $lastname ', password: '$pass', password_confirmation: '$pass', admin: '$isadmin'); u.assign_personal_namespace; u.skip_confirmation! ; u.save! " 2>&1
+          sudo gitlab-rails runner "u = User.new(username: '$userName', email: '$email', name: '$firstname $lastname ', password: '$pass', password_confirmation: '$pass', admin: '$isadmin'); u.assign_personal_namespace(Organizations::Organization.default_organization); u.skip_confirmation! ; u.save! " 2>&1
           if [ xx"$?" == xx"0" ];then
              __bliman_echo_green "User $firstname created with $username"
           else
@@ -33,7 +52,7 @@ function add_projects_from_file ()
    while IFS=: read -r labname reponame repodesc visibility
    do
      if [[ ! -z $labname && $labname =~ ^gitlab && ! -z $reponame && ! -z $visibility ]];then
-             CODE=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $1" --header 'Content-Type: application/json' --data  "{\"name\": \"$reponame\", \"description\": \"$repodesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"$visibility\" }" --url 'http://localhost/api/v4/projects/' 2>&1)
+             CODE=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $1" --header 'Content-Type: application/json' --data  "{\"name\": \"$reponame\", \"description\": \"$repodesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"$visibility\" }" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
 
         if [[ "$CODE" =~ ^2 ]];then
             __bliman_echo_green "Project $reponame is created from file $2."
@@ -83,14 +102,14 @@ function __besman_create_gitlab_file()
     filepath=$7
 
     # Make a request to list projects and store the response in a variable
-    response=$(curl --silent --header "PRIVATE-TOKEN: $userToken" "http://localhost/api/v4/projects?search=$repoName")
+    response=$(curl --silent --header "PRIVATE-TOKEN: $userToken" "$gitlabLocalHost/api/v4/projects?search=$repoName")
 
     # Parse the response to extract project ID
     project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*' | head -1)
 
     __besman_echo_yellow "Creating file $filepath under project $project_id ..."
     
-    curl --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url 'http://localhost/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
+    curl --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url $gitlabLocalHost'/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
 
 }
 
@@ -103,7 +122,7 @@ function __besman_create_gitlab_repo()
 
     __besman_echo_yellow "Creating gitlab repo $repoName ..."
 
-    curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url 'http://localhost/api/v4/projects/' 2>&1 | __beslab_log
+    curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url $gitlabLocalHost'/api/v4/projects/' 2>&1 | __beslab_log
 }
 function __besman_revoke_gitlabuser_token()
 {
@@ -165,19 +184,7 @@ function __besman_install_gitlab()
       [[ ! -f /etc/gitlab/gitlab.rb ]] && __besman_echo_red "Gitlab-CE not installed properly" && return 1
 
       __besman_echo_white "Updating gitlab domain and port ..."
-      if [ ! -z $BESLAB_DOMAIN_NAME ];then
-	if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then      
-          sed -i "/^external_url/c external_url 'http://$BESLAB_DOMAIN_NAME:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
-	else
-          sed -i "/^external_url/c external_url 'http://$BESLAB_DOMAIN_NAME:80'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
-	fi
-      else
-        if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
-          sed -i "/^external_url/c external_url 'http://demolab.com:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
-        else
-          sed -i "/^external_url/c external_url 'http://demolab.com:80'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
-        fi
-      fi
+      sed -i "/^external_url/c external_url '$gitlabURL'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
       sudo gitlab-ctl reconfigure 2>&1| __beslab_log
       __besman_echo_green "Gitlab initial configurations are done."
         
