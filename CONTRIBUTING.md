@@ -4,17 +4,17 @@ Welcome to BeSlab a Be-Secure community initiative for setting up lab used by se
 
 You are here which means you intented to contributing to this project. So, thanks for considering contributing to this project. Hope this guide will help you to start your good first contribution to the project. 
 
-Since being an open source community we are grouped together from different skill sets and background and have our own ways of software writing, testing documentation etc. which can make it dofficult for the fellow contributors to contribute in the project. This guide is effort to define a common practice expected to be followed by the mainainers, contributors so that it saves time and efforts for all fellow contributors and mantainers.
+Since being an open source community we are grouped together from different skill sets and backgrounds and have our own ways of software writing, testing documentation etc. which can make it difficult for the fellow contributors to contribute in the project. This guide is effort to define a common practices expected to be followed by the mainainers, contributors so that it saves time and efforts for all fellow contributors and mantainers.
 
 # Table of content
 
-[ TOC ]
+[[__TOC__]]
 
 # Understand BeSLab (B-S-Lab) - Why, Where and How to use
 
-Primary focus of BeSLab is to contain the scripts or code to launch a Lab in various modes (host, bare and lite) and capacities\( private, public and individual\). For a secutory analyst \( A person performing the security assesment on a open source project/ model/ dataset / data \) the challenge is to bring up various tools and environments required to analyse a project and maintaining it. BeSLab is to help security analyst to launch thes tools and enviromnets programitaclly and quickly. BeSLab helps to reduce the go time for a security analyst considerably and helps in ensuring the right tools and configurations to be used for the assement of open source projects.
+Primary focus of BeSLab is to contain the scripts or code to launch a Lab in various modes (host, bare and lite) and capacities\( private, public and individual\). For a secutory analyst \( A person performing the security assesment on a open source project/ model/ dataset / data \) the challenge is to bring up various tools and environments required to analyse a project and maintaining it. BeSLab is to help security analyst to launch these tools and environmets programitaclly and quickly. BeSLab helps to reduce the go time for a security analyst considerably and helps in ensuring the right tools and configurations to be used for the assessment of open source projects, models and datasets.
 
-To aggregate the various activities required for lab installation and configurations, a command line toos is developed called as [BLIman] (https://github.com/Be-Secure/BLIman). In order to try the BeSLab scripts one need to use BLIman installed on the system. Please follow the instructions for BLIman [here] (https://github.com/Be-Secure/BLIman/blob/master/README.md).
+To aggregate the various activities required for lab installation and configurations, a command line toos is developed called as [BLIman] (https://github.com/Be-Secure/BLIman). It is need to get BLIman installed on the security analyst system or in the system where BeSLab is going to be installed. Please follow the instructions for BLIman [here] (https://github.com/Be-Secure/BLIman/blob/master/README.md).
 
 To understand the various modes of BeSLab refer to [README.md] (https://github.com/Be-Secure/BeSLab/blob/master/README.md) of this project. 
 
@@ -25,7 +25,7 @@ Public lab deployments are also owned by a group or organisation but they do lev
 Personal lab is a very minimal light weight deployment of lab where an indivisual would be deoploying lab tools on the personal system or laptop and would be performing the securoty analysis as well as lab administration by itself. The code collaboration tool and most of the assement tools would be used from service providers as a web application rather than deploying on the system itself. However, tools such as Dashboard such as [BeSLighthouse] (https://github.com/Be-Secure/BeSLighthouse), [BeSMan] (https://github.com/Be-Secure/BeSMan), [BeSLab] (https://github.com/Be-Secure/BeSLab), [BLIman](https://github.com/Be-Secure/BLIman) are deployed to the local system to help asses the project, generate reports, display reports and attest reports. These tools are helpful in all three deployments private, public and personal.
 
 
-## Try lab installation
+## BeSLab installation steps
 1. Download the bliman_setup.sh
 
 ```shell
@@ -41,15 +41,16 @@ chmod +x bliman_setup.sh
 3. Execute and install BLIman
 
 ```shell
-./bliman_setup.sh install --version dev
+source bliman_setup.sh install --version dev --genPath <path to genesis file, if no path given default genesis file at https://github.com/Be-Secure/BeSLab/blob/master/genesis.yaml is used>
 ```
 
-Dev is used for development branch. For particular version to chechout use the released version on [BLIMan Releases](https://github.com/Be-Secure/BLIman/releases)
+Dev is used for development branch. For particular version to checkout use the released version on [BLIMan Releases](https://github.com/Be-Secure/BLIman/releases)
 This will install the BLIman in HOME/.bliman folder.
+
 
 4. A file named genesis.yaml is created automatically in the current working directory. This file contains the configurations for the lab to be installed. Please go through the file and change if anything needs to change for example changing the Lab Owner name, Lab Type etc. If not changed by default private lab with lite mode and default tools will be installed.
 
-5. Make the bliman command visible. To bring the bliman command available eigther do close the terminal and open a new terminal or use following command.
+5. Make the bliman command visible. To bring the bliman command available eighter do close the terminal and open a new terminal or use following command.
 
 ```shell
 source $HOME/.bliman/bin/bliman-init.sh
@@ -58,7 +59,7 @@ source $HOME/.bliman/bin/bliman-init.sh
 5. Load the genesis.yaml file to memory using.
 
 ```shell
-bli load
+bli load --genesis_path <path to genesis file>
 ```
 
 6. Initialize the lab mode. A lab mode needs to be set before lab installation. This make the required scripts available on local system based on mode provied in command.
@@ -78,7 +79,7 @@ source $HOME/.besman/bin/besman-init.sh
 8. Once the besman is available, execute following command to install the lab.
 
 ```shell
-bli launchlab
+bli launchlab 
 ```
 
 This will take several minutes deoending upon the code collaboration tool, dashoard tool and other tools configured so wait for the execution of scripts completely.
@@ -86,7 +87,31 @@ This will take several minutes deoending upon the code collaboration tool, dasho
 9. Access the various lab components such as code collaoration tool, dashoard tool etc on browser as instructed on screen
 
 
-# How to develop
+# How to contribute
+In BeSLab, we are seeking contributions for adding support for more and more security tools which can be helpful for a security analyst to assess a Open-Source Software or an AI model or AI datasets.
+
+Although there can be many tools available for adding to BeSLab, we have kept qualifying criterion as below for a tool to be qualified for inclusion in BeSLab.
+
+- Tool should be providing help in assessing OSS or AI model or AI datasets.
+- Tool should be able to be accessed online.
+- It should be able to generate a assessment report on execution.
+- The tool must be an Open-Source Software.
+- The tool itself should have been brought under test and should reports should have uploaded to Be-Secure/besecure-assessment-datastore.
+
+## Adding Updating genesis for tool
+1. Analyse and identify if the new tool is specific to AI, OSS or can be used across any use case for example BeSLighthouse is a tool which is useful for all be it OSS, AI models or AI datasets.
+
+2. Identify and get all the configuration parameters needed for the installatio, uninstallation and update of the new tool.
+
+3. If the tool is applicable to all the use cases \(OASP, OSPO or AIC\) [details-here](https://github.com/Be-Secure/BLIman/blob/main/README.md) then it is qualified to be added in the default [genesis](https://github.com/Be-Secure/BeSLab/blob/master/genesis.yaml) file itself. 
+Refer [Adding-new-module](https://github.com/Be-Secure/BeSLab/blob/main/ADDING-TO-GENESIS.md) to follow stepshow to add a new tool in default genesis file.
+
+Else if can not be used by any type of lab and only needed for specific use case then add the tool need to be added in a custom genesis files defined at [click-here](https://github.com/Be-Secure/BLIman/tree/main/genesis). 
+Follow the link [custom-genesis](https://github.com/Be-Secure/BLIman/blob/main/genesis/ADD-UPDATE-GENESIS.md) to add or update the tool details in custom genesis file.
+
+4. Once the tool configurations are added to the required genesis file, follow below steps.
+
+## Adding new tool module
 
 1. Create a fork of [BeSlab](https://github.com/Be-Secure/BeSLab) to you namespace.
 
@@ -96,9 +121,17 @@ This will take several minutes deoending upon the code collaboration tool, dasho
 git clone https://github.com/<younamespace>/BeSLab.git
 ```
 
-3. Develop, update and test the code locally.
+3. change directory to BeSLab. 
 
-4. Push the tested and passed code changes to your forked branch.
+4. Copy the template file from docs/beslab_new_module.sh to src/besman-\<toolname>\.sh
+
+5. Update the function names in template file by replacing the \"toolname\" with the name of tool.
+
+6. Update the functions as per the tool. \(Follow the instructrions mentioned in template comments.\) 
+
+7. Call the new function in BLIman main beslab installation [file](https://github.com/Be-Secure/BeSLab/blob/master/src/besman-beslab-env.sh). Put a check to install the tool only if installation is enabled in genesis file used.\(The cumpulsory configuraation TOOLNAME_INSTALL in genesis file.\). If enabled, call the install function of newly written module for the new tool.
+
+7. Push the tested and passed code changes to your forked branch.
 
 5. Raise a PR from your forked repository to BeSLab repository in Be-Seucure namespace. 
 
