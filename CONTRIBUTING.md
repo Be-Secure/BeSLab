@@ -8,21 +8,21 @@ Since being an open source community we are grouped together from different skil
 
 # Table of content
 
-[[__TOC__]]
+[__TOC__]
 
 # Understand BeSLab (B-S-Lab) - Why, Where and How to use
 
 Primary focus of BeSLab is to contain the scripts or code to launch a Lab in various modes (host, bare and lite) and capacities\( private, public and individual\). For a secutory analyst \( A person performing the security assesment on a open source project/ model/ dataset / data \) the challenge is to bring up various tools and environments required to analyse a project and maintaining it. BeSLab is to help security analyst to launch these tools and environmets programitaclly and quickly. BeSLab helps to reduce the go time for a security analyst considerably and helps in ensuring the right tools and configurations to be used for the assessment of open source projects, models and datasets.
 
-To aggregate the various activities required for lab installation and configurations, a command line toos is developed called as [BLIman] (https://github.com/Be-Secure/BLIman). It is need to get BLIman installed on the security analyst system or in the system where BeSLab is going to be installed. Please follow the instructions for BLIman [here] (https://github.com/Be-Secure/BLIman/blob/master/README.md).
+To aggregate the various activities required for lab installation and configurations, a command line toos is developed called as [BLIman](https://github.com/Be-Secure/BLIman). It is need to get BLIman installed on the security analyst system or in the system where BeSLab is going to be installed. Please follow the instructions for BLIman [here](https://github.com/Be-Secure/BLIman/blob/master/README.md).
 
-To understand the various modes of BeSLab refer to [README.md] (https://github.com/Be-Secure/BeSLab/blob/master/README.md) of this project. 
+To understand the various modes of BeSLab refer to [README.md](https://github.com/Be-Secure/BeSLab/blob/master/README.md) of this project. 
 
 Private lab signifies a lab which is owned by a group or organisation and is shared by multiple security analysts. This type of lab do have their own infrastructure and tools deployed on cloud or on premises systems. It contains its own code collboration platform and security assement tools deployed in that infrastructure. It provides full control to the group and owners for tools, reports and assement data.
 
 Public lab deployments are also owned by a group or organisation but they do leverage the publically available code collaboration tools such as Github or Gitlab. Would be using public code collab platforms control mechanisms for the tools, assement reports data and lab memebers as a namespace on the public cc platform. However, the lab would be providing own tools or coloud deployed tools subscription to the affiliated members of lab.
 
-Personal lab is a very minimal light weight deployment of lab where an indivisual would be deoploying lab tools on the personal system or laptop and would be performing the securoty analysis as well as lab administration by itself. The code collaboration tool and most of the assement tools would be used from service providers as a web application rather than deploying on the system itself. However, tools such as Dashboard such as [BeSLighthouse] (https://github.com/Be-Secure/BeSLighthouse), [BeSMan] (https://github.com/Be-Secure/BeSMan), [BeSLab] (https://github.com/Be-Secure/BeSLab), [BLIman](https://github.com/Be-Secure/BLIman) are deployed to the local system to help asses the project, generate reports, display reports and attest reports. These tools are helpful in all three deployments private, public and personal.
+Personal lab is a very minimal light weight deployment of lab where an indivisual would be deoploying lab tools on the personal system or laptop and would be performing the securoty analysis as well as lab administration by itself. The code collaboration tool and most of the assement tools would be used from service providers as a web application rather than deploying on the system itself. However, tools such as Dashboard such as [BeSLighthouse](https://github.com/Be-Secure/BeSLighthouse), [BeSMan](https://github.com/Be-Secure/BeSMan), [BeSLab](https://github.com/Be-Secure/BeSLab), [BLIman](https://github.com/Be-Secure/BLIman) are deployed to the local system to help asses the project, generate reports, display reports and attest reports. These tools are helpful in all three deployments private, public and personal.
 
 
 ## BeSLab installation steps
@@ -104,7 +104,7 @@ Although there can be many tools available for adding to BeSLab, we have kept qu
 2. Identify and get all the configuration parameters needed for the installatio, uninstallation and update of the new tool.
 
 3. If the tool is applicable to all the use cases \(OASP, OSPO or AIC\) [details-here](https://github.com/Be-Secure/BLIman/blob/main/README.md) then it is qualified to be added in the default [genesis](https://github.com/Be-Secure/BeSLab/blob/master/genesis.yaml) file itself. 
-Refer [Adding-new-module](https://github.com/Be-Secure/BeSLab/blob/main/ADDING-TO-GENESIS.md) to follow stepshow to add a new tool in default genesis file.
+Refer [Adding-new-module](https://github.com/Be-Secure/BeSLab/blob/main/adding-new-module.md) to follow stepshow to add a new tool in default genesis file.
 
 Else if can not be used by any type of lab and only needed for specific use case then add the tool need to be added in a custom genesis files defined at [click-here](https://github.com/Be-Secure/BLIman/tree/main/genesis). 
 Follow the link [custom-genesis](https://github.com/Be-Secure/BLIman/blob/main/genesis/ADD-UPDATE-GENESIS.md) to add or update the tool details in custom genesis file.
@@ -123,23 +123,21 @@ git clone https://github.com/<younamespace>/BeSLab.git
 
 3. change directory to BeSLab. 
 
-4. Copy the template file from docs/beslab_new_module.sh to src/besman-\<toolname>\.sh
+4. Copy the template file from [docs/template/beslab_new_module.sh](https://github.com/Be-Secure/BeSLab/blob/master/docs/templates/beslab_new_module.sh) to src/besman-\<toolname>\.sh
 
 5. Update the function names in template file by replacing the \"toolname\" with the name of tool.
 
 6. Update the functions as per the tool. \(Follow the instructrions mentioned in template comments.\) 
 
-7. Call the new function in BLIman main beslab installation [file](https://github.com/Be-Secure/BeSLab/blob/master/src/besman-beslab-env.sh). Put a check to install the tool only if installation is enabled in genesis file used.\(The cumpulsory configuraation TOOLNAME_INSTALL in genesis file.\). If enabled, call the install function of newly written module for the new tool.
-
 7. Push the tested and passed code changes to your forked branch.
 
-5. Raise a PR from your forked repository to BeSLab repository in Be-Seucure namespace. 
+8. Raise a PR from your forked repository to BeSLab repository in Be-Seucure namespace. 
 
 Note: Do not raise PR request on main branch but use develop branch to raise PR for Be-Secure namespace.
 
-6. Notify the maintainers for review. If required do the discussions for feature and modifications if any over email or discussions section.
+9. Notify the maintainers for review. If required do the discussions for feature and modifications if any over email or discussions section.
 
-7. On approval of PR merge the code to develop branch with all conflicts resolved.
+10. On approval of PR merge the code to develop branch with all conflicts resolved.
 
 # Where to get help
 
