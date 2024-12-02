@@ -172,7 +172,7 @@ function __besman_install_gitlab()
         __besman_echo_red "Exiting ..."
         return 1
     fi
-    
+    sudo gitlab-ctl reconfigure
     gitlab_installed_ver=$(sudo gitlab-rake gitlab:env:info | grep "default Version:" | awk '{print $4}')
 
     if [ ! -z $gitlab_installed_ver ];then
