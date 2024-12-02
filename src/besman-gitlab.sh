@@ -188,7 +188,7 @@ function __besman_install_gitlab()
       sudo gitlab-ctl reconfigure 2>&1| __beslab_log
       __besman_echo_green "Gitlab initial configurations are done."
         
-      rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'
+      rootPass=`cat /etc/gitlab/initial_root_password | grep "^Password" | awk $'{print $2}'`
     
       if [ ! -f $gitlab_user_data_file_path ];then
          touch $gitlab_user_data_file_path | __beslab_log
