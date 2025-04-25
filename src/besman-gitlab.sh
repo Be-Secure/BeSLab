@@ -109,7 +109,7 @@ function __besman_create_gitlab_file()
 
     __besman_echo_yellow "Creating file $filepath under project $project_id ..."
     
-    curl --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url $gitlabLocalHost'/api/v4/projects/'$project_id'/repository/files/'$filepath 2>&1 | __beslab_log
+    curl --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url $gitlabLocalHost'/api/v4/projects/'$project_id'/repository/files/'$filepath
 
 }
 
@@ -122,7 +122,7 @@ function __besman_create_gitlab_repo()
 
     __besman_echo_yellow "Creating gitlab repo $repoName ..."
 
-    curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url $gitlabLocalHost'/api/v4/projects/' 2>&1 | __beslab_log
+    curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url $gitlabLocalHost'/api/v4/projects/'
 }
 function __besman_revoke_gitlabuser_token()
 {
@@ -130,7 +130,7 @@ function __besman_revoke_gitlabuser_token()
    userTokenName="$1$2"
    __besman_echo_yellow "Revoking gitlab token for user $userName"
 
-   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!" 2>&1 | __beslab_log
+   sudo gitlab-rails runner "PersonalAccessToken.find_by_token('$userTokenName').revoke!"
 }
 function __besman_install_gitlab()
 {
@@ -172,7 +172,7 @@ function __besman_install_gitlab()
         __besman_echo_red "Exiting ..."
         return 1
     fi
-    
+    sudo gitlab-ctl reconfigure 2>&1 | __beslab_log
     gitlab_installed_ver=$(sudo gitlab-rake gitlab:env:info | grep "default Version:" | awk '{print $4}')
 
     if [ ! -z $gitlab_installed_ver ];then

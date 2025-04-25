@@ -66,7 +66,7 @@ function __besman_install_beslighthouse()
     beslighthouse_config_path=$beslight_path/src/apiDetailsConfig.json
     sed -i '/"activeTool"/c\"activeTool": "gitlab",' $beslighthouse_config_path  2>&1 | __beslab_log
     sed -i "/\"namespace\"/c\"namespace\": \"$GITUSER\"," $beslighthouse_config_path 2>&1 | __beslab_log
-    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"," $beslighthouse_config_path  2>&1 | __beslab_log
+    sed -i "/\"token\"/c\"token\": \"$GITUSERTOKEN\"" $beslighthouse_config_path  2>&1 | __beslab_log
     if [ ! -z $BESLAB_DOMAIN_NAME ];then
         labMainURL="http://$BESLAB_DOMAIN_NAME"
     else
