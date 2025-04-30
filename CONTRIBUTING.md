@@ -93,53 +93,23 @@ In BeSLab, we are seeking contributions for adding support for more and more sec
 Although there can be many tools available for adding to BeSLab, we have kept qualifying criterion as below for a tool to be qualified for inclusion in BeSLab.
 
 - Tool should be providing help in assessing OSS or AI model or AI datasets.
-- Tool should be able to be accessed online.
+- Tool should be accessible via browser or internet.
 - It should be able to generate a assessment report on execution.
-- The tool must be an Open-Source Software.
-- The tool itself should have been brought under test and should reports should have uploaded to Be-Secure/besecure-assessment-datastore.
+- The tool must be an Open-Source Software for assessing an OSS or a AI model or a dataset etc.
+- The tool itself should have been assessed for security and reports should have been uploaded to Be-Secure/besecure-assessment-datastore already.
 
 ## Adding Updating genesis for tool
-1. Analyse and identify if the new tool is specific to AI, OSS or can be used across any use case for example BeSLighthouse is a tool which is useful for all be it OSS, AI models or AI datasets.
+1. Analyse and identify if the new tool is specific to AI, OSS or applicable to all e.g BeSLighthouse is a tool which is useful for all the deployments i.e OSS, AI models or AI datasets etc.
 
-2. Identify and get all the configuration parameters needed for the installatio, uninstallation and update of the new tool.
+2. Identify and get all the configuration parameters needed for the installatio, uninstallation and update of the tool being considered. Avoid too many parameters to be configured in genesis files.
 
-3. If the tool is applicable to all the use cases \(OASP, OSPO or AIC\) [details-here](https://github.com/Be-Secure/BLIman/blob/main/README.md) then it is qualified to be added in the default [genesis](https://github.com/Be-Secure/BeSLab/blob/master/genesis.yaml) file itself. 
-Refer [Adding-new-module](https://github.com/Be-Secure/BeSLab/blob/main/adding-new-module.md) to follow stepshow to add a new tool in default genesis file.
+3. If the tool is applicable to all the use cases \(OASP, OSPO or AIC\) [details-here](https://github.com/Be-Secure/BLIman/blob/main/README.md) then it is qualified to be added in the default [genesis](https://github.com/Be-Secure/BeSLab/blob/master/genesis.yaml) file itself.
 
-Else if can not be used by any type of lab and only needed for specific use case then add the tool need to be added in a custom genesis files defined at [click-here](https://github.com/Be-Secure/BLIman/tree/main/genesis). 
-Follow the link [custom-genesis](https://github.com/Be-Secure/BLIman/blob/main/genesis/ADD-UPDATE-GENESIS.md) to add or update the tool details in custom genesis file.
+Else if the tool is needed only for specific use case then the tool need to be added in the corresponding custom genesis file/files defined at [location](https://github.com/Be-Secure/BLIman/tree/main/genesis). Follow the instructions [here](https://github.com/Be-Secure/BLIman/blob/main/genesis/ADD-UPDATE-GENESIS.md) to add or update the tool details in a custom genesis file.
 
-4. Once the tool configurations are added to the required genesis file, follow below steps.
+4. Once the tool configurations are added refer to this link [Adding-new-plugin](https://github.com/Be-Secure/BeSLab/blob/main/adding-new-plugin.md) for adding a new tool as a plugin in BeSLab.
 
-## Adding new tool module
-
-1. Create a fork of [BeSlab](https://github.com/Be-Secure/BeSLab) to you namespace.
-
-2. Clone the forked repository to local system. use
-
-```shell
-git clone https://github.com/<younamespace>/BeSLab.git
-```
-
-3. change directory to BeSLab. 
-
-4. Copy the template file from [docs/template/beslab_new_module.sh](https://github.com/Be-Secure/BeSLab/blob/master/docs/templates/beslab_new_module.sh) to src/besman-\<toolname>\.sh
-
-5. Update the function names in template file by replacing the \"toolname\" with the name of tool.
-
-6. Update the functions as per the tool. \(Follow the instructrions mentioned in template comments.\) 
-
-7. Push the tested and passed code changes to your forked branch.
-
-8. Raise a PR from your forked repository to BeSLab repository in Be-Seucure namespace. 
-
-Note: Do not raise PR request on main branch but use develop branch to raise PR for Be-Secure namespace.
-
-9. Notify the maintainers for review. If required do the discussions for feature and modifications if any over email or discussions section.
-
-10. On approval of PR merge the code to develop branch with all conflicts resolved.
-
-# Where to get help
+# Contacting for help
 
 If you are need any help or support from community raise discussion in discussion forum and for any bugs raise issue in issues section or write down to Be-Secure community at we will get back as soon as possible.
 

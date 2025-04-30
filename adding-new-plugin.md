@@ -1,17 +1,33 @@
-# Adding new tool in default genesis.
-Please follow below guidelines to add configurations for any new tool in default genesis file.
-- Study the tools installation, uninstallatio and update steps.
-- Identify the configuration which needs user inputs must.
-- There must be a default value for any configuration which is being added in genesis file.
-- All configurations adding newly must be assigned the default value or no value in default genesis file.
-- The genesis file should be able to install the tool seemlessly without needing any user interaction.
-- For any tool there must be two configuration added always as mentioned below.
-    - TOOLNAME_INSTALL=disable 
-       <br> can be enable/disable, if enabled than only the tool should be installed.
-       <br> replace TOOLNAME with the name of the actual tool name to be installed.
+## Adding new tool module
 
-    - TOOLNAME_VERSION=""
-        <br> Version of the tool to be installed. In the installation script if no version is specified always install the latest release.
+1. Create a fork of [BeSlab](https://github.com/Be-Secure/BeSLab) to you namespace.
 
-- Keep the configurations as minimum as possible in genesis file.
-- Put comments for each configuration with descrbing the description of configuration, its possible values.
+2. Clone the forked repository to local system. use
+
+```shell
+git clone https://github.com/<younamespace>/BeSLab.git
+```
+
+3. change directory to BeSLab.
+
+4. Write the test case for the new plugin first.
+
+5. Copy the template file from [docs/template/beslab_plugin_template.sh](https://github.com/Be-Secure/BeSLab/blob/master/docs/templates/beslab_plugin_template.sh) to src/besman-\<TOOLNAME>\.sh . replace TOOLNAME with the actual toolname. Keep the naming convention of tool plugin file consistent in format and small case letters only.
+
+6. Update the function names in template file by replacing the \"toolname\" with the actual name of the tool considered.
+
+7. Update the functions as per the tool. \(Please Follow the instructrions mentioned in template comments for each function.\)
+
+8. Test the new module as per test cases written and verify the tool is working as expected.
+
+9. Push the tested and passed code changes to your forked branch.
+
+10. Raise a PR from your forked repository to BeSLab repository in Be-Seucure namespace.
+
+Note: Do not raise PR request on main branch but use develop branch to raise PR for Be-Secure namespace.
+
+11. Notify the maintainers for review. If required do the discussions for feature and modifications if any over email or discussions section.
+
+12. Upon approval of the PR, merge the code to develop branch with all conflicts resolved.
+
+CONGRATULATIONS!! your plugin is live now. Thanks for your contribution.

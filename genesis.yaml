@@ -36,7 +36,7 @@ BESLAB_VERSION: dev
 
 ## Domain name to be used for the beslab.
 ## Example inputs: xyz.abc.com
-BESLAB_DOMAIN_NAME: abc.xyz.com 
+BESLAB_DOMAIN_NAME: lab.o31e.com
 
 ## URL & PATH configurations to checkout BLIman
 BLIMAN_BROWSER_URL: https://github.com
@@ -230,10 +230,13 @@ BESLAB_JAVA_HOME: /opt/tools/
 #  - bes-dev-kit
 #  - BesLighthouse
 
+#Proxy API Url for PROXY
+BESLAB_PROXY_API_URL: https://proxyapi.o31e.com
+
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: BeSLighthouse
 BESLAB_DASHBOARD_PORT: 80
-BESLAB_DASHBOARD_RELEASE_VERSION: 0.19.0
+BESLAB_DASHBOARD_RELEASE_VERSION: 0.28.3
 BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
 BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
 BESLAB_DASHBOARD_ATEESTATION_STORE_NAME: ossattestation-datastore
