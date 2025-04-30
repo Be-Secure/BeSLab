@@ -1,7 +1,7 @@
 #!/bin/bash
 function __besman_install_artifactory()
 {
-
+  echo "TBD"
 }
 
 function __besman_uninstall_artifactory()

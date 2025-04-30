@@ -2,7 +2,7 @@
 
 function __besman_install_sonarqube()
 {
-
+  echo "TBD"
 }
 
 function __besman_uninstall_sonarqube()
