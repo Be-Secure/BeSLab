@@ -3,19 +3,19 @@ labToken="LabSeeding$RANDOM"
 besuserToken="BeSUserToken$RANDOM"
 
 if [ ! -z $BESLAB_DOMAIN_NAME ];then
+   gitlabURL="http://$BESLAB_DOMAIN_NAME"
    if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
-      gitlabURL="http://$BESLAB_DOMAIN_NAME:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
       gitlabLocalHost="http://localhost:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
    else
-      gitlabURL="http://$BESLAB_DOMAIN_NAME:8081"
       gitlabLocalHost="http://localhost:8081"
    fi
 else
+   myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
    if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
-      gitlabURL="http://demolab.com:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
+      gitlabURL="http://$myip:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
       gitlabLocalHost="http://localhost:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
    else
-      gitlabURL="http://demolab.com:8081"
+      gitlabURL="http://$myip:8081"
       gitlabLocalHost="http://localhost:8081"
    fi
 fi
@@ -202,7 +202,10 @@ function __besman_install_gitlab()
 
         __besman_echo_yellow "Setting up users and projects for gitlab ..."
 
-	__besman_create_gitlabuser $BESMAN_LAB_NAME "$BESMAN_LAB_NAME@$BESLAB_DOMAIN_NAME" $BESMAN_LAB_NAME "Administrator" "Welc0me@123" "true"
+        
+	     __besman_create_gitlabuser $BESMAN_LAB_NAME "$BESMAN_LAB_NAME@$BESLAB_DOMAIN_NAME" $BESMAN_LAB_NAME "Administrator" "Welc0me@123" "true"
+        
+        sleep 60s
         __besman_create_gitlabuser_token $BESMAN_LAB_NAME $labToken
         old_ifs="$IFS"
         IFS=","
@@ -217,26 +220,26 @@ function __besman_install_gitlab()
         #opentofuJson=$(cat $envpath/besman-opentofu.json)
         #vulnerJson=$(cat $envpath/besman-vulner.json)
 
-        sleep 50s
-        assement_store_repo_name="besecure-assets-store"
-        assement_store_branch="main"
-        assement_store_email="$BESMAN_LAB_NAME@$BESMAN_LAB_NAME.com"
+        sleep 10s
+        assessment_store_repo_name="besecure-assets-store"
+        assessment_store_branch="main"
+        assessment_store_email="$BESMAN_LAB_NAME@$BESMAN_LAB_NAME.com"
 
-        __besman_create_gitlab_file $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch $assement_store_email "" "projects%2Fproject-metadata.json"
-        __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "projects%2Fproject-version%2F471-radius-Versiondetails.json"
-        __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "vulnerabilities%2Fvulnerability-metadata.json"
-        __besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "models%2Fmodel-metadata.json"
-	__besman_create_gitlab_file  $assement_store_repo_name $BESMAN_LAB_NAME $labToken $assement_store_branch  $assement_store_email "" "datasets%2Fdataset-metadata.json"
+        __besman_create_gitlab_file $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch $assessment_store_email "" "projects%2Fproject%2Dmetadata%2Ejson"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "projects%2Fproject%2Dversion%2F471%2Dradius%2DVersiondetails%2Ejson"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "vulnerabilities%2Fvulnerability%2Dmetadata%2Ejson"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "models%2Fmodel%2Dmetadata%2Ejson"
+	     __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "datasets%2Fdataset%2Dmetadata%2Ejson"
 
         [[ ! -z $BESLAB_GITLAB_USERS_FILE ]] && add_users_from_file
         [[ ! -z $BESLAB_GITLAB_PROJECTS_FILE ]] && add_projects_from_file
 
-	__besman_echo_green "Setup users and projects for gitlab."
+	     __besman_echo_green "Setup users and projects for gitlab."
 
       else
          __besman_echo_red "Gitlab not installed properly."
-	 __besman_echo_red "Execute __besman_install_gitlab"
-	 return 1
+	      __besman_echo_red "Execute __besman_install_gitlab"
+	      return 1
       fi
        #__besman_revoke_gitlabuser_token "labAdmin" "$labToken"
     else
