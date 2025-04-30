@@ -184,7 +184,12 @@ function __besman_install_gitlab()
       [[ ! -f /etc/gitlab/gitlab.rb ]] && __besman_echo_red "Gitlab-CE not installed properly" && return 1
 
       __besman_echo_white "Updating gitlab domain and port ..."
-      sed -i "/^external_url/c external_url '$gitlabURL'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+      if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
+         sed -i "/^external_url/c external_url '$gitlabURL':$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+      else
+         sed -i "/^external_url/c external_url '$gitlabURL'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+      fi
+ 
       sudo gitlab-ctl reconfigure 2>&1| __beslab_log
       __besman_echo_green "Gitlab initial configurations are done."
         
