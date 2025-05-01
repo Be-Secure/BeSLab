@@ -2,8 +2,9 @@
 
 **Table of Contents**
 [Part 1: Understanding BeSLab](#part-1-understanding-beslab)
-(#1-introduction-your-ai-security-lab)
-(#11-what-is-beslab-and-why-use-it)
+
+[1.Introduction: Your AI Security Lab ](#1-introduction-your-ai-security-lab)
+[1.1 What is BeSLab and Why Use It](#11-what-is-beslab-and-why-use-it)
 (#12-the-be-secure-philosophy-beyond-a-single-tool)
 (#13-value-for-the-ciso-and-security-teams)
 (#14-scope-of-this-guide)
