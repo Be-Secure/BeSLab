@@ -585,229 +585,23 @@ The following diagrams illustrate the BeSLab architecture and key operational fl
 
 ### **10.1 Diagram 1: High-Level Enterprise Deployment**
 
-Code snippet
-
-@startuml  
-\!theme plain  
-skinparam rectangle\<\<boundary\>\> {  
-  borderColor Black  
-  borderThickness 1  
-}  
-skinparam node {  
-  borderColor Black  
-  borderThickness 1  
-}  
-skinparam actor {  
-  borderColor Black  
-  borderThickness 1  
-}
-
-rectangle "Enterprise Network" \<\<boundary\>\> {  
-  actor "Security Analyst" as Analyst  
-  actor "Developer" as Dev  
-  actor "CISO / Mgmt" as CISO
-
-  node "BeSLab Host (VM/Server)" as BeSLabHost {  
-    cloud "Core BeSLab Services" as CoreServices  
-    database "GitLab CE Data" as GitLabData  
-    database "Config/Logs" as ConfigData  
-  }
-
-  node "Internal Code Repositories" as InternalRepos  
-  node "Internal AI Model Stores" as InternalModels  
-  node "User Workstations" as Workstations
-
-  Analyst \-- BeSLabHost : Access UI/CLI  
-  Dev \-- BeSLabHost : Access UI/Submit Assets  
-  CISO \-- BeSLabHost : Access Dashboard (BeSLighthouse)  
-  Workstations \--\> Analyst  
-  Workstations \--\> Dev  
-  Workstations \--\> CISO
-
-  BeSLabHost \-- InternalRepos : Clone/Assess Code  
-  BeSLabHost \-- InternalModels : Access/Assess Models  
-}
-
-cloud "Internet / External Sources" as Internet {  
-  node "OSS Repositories (GitHub, etc.)" as OSSRepos  
-  node "AI Model Hubs (Hugging Face, etc.)" as ModelHubs  
-  node "Vulnerability Feeds (NVD, etc.)" as VulnFeeds  
-  node "Plugin/Tool Updates" as Updates  
-}
-
-BeSLabHost \-- Internet : Fetch OSS Code, Models, Updates, Feeds
-
-@enduml
+![High-Level Enterprise Deployment](./docs/images/Diagram1HighlevelEnterpriseDeployment.png)
 
 ### **10.2 Diagram 2: Detailed BeSLab Component Layout (Lite Mode Host)**
 
-Code snippet
-
-@startuml  
-\!theme plain  
-skinparam node {  
-  borderColor Black  
-  borderThickness 1  
-}  
-skinparam storage {  
-  borderColor Black  
-  borderThickness 1  
-}  
-skinparam interface {  
-  borderColor Black  
-  borderThickness 1  
-}
-
-node "BeSLab Host (VM/Server)" as Host {  
-  interface "Network Interface (IP/DNS)" as HostNIC
-
-  node "Container Runtime (Docker)" as Docker {  
-    node "GitLab CE Container" as GitLab {  
-      folder "Git Repositories" as GitRepos \<\<storage\>\>  
-      interface "Web UI/API (80/443)" as GitLabNIC  
-      interface "SSH (22)" as GitLabSSH  
-    }  
-    node "BeSLighthouse Container" as Lighthouse {  
-      interface "Web UI (3000/80)" as LighthouseNIC  
-    }  
-    node "BeSEnvironment Containers (Transient)" as EnvContainers {  
-      label "Runs BeSPlugins (Tools)"  
-    }  
-  }
-
-  folder "BLIman / BeSman CLI Tools" as CLITools  
-  folder "Configuration Files (genesis.yaml)" as ConfigFiles \<\<storage\>\>  
-  folder "Persistent Volumes" as Volumes \<\<storage\>\> {  
-    storage "GitLab Data Volume" as GitLabVol  
-    storage "BeSLighthouse Config Volume" as LighthouseVol  
-    storage "Other Data/Logs" as OtherVol  
-  }
-
-  HostNIC \-- GitLabNIC  
-  HostNIC \-- LighthouseNIC  
-  HostNIC \-- GitLabSSH
-
-  Lighthouse..\> GitLab : Reads Repo Data (Git/API)  
-  CLITools \--\> Docker : Manage Containers  
-  CLITools \--\> ConfigFiles : Read Config  
-  GitLab..\> GitLabVol : Store Data  
-  Lighthouse..\> LighthouseVol : Store Config  
-  Docker..\> EnvContainers : Start/Stop Assessment Envs  
-  EnvContainers..\> GitLab : Clone Code/Assets  
-}
-
-@enduml
+![Detailed BeSLab Component Layout (Lite Mode Host)](./docs/images/Diagram2BeSLabComponentsLayout.png)
 
 ### **10.3 Diagram 3: Project/Model Onboarding Flow (Git-based)**
 
-Code snippet
-
-@startuml  
-\!theme plain  
-actor "User (Dev/Analyst)" as User  
-participant "Local Workstation" as Local  
-participant "GitLab Server\\n(Asset Repo)" as GitLabRepo  
-participant "BeSLab System\\n(Monitor/Hook)" as BeSLabSys  
-participant "BeSLighthouse" as Lighthouse
-
-User \-\> Local : Clone Asset Repo  
-User \-\> Local : Edit Asset List (Add OSSPoI/OSSMoI)  
-User \-\> Local : Git Commit  
-User \-\> Local : Git Push  
-Local \-\> GitLabRepo : Push Changes  
-activate GitLabRepo
-
-GitLabRepo \-\> BeSLabSys : Notify (Webhook/Poll)  
-activate BeSLabSys  
-BeSLabSys \-\> GitLabRepo : Fetch Updated List  
-BeSLabSys \-\> BeSLabSys : Validate New Asset Info  
-alt Validation OK  
-  BeSLabSys \-\> BeSLabSys : Mark Asset as 'Onboarded' / 'Pending Scan'  
-  BeSLabSys \-\> Lighthouse : Update Asset List Cache/Display  
-else Validation Failed  
-  BeSLabSys \-\> User : Notify Failure (e.g., email, comment)  
-end  
-deactivate BeSLabSys  
-deactivate GitLabRepo
-
-@enduml
+![Project/Model Onboarding Flow (Git-based)](./docs/images/Diagram3BeSLabProjectModelOnboardingWorkflow.png)
 
 ### **10.4 Diagram 4: Assessment Execution Flow**
 
-Code snippet
-
-@startuml  
-\!theme plain  
-participant "Trigger\\n(Schedule/Hook/Manual)" as Trigger  
-participant "BeSLab Orchestrator\\n(e.g., CI Pipeline/Script)" as Orchestrator  
-participant "BeSPlaybook" as Playbook  
-participant "BeSman" as Besman  
-participant "BeSEnvironment\\n(Container)" as Env  
-participant "BeSPlugin(s)" as Plugins  
-participant "GitLab Server\\n(Asset/Assessment Repos)" as GitLabRepo  
-participant "BeSLighthouse" as Lighthouse
-
-Trigger \-\> Orchestrator : Initiate Assessment (Asset X, Playbook Y)  
-activate Orchestrator  
-Orchestrator \-\> Playbook : Execute Playbook Y for Asset X  
-activate Playbook  
-Playbook \-\> Besman : Request Environment Z  
-activate Besman  
-Besman \-\> Env : Create/Start Environment Z  
-activate Env  
-Besman \--\> Playbook : Environment Ready  
-deactivate Besman  
-Playbook \-\> GitLabRepo : Clone/Fetch Asset X Code/Model  
-Playbook \-\> Env : Execute Plugin A  
-activate Plugins  
-Env \-\> Plugins : Run Tool A  
-Plugins \--\> Env : Results A  
-deactivate Plugins  
-Playbook \-\> Env : Execute Plugin B  
-activate Plugins  
-Env \-\> Plugins : Run Tool B  
-Plugins \--\> Env : Results B  
-deactivate Plugins  
-Env \--\> Playbook : All Plugin Results  
-deactivate Env  
-Playbook \-\> Playbook : Aggregate Results & Generate OSAR  
-Playbook \-\> GitLabRepo : Commit OSAR to BeSAssessment Repo  
-activate GitLabRepo  
-GitLabRepo \--\> Playbook : Commit Successful  
-deactivate GitLabRepo  
-Playbook \--\> Orchestrator : Assessment Complete  
-deactivate Playbook  
-Orchestrator \-\> Lighthouse : Notify/Update Assessment Status  
-deactivate Orchestrator
-
-@enduml
+![Assessment Execution Flow](./docs/images/Diagram4AssessmentExecutionWorkflow.png)
 
 ### **10.5 Diagram 5: Vulnerability Tracking Flow (OSSVoI)**
 
-Code snippet
-
-@startuml  
-\!theme plain  
-start  
-:Assessment Runs (SAST/SCA/DAST Plugin);  
-:Plugin Detects Vulnerability;  
-:OSAR Generated with Finding Details (incl. CVE if available);  
-:Store OSAR in BeSAssessment Repo;  
-:Extract Structured Vulnerability Data (OSSVoI)\\n(CVE, Severity, Component, etc.);  
-if (OSSVoI Data Stored Separately?) then (yes)  
-  :Store OSSVoI in Vulnerability Datastore\\n(Linked to Asset & OSAR);  
-else (no)  
-  :OSSVoI Data Resides within OSAR;  
-endif  
-:BeSLighthouse Reads OSSVoI Data\\n(from Datastore or OSARs);  
-:Display Vulnerability in Dashboard\\n(Aggregated Views, Lists);  
-:Security Analyst Reviews New OSSVoI;  
-:Triage Vulnerability\\n(Validate, Prioritize, Assign Owner);  
-:Track Remediation Status\\n(e.g., Open, In Progress, Fixed, False Positive);  
-:Update Status in Datastore/OSAR Metadata;  
-:BeSLighthouse Reflects Updated Status;  
-stop  
-@enduml
+![Vulnerability Tracking Flow (OSSVoI)](./docs/images/Diagram5BeSLabVulnerabilityTrackingWorkflow.png)
 
 ## **11\. Conclusion**
 
