@@ -16,7 +16,7 @@
  
  -[1.2.How BeSLab works Architecture and Concepts ](#1.2)
  
-  -[1.2.11-introduction-your-ai-security-lab)](#1.2.1)
+  -[1.2.1-introduction-your-ai-security-lab)](#1.2.1)
   
   -[1.2.2 The gitops](#1.2.2)
   
@@ -34,75 +34,75 @@
  
  -[2.2 configuring-your-beslab-instance](#2.2)
  
- -[2.2.1 Essential GitLab Configuration](#2.2.1)
+  -[2.2.1 Essential GitLab Configuration](#2.2.1)
 
--[2.2.2](#42-setting-up-be-secure-repositories-in-gitlab)
+  -[2.2.2](#42-setting-up-be-secure-repositories-in-gitlab)
 
--[2.2.3](#43-connecting-beslighthouse-to-your-data)
+  -[2.2.3](#43-connecting-beslighthouse-to-your-data)
 
--[Part 3: Populating and Operating Your Lab]
+-[Part 3: Populating and Operating Your Lab](#part-3)
 
--[3.1. Populating Your Lab: Onboarding Guide]
+ -[3.1 Populating Your Lab: Onboarding Guide](#3.1)
 
--[3.1.1](#51-managing-user-access-and-roles)
+  -[3.1.1 Managing user access and roles](#3.1.1)
 
--[3.1.2](#52-adding-projects-osspoi-for-assessment)
+  -[3.1.2 Adding Project OSSPoI for Assessment](#3.1.2)
 
--[3.1.3](#53-adding-ai-models-ossmoi-for-assessment)
+  -[3.1.3 adding-ai-models-ossmoi-for-assessment](#3.1.3)
 
--[3.1.4](#54-integrating-security-tools-besplugins)
+  -[3.1.4 integrating-security-tools-besplugins](#3.1.4)
 
--[3.2](#6-operating-your-beslab-workflows-in-action)
+ -[3.2 operating-your-beslab-workflows-in-action](#3.2)
 
--[3.2.1](#61-submitting-assets-for-assessment)
+  -[3.2.1 submitting-assets-for-assessment](#3.2.1)
 
--[3.2.2](#62-running-security-assessments)
+  -[3.2.2 running-security-assessments](#3.2.2)
 
--[3.2.3](#63-generating-and-storing-reports-osars)
+  -[3.2.3 generating-and-storing-reports-osars](#3.2.3)
 
--[3.2.4](#64-visualizing-results-with-beslighthouse)
+  -[3.2.4 visualizing-results-with-beslighthouse](#3.2.4)
 
--[3.2.5](#65-tracking-vulnerabilities-ossvoi)
+  -[3.2.5 tracking-vulnerabilities-ossvoi](#3.2.5)
 
--[3.2.6](#66-engagement-options-beyond-private-use)
+  -[3.2.6 engagement-options-beyond-private-use](#3.2.6)
 
 -[Part 4: Defaults and Governance](#part-4)
 
--[4.1](#7-getting-started-quickly-default-configurations)
+ -[4.1 getting-started-quickly-default-configurations](#4.1)
 
--[4.1.1 Why Defaults Matter](#4.1.1)
+  -[4.1.1 Why Defaults Matter](#4.1.1)
 
--[4.1.2](#72-default-assessment-environments-besenvironments)
+  -[4.1.2 default-assessment-environments-besenvironments](#4.1.2)
 
--[4.1.3](#73-default-assessment-workflows-besplaybooks)
+  -[4.1.3 default-assessment-workflows-besplaybooks](#4.1.3)
 
--[4.1.4](#74-recap-default-security-tools-besplugins)
+  -[4.1.4 recap-default-security-tools-besplugins](#4.1.4)
 
--[4.2](#8-reporting-and-governance-for-your-lab)
+ -[4.2 reporting-and-governance-for-your-lab](#4.2)
 
--[4.2.1](#81-standard-assessment-reports-osar-structure)
+  -[4.2.1 standard-assessment-reports-osar-structure](#4.2.1)
 
--[4.2.2](#82-defining-roles-and-responsibilities-raci-matrix)
+  -[4.2.2 defining-roles-and-responsibilities-raci-matrix](#4.2.2)
 
--[4.2.3 Key Governance Policies to Establish](#4.2.3)
+  -[4.2.3 Key Governance Policies to Establish](#4.2.3)
 
--[Part 5: Visual Aids and Conclusion](#part-5)
+ -[Part 5: Visual Aids and Conclusion](#part-5)
 
--[5.1](#9-visualizing-the-setup)
+  -[5.1 visualizing-the-setup](#5.1)
 
--[5.1.1 High-Level Enterprise View](#5.2)
+   -[5.1.1 High-Level Enterprise View](#5.1.1)
 
--[5.1.2 Detailed Component Layout]
+   -[5.1.2 Detailed Component Layout](#5.1.2)
 
--[6](#10-conclusion-and-next-steps)(#6)
+ -[6 conclusion-and-next-steps](#6)
 
--[6.1](#101-summary-of-benefits)(#6.1)
+  -[6.1 summary-of-benefits](#6.1)
 
--[6.2](#102-immediate-actions-after-setup)(#6.2)
+  -[6.2 immediate-actions-after-setup](#6.2)
 
--[6.3](#103-continuous-improvement-roadmap)(#6.3)
+  -[6.3 continuous-improvement-roadmap](#6.3)
 
--[7. Works Cited](#7)
+ -[7. Works Cited](#7)
 
 ## <a id="part-1">**Part 1: Understanding BeSLab**</a>
 
