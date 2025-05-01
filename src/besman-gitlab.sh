@@ -185,9 +185,11 @@ function __besman_install_gitlab()
 
       __besman_echo_white "Updating gitlab domain and port ..."
       if [ ! -z $BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT ];then
-         sed -i "/^external_url/c external_url '$gitlabURL':$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+         sed -i "/^external_url/c external_url '$gitlabURL:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+         echo "external_url $gitlabURL:$BESLAB_PRIVATE_LAB_CODECOLLAB_TOOL_PORT"
       else
          sed -i "/^external_url/c external_url '$gitlabURL'" /etc/gitlab/gitlab.rb 2>&1 | __beslab_log
+	 echo "external_url $gitlabURL"
       fi
  
       sudo gitlab-ctl reconfigure 2>&1| __beslab_log
