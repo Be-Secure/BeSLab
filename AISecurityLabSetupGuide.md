@@ -1,5 +1,60 @@
 # **User Guide: Establishing and Operating an AI Security Lab with the Be-Secure BeSLab Blueprint**
 
+**Table of Contents**
+[Part 1: Understanding BeSLab](#part-1-understanding-beslab)
+(#1-introduction-your-ai-security-lab)
+(#11-what-is-beslab-and-why-use-it)
+(#12-the-be-secure-philosophy-beyond-a-single-tool)
+(#13-value-for-the-ciso-and-security-teams)
+(#14-scope-of-this-guide)
+(#2-how-beslab-works-architecture-and-concepts)
+(#21-the-blueprint-explained-core-components)
+(#22-the-gitops-foundation)
+(#23-key-terms-you-need-to-know)
+[Part 2: setting-up-and-configuring-your-lab](#part-2-setting-up-and-configuring-your-lab)
+(#3-setting-up-your-private-beslab-lite-mode)
+(#31-before-you-begin-prerequisites-checklist)
+(#32-step-by-step-installation-using-bliman)
+(#33-initial-verification-checking-your-setup)
+(#4-configuring-your-beslab-instance)
+4.1 Essential GitLab Configuration
+(#42-setting-up-be-secure-repositories-in-gitlab)
+(#43-connecting-beslighthouse-to-your-data)
+Part 3: Populating and Operating Your Lab
+5. Populating Your Lab: Onboarding Guide
+(#51-managing-user-access-and-roles)
+(#52-adding-projects-osspoi-for-assessment)
+(#53-adding-ai-models-ossmoi-for-assessment)
+(#54-integrating-security-tools-besplugins)
+(#6-operating-your-beslab-workflows-in-action)
+(#61-submitting-assets-for-assessment)
+(#62-running-security-assessments)
+(#63-generating-and-storing-reports-osars)
+(#64-visualizing-results-with-beslighthouse)
+(#65-tracking-vulnerabilities-ossvoi)
+(#66-engagement-options-beyond-private-use)
+Part 4: Defaults and Governance
+(#7-getting-started-quickly-default-configurations)
+7.1 Why Defaults Matter
+(#72-default-assessment-environments-besenvironments)
+(#73-default-assessment-workflows-besplaybooks)
+(#74-recap-default-security-tools-besplugins)
+(#8-reporting-and-governance-for-your-lab)
+(#81-standard-assessment-reports-osar-structure)
+(#82-defining-roles-and-responsibilities-raci-matrix)
+8.3 Key Governance Policies to Establish
+Part 5: Visual Aids and Conclusion
+(#9-visualizing-the-setup)
+9.1 High-Level Enterprise View
+9.2 Detailed Component Layout
+(#10-conclusion-and-next-steps)
+(#101-summary-of-benefits)
+(#102-immediate-actions-after-setup)
+(#103-continuous-improvement-roadmap)
+11. Works Cited
+
+
+
 **Part 1: Understanding BeSLab**
 
 **1\. Introduction: Your AI Security Lab**
@@ -79,7 +134,7 @@
 | **Accounts** | Host OS User | User with sudo privileges |  |
 |  | GitLab Admin | Initial credentials set via genesis.yaml, change immediately |  |
 
-\*\*Table 1: Prerequisites Summary\*\*
+**Table 1: Prerequisites Summary**
 
 This guide assumes GitLab CE will be installed by the BLIman \`launchlab\` process . Using an existing GitLab instance requires significant manual configuration beyond this standard guide.
 
@@ -247,7 +302,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | Node.js Express | Common web framework for Node.js | SCA (npm), SAST (JavaScript/TS) |
 | Internal Shared Library X | Critical internal component used by many apps | SAST, SCA, Secrets Scan |
 
-    \*\*Table 2: Example OSSPoI Candidates\*\*
+  **Table 2: Example OSSPoI Candidates**
 
 * **5.3 Adding AI Models (OSSMoI) for Assessment**  
   Similar to software projects, Open Source Models of Interest (OSSMoI) need to be onboarded for tracking and security/safety assessment .  
@@ -263,7 +318,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | GPT-2 | Foundational LLM, often used for experiments | Model Scanning, Provenance Checks |
 | Internally Fine-tuned Model Y | Model derived from OSSMoI, used in production | Model Scanning, Fine-tuning Data Privacy Review, Robustness Testing |
 
-    \*\*Table 3: Example OSSMoI Candidates\*\*
+    **Table 3: Example OSSMoI Candidates**
 
 * **5.4 Integrating Security Tools (BeSPlugins)**  
   The actual security assessment capabilities of the BeSLab depend entirely on the integrated security tools, made available via BeSPlugins . Integrating these tools is therefore a fundamental task.  
@@ -291,7 +346,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | OWASP-ZAP-Plugin | OWASP ZAP | DAST | Dynamic analysis of web application vulnerabilities via crawling/attacking. |
 | ModelScan-Plugin | ModelScan (or similar) | AI Model Security | Scans ML models for unsafe operators, serialization issues, etc. |
 
-    \*\*Table 4: Example Default BeSPlugins\*\*
+    **Table 4: Example Default BeSPlugins**
 
 **6\. Operating Your BeSLab: Workflows in Action**
 
@@ -301,7 +356,8 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
   * **GitLab Merge Request (MR):** Developers or other stakeholders can submit changes to the asset list file via a GitLab Merge Request. This allows Security Analysts to review and approve the submission before it's merged into the main branch, providing an approval gate.  
   * **API Integration (Advanced):** For more sophisticated integration, scripts or internal tools could interact with the GitLab API to update the asset lists, potentially triggered by events in other systems (e.g., a new project created in an internal registry).
 
-*Diagram Reference:* The Git-based submission process, whether manual or via MR, is conceptually illustrated in **Diagram 3: Project/Model Onboarding Flow** (./docs/images/Diagram3BeSLabProjectModelOnboardingWorkflow.png).
+*Diagram Reference:* The Git-based submission process, whether manual or via MR, is conceptually illustrated in **Diagram 3: Project/Model Onboarding Flow**  
+![Project/Model Onboarding Flow (Git-based)](./docs/images/Diagram3BeSLabProjectModelOnboardingWorkflow.png)
 
 * **6.2 Running Security Assessments**  
   Assessments are executed using the defined BeSPlaybooks, which orchestrate the use of BeSEnvironments and BeSPlugins . The separation of these components provides modularity—allowing environments to be reused across playbooks, or playbooks to run different sets of plugins—but requires careful coordination to ensure they work together correctly.  
@@ -315,7 +371,8 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
     3. The playbook then executes the sequence of defined BeSPlugins (security tools) within that environment, passing the target asset (e.g., code repository path, model file location) as input to each plugin.  
     4. The playbook collects the results from each plugin.
 
-*Diagram Reference:* This sequence of a playbook orchestrating environments and plugins is visually depicted in **Diagram 4: Assessment Execution Flow** (./docs/images/Diagram4AssessmentExecutionWorkflow.png).
+*Diagram Reference:* This sequence of a playbook orchestrating environments and plugins is visually depicted in **Diagram 4: Assessment Execution Flow**  
+![Assessment Execution Flow](./docs/images/Diagram4AssessmentExecutionWorkflow.png)
 
 * **6.3 Generating and Storing Reports (OSARs)**  
   After the plugins within a playbook have run, the results need to be formalized into a standard report .  
@@ -334,7 +391,8 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
   * **Visualization:** BeSLighthouse reads the OSSVoI data from the assessment results and presents aggregated views, such as counts of vulnerabilities by severity per project .  
   * **Triage & Remediation:** Security Analysts use the OSARs and the BeSLighthouse dashboard to review new findings, validate their authenticity, prioritize them based on severity and context, assign remediation tasks (e.g., creating tickets in an issue tracker), and track the progress of fixes.
 
-*Diagram Reference:* The flow of identifying vulnerabilities during scans and tracking them as OSSVoI is outlined in **Diagram 5: BeSLab Vulnerability Tracking Workflow** (./docs/images/Diagram5BeSLabVulnerabilityTrackingWorkflow.png).
+*Diagram Reference:* The flow of identifying vulnerabilities during scans and tracking them as OSSVoI is outlined in **Diagram 5: BeSLab Vulnerability Tracking Workflow**  
+![Vulnerability Tracking Flow (OSSVoI)](./docs/images/Diagram5BeSLabVulnerabilityTrackingWorkflow.png)
 
 * **6.6 Engagement Options (Beyond Private Use)**  
   While this guide focuses on a private, internal BeSLab instance functioning as an internal OSAP , the Be-Secure ecosystem allows for potential future interactions:  
@@ -359,7 +417,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | ai-model-env | Python 3.x, PyTorch/TF libs, ModelScan deps | Dedicated environment for AI model security scanning tools (e.g., ModelScan, custom checks). |
 | java-build-env | JDK (e.g., 11/17), Maven/Gradle, Git | Environment for building Java projects and running Java-specific SAST/SCA tools. |
 
-\*\*Table 5: Example Default BeSEnvironments\*\*
+**Table 5: Example Default BeSEnvironments**
 
 * **7.3 Default Assessment Workflows (BeSPlaybooks)**  
   Create standard assessment workflows (playbooks) in the BeSPlaybook repository by combining the default environments and plugins for common tasks . These serve as templates that can be used directly or adapted.
@@ -372,7 +430,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | ai-model-onboarding-safety | ai-model-env | ModelScan-Plugin | On New Model Onboarding | Initial safety/security checks on newly added AI models. |
 | dast-web-scan-basic | generic-scanner-env | OWASP-ZAP-Plugin (Baseline Scan) | Weekly / On Demand | Basic dynamic scan against a deployed web application URL (requires target URL). |
 
-\*\*Table 6: Example Default BeSPlaybooks\*\*
+**Table 6: Example Default BeSPlaybooks**
 
 * **7.4 Recap: Default Security Tools (BeSPlugins)**  
   The default playbooks listed above would typically utilize the core set of BeSPlugins recommended earlier (refer back to **Table 4: Example Default BeSPlugins**). Ensuring these foundational plugins (e.g., Semgrep, Trivy, Bandit, Gitleaks, an AI model scanner, potentially OWASP ZAP) are integrated and functional is key to making the default playbooks operational.
@@ -392,7 +450,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | **Detailed Findings** | A list of individual findings. Each finding should include: Unique ID, Clear Description, Assigned Severity, Current Status (New, Confirmed, Mitigated, False Positive), Location (File path, line number, component name), Evidence (Code snippet, tool output), Remediation Guidance, Associated Identifiers (CVE, CWE \- forming the OSSVoI). | Provides actionable details required by analysts and developers for validation and remediation. |
 | **Attestation (Optional)** | A formal statement regarding the level of assurance provided by this assessment, based on the scope and findings. May reference internal criteria like TAVOSS if applicable. | Documents the assessment outcome and the confidence level derived from the process. |
 
-\*\*Table 7: OSAR Sample Structure\*\*
+**Table 7: OSAR Sample Structure**
 
 * **8.2 Defining Roles and Responsibilities (RACI Matrix)**  
   A RACI (Responsible, Accountable, Consulted, Informed) matrix helps clarify roles and responsibilities for various BeSLab activities, preventing confusion and ensuring tasks are owned.
@@ -411,7 +469,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | Lab Maintenance & Upgrades | A | R | C | I | I |
 | Policy Definition (Scope, SLAs) | A | C | C | C | R |
 
-\*\*Table 8: RACI Matrix\*\* \*(R=Responsible, A=Accountable, C=Consulted, I=Informed)\*
+**Table 8: RACI Matrix** \*(R=Responsible, A=Accountable, C=Consulted, I=Informed)
 
 * **8.3 Key Governance Policies to Establish**  
   Implementing the BeSLab technology is only part of the solution. Establishing clear governance processes and policies is crucial to ensure the lab operates effectively and contributes meaningfully to risk reduction . Without governance, scan results might be inconsistent, ignored, or overwhelming. Key areas requiring formal policies include :  
@@ -428,10 +486,13 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 
 The following diagrams, referenced by their original file names in the source documentation, provide visual context for the BeSLab architecture and workflows. While the images themselves are not embedded here, understanding their purpose can aid comprehension:
 
-* **9.1 High-Level Enterprise View:** This diagram illustrates how the private BeSLab instance fits within the broader enterprise IT environment, showing potential interactions with development teams, CI/CD pipelines, and vulnerability management systems. *(Reference Diagram 1: ./docs/images/Diagram1HighlevelEnterpriseDeployment.png)*.  
-* **9.2 Detailed Component Layout:** This diagram provides a closer look at the components running on the single host machine in the Lite Mode deployment described in this guide, showing GitLab CE, BeSLighthouse, the underlying container runtime, and their basic connections. *(Reference Diagram 2: ./docs/images/Diagram2BeSLabComponentsLayout.png)*.
+* **9.1 High-Level Enterprise View:** This diagram illustrates how the private BeSLab instance fits within the broader enterprise IT environment, showing potential interactions with development teams, CI/CD pipelines, and vulnerability management systems.
+![High-Level Enterprise Deployment](./docs/images/Diagram1HighlevelEnterpriseDeployment.png)
+ 
+* **9.2 Detailed Component Layout:** This diagram provides a closer look at the components running on the single host machine in the Lite Mode deployment described in this guide, showing GitLab CE, BeSLighthouse, the underlying container runtime, and their basic connections.
+*
+![Detailed BeSLab Component Layout (Lite Mode Host)](./docs/images/Diagram2BeSLabComponentsLayout.png)
 
-*(Note: References to Diagram 3: Project/Model Onboarding Flow, Diagram 4: Assessment Execution Flow, and Diagram 5: Vulnerability Tracking Flow were placed contextually within Section 6 where those workflows were described.)*
 
 **10\. Conclusion and Next Steps**
 
@@ -461,7 +522,7 @@ By following this guide to establish the initial BeSLab instance and committing 
 
 **11\. Works Cited**
 
-Empowering Open Source Project Security , This Repository includes BeS Environment Scripts to launch an instance of BeSLab \- GitHub, accessed May 1, 2025, https://github.com/Be-Secure/BeSLab  
-Be-Secure/BeSLighthouse: Community dashboard for security assessment of open source projects of interest for BeSecure community. Various visualizations on Projects of Interest and Vulnerabilities of interest are available in the dashboard \- GitHub, accessed May 1, 2025, https://github.com/Be-Secure/BeSLighthouse  
-Wipro's Open Source Security Solution for Enhanced Cybersecurity, accessed May 1, 2025, https://www.wipro.com/cybersecurity/o31e-wipros-open-source-security-program-a-key-initiative-to-enhancing-cybersecurity-with-open-source/  
-Be-Secure/bes-schema: This repository defines the data... \- GitHub, accessed May 1, 2025, https://github.com/Be-Secure/bes-schema
+ 1. Empowering Open Source Project Security , This Repository includes BeS Environment Scripts to launch an instance of BeSLab \- GitHub, accessed May 1, 2025, [https://github.com/Be-Secure/BeSLab](https://github.com/Be-Secure/BeSLab)  
+ 2. Be-Secure/BeSLighthouse: Community dashboard for security assessment of open source projects of interest for BeSecure community. Various visualizations on Projects of Interest and Vulnerabilities of interest are available in the dashboard \- GitHub, accessed May 1, 2025, [https://github.com/Be-Secure/BeSLighthouse](https://github.com/Be-Secure/BeSLighthouse)  
+ 3. Wipro's Open Source Security Solution for Enhanced Cybersecurity, accessed May 1, 2025, [https://www.wipro.com/cybersecurity/o31e-wipros-open-source-security-program-a-key-initiative-to-enhancing-cybersecurity-with-open-source/](https://www.wipro.com/cybersecurity/o31e-wipros-open-source-security-program-a-key-initiative-to-enhancing-cybersecurity-with-open-source/)  
+ 4. Be-Secure/bes-schema: This repository defines the data ... \- GitHub, accessed May 1, 2025, [https://github.com/Be-Secure/bes-schema](https://github.com/Be-Secure/bes-schema)
