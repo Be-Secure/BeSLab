@@ -1,0 +1,51 @@
+@startuml
+!theme plain
+skinparam rectangle<<boundary>> {
+borderColor Black
+borderThickness 1
+}
+skinparam node {
+borderColor Black
+borderThickness 1
+}
+skinparam actor {
+borderColor Black
+borderThickness 1
+}
+
+rectangle "Enterprise Network" <<boundary>> {
+actor "Security Analyst" as Analyst
+actor "Developer" as Dev
+actor "CISO / Mgmt" as CISO
+
+node "BeSLab Host (VM/Server)" as BeSLabHost {
+cloud "Core BeSLab Services" as CoreServices
+database "GitLab CE Data" as GitLabData
+database "Config/Logs" as ConfigData
+}
+
+node "Internal Code Repositories" as InternalRepos
+node "Internal AI Model Stores" as InternalModels
+node "User Workstations" as Workstations
+
+Analyst -- BeSLabHost : Access UI/CLI
+Dev -- BeSLabHost : Access UI/Submit Assets
+CISO -- BeSLabHost : Access Dashboard (BeSLighthouse)
+Workstations --> Analyst
+Workstations --> Dev
+Workstations --> CISO
+
+BeSLabHost -- InternalRepos : Clone/Assess Code
+BeSLabHost -- InternalModels : Access/Assess Models
+}
+
+cloud "Internet / External Sources" as Internet {
+node "OSS Repositories (GitHub, etc.)" as OSSRepos
+node "AI Model Hubs (Hugging Face, etc.)" as ModelHubs
+node "Vulnerability Feeds (NVD, etc.)" as VulnFeeds
+node "Plugin/Tool Updates" as Updates
+}
+
+BeSLabHost -- Internet : Fetch OSS Code, Models, Updates, Feeds
+
+@enduml
