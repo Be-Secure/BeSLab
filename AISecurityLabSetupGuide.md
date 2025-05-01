@@ -1,4 +1,4 @@
-# **User Guide: Establishing and Operating an AI Security Lab with the Be-Secure BeSLab Blueprint**
+# **Setup Guide: Establishing and Operating an AI Security Lab with the Be-Secure BeSLab Blueprint**
 
 **Table of Contents**
 
@@ -8,7 +8,7 @@
 
 [1.1 What is BeSLab and Why Use It](#11-what-is-beslab-and-why-use-it)
 
-[](#12-the-be-secure-philosophy-beyond-a-single-tool)
+[1.2 The Be-Secure Philosophy: Beyond a Single Tool](#12-the-be-secure-philosophy-beyond-a-single-tool)
 
 [](#13-value-for-the-ciso-and-security-teams)
 
