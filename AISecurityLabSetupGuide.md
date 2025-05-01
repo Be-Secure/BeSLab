@@ -36,9 +36,9 @@
  
   -[2.2.1 Essential GitLab Configuration](#2.2.1)
 
-  -[2.2.2](#42-setting-up-be-secure-repositories-in-gitlab)
+  -[2.2.2 setting-up-be-secure-repositories-in-gitlab](#2.2.2)
 
-  -[2.2.3](#43-connecting-beslighthouse-to-your-data)
+  -[2.2.3 connecting-beslighthouse-to-your-data](#2.2.3)
 
 -[Part 3: Populating and Operating Your Lab](#part-3)
 
