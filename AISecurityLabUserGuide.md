@@ -1,59 +1,5 @@
 # **User Guide: Establishing and Operating an AI Security Lab with the Be-Secure BeSLab Blueprint**
 
-Table of Contents
-(#part-1-understanding-beslab)
-(#1-introduction-your-ai-security-lab)
-(#11-what-is-beslab-and-why-use-it)
-(#12-the-be-secure-philosophy-beyond-a-single-tool)
-(#13-value-for-the-ciso-and-security-teams)
-(#14-scope-of-this-guide)
-(#2-how-beslab-works-architecture-and-concepts)
-(#21-the-blueprint-explained-core-components)
-(#22-the-gitops-foundation)
-(#23-key-terms-you-need-to-know)
-(#part-2-setting-up-and-configuring-your-lab)
-(#3-setting-up-your-private-beslab-lite-mode)
-(#31-before-you-begin-prerequisites-checklist)
-(#32-step-by-step-installation-using-bliman)
-(#33-initial-verification-checking-your-setup)
-(#4-configuring-your-beslab-instance)
-4.1 Essential GitLab Configuration
-(#42-setting-up-be-secure-repositories-in-gitlab)
-(#43-connecting-beslighthouse-to-your-data)
-Part 3: Populating and Operating Your Lab
-5. Populating Your Lab: Onboarding Guide
-(#51-managing-user-access-and-roles)
-(#52-adding-projects-osspoi-for-assessment)
-(#53-adding-ai-models-ossmoi-for-assessment)
-(#54-integrating-security-tools-besplugins)
-(#6-operating-your-beslab-workflows-in-action)
-(#61-submitting-assets-for-assessment)
-(#62-running-security-assessments)
-(#63-generating-and-storing-reports-osars)
-(#64-visualizing-results-with-beslighthouse)
-(#65-tracking-vulnerabilities-ossvoi)
-(#66-engagement-options-beyond-private-use)
-Part 4: Defaults and Governance
-(#7-getting-started-quickly-default-configurations)
-7.1 Why Defaults Matter
-(#72-default-assessment-environments-besenvironments)
-(#73-default-assessment-workflows-besplaybooks)
-(#74-recap-default-security-tools-besplugins)
-(#8-reporting-and-governance-for-your-lab)
-(#81-standard-assessment-reports-osar-structure)
-(#82-defining-roles-and-responsibilities-raci-matrix)
-8.3 Key Governance Policies to Establish
-Part 5: Visual Aids and Conclusion
-(#9-visualizing-the-setup)
-9.1 High-Level Enterprise View
-9.2 Detailed Component Layout
-(#10-conclusion-and-next-steps)
-(#101-summary-of-benefits)
-(#102-immediate-actions-after-setup)
-(#103-continuous-improvement-roadmap)
-11. Works Cited
-
- 
  ## **1\. Introduction to the BeSLab AI Security Lab**
  
  ### **1.1 Purpose and Need**
