@@ -1,92 +1,108 @@
 # **Setup Guide: Establishing and Operating an AI Security Lab with the Be-Secure BeSLab Blueprint**
 
 **Table of Contents**
+
 -[Part 1: Understanding BeSLab](#part-1)
 
- -[1.1Introduction: Your AI Security Lab ](#1)
+ -[1.1Introduction: Your AI Security Lab ](#1.1)
  
   -[1.1.1 What is BeSLab and Why Use It](#1.1.1)
   
   -[1.2.1 The Be-Secure Philosophy: Beyond a Single Tool](#1.1.2)
+
   -[1.3.1 Value for the CISO and Security Team](#1.1.3)
+  
   -[1.4.1 Scope of this guide](#1.1.4)
+ 
  -[1.2.How BeSLab works Architecture and Concepts ](#1.2)
+ 
   -[1.2.11-introduction-your-ai-security-lab)](#1.2.1)
+  
   -[1.2.2 The gitops](#1.2.2)
+  
   -[1.2.3 Key terms you need to know](#1.2.3)
+
 -[Part 2: setting-up-and-configuring-your-lab](#part-2)
+
   -[2.1.1 Setting up your private BeSLab in Lite Mode](#2.1.1)
+  
   -[2.1.2 before-you-begin-prerequisites-checklist](#2.1.2)
+  
   -[2.1.3 step-by-step-installation-using-bliman](#2.1.3)
+  
   -[2.1.4 initial-verification-checking-your-setup](#2.1.4)
+ 
  -[2.2 configuring-your-beslab-instance](#2.2)
+ 
  -[2.2.1 Essential GitLab Configuration](#2.2.1)
 
-[2.2.2](#42-setting-up-be-secure-repositories-in-gitlab)
+-[2.2.2](#42-setting-up-be-secure-repositories-in-gitlab)
 
-[2.2.3](#43-connecting-beslighthouse-to-your-data)
+-[2.2.3](#43-connecting-beslighthouse-to-your-data)
 
-[Part 3: Populating and Operating Your Lab]
+-[Part 3: Populating and Operating Your Lab]
 
-[5. Populating Your Lab: Onboarding Guide]
+-[3.1. Populating Your Lab: Onboarding Guide]
 
-[](#51-managing-user-access-and-roles)
+-[3.1.1](#51-managing-user-access-and-roles)
 
-[](#52-adding-projects-osspoi-for-assessment)
+-[3.1.2](#52-adding-projects-osspoi-for-assessment)
 
-[](#53-adding-ai-models-ossmoi-for-assessment)
+-[3.1.3](#53-adding-ai-models-ossmoi-for-assessment)
 
-[](#54-integrating-security-tools-besplugins)
+-[3.1.4](#54-integrating-security-tools-besplugins)
 
-[](#6-operating-your-beslab-workflows-in-action)
+-[3.2](#6-operating-your-beslab-workflows-in-action)
 
-[](#61-submitting-assets-for-assessment)
+-[3.2.1](#61-submitting-assets-for-assessment)
 
-[](#62-running-security-assessments)
+-[3.2.2](#62-running-security-assessments)
 
-[](#63-generating-and-storing-reports-osars)
+-[3.2.3](#63-generating-and-storing-reports-osars)
 
-[](#64-visualizing-results-with-beslighthouse)
+-[3.2.4](#64-visualizing-results-with-beslighthouse)
 
-[](#65-tracking-vulnerabilities-ossvoi)
+-[3.2.5](#65-tracking-vulnerabilities-ossvoi)
 
-[](#66-engagement-options-beyond-private-use)
+-[3.2.6](#66-engagement-options-beyond-private-use)
 
-[Part 4: Defaults and Governance]
+-[Part 4: Defaults and Governance](#part-4)
 
-[](#7-getting-started-quickly-default-configurations)
+-[4.1](#7-getting-started-quickly-default-configurations)
 
-[]7.1 Why Defaults Matter
+-[4.1.1 Why Defaults Matter](#4.1.1)
 
-[](#72-default-assessment-environments-besenvironments)
+-[4.1.2](#72-default-assessment-environments-besenvironments)
 
-[](#73-default-assessment-workflows-besplaybooks)
+-[4.1.3](#73-default-assessment-workflows-besplaybooks)
 
-(#74-recap-default-security-tools-besplugins)
+-[4.1.4](#74-recap-default-security-tools-besplugins)
 
-(#8-reporting-and-governance-for-your-lab)
+-[4.2](#8-reporting-and-governance-for-your-lab)
 
-(#81-standard-assessment-reports-osar-structure)
+-[4.2.1](#81-standard-assessment-reports-osar-structure)
 
-(#82-defining-roles-and-responsibilities-raci-matrix)
+-[4.2.2](#82-defining-roles-and-responsibilities-raci-matrix)
 
-8.3 Key Governance Policies to Establish
+-[4.2.3 Key Governance Policies to Establish](#4.2.3)
 
-Part 5: Visual Aids and Conclusion
+-[Part 5: Visual Aids and Conclusion](#part-5)
 
-(#9-visualizing-the-setup)
+-[5.1](#9-visualizing-the-setup)
 
-9.1 High-Level Enterprise View
+-[5.1.1 High-Level Enterprise View](#5.2)
 
-9.2 Detailed Component Layout
-(#10-conclusion-and-next-steps)
+-[5.1.2 Detailed Component Layout]
 
-(#101-summary-of-benefits)
+-[6](#10-conclusion-and-next-steps)(#6)
 
-(#102-immediate-actions-after-setup)
-(#103-continuous-improvement-roadmap)
+-[6.1](#101-summary-of-benefits)(#6.1)
 
--[11. Works Cited](#11)
+-[6.2](#102-immediate-actions-after-setup)(#6.2)
+
+-[6.3](#103-continuous-improvement-roadmap)(#6.3)
+
+-[7. Works Cited](#7)
 
 ## <a id="part-1">**Part 1: Understanding BeSLab**</a>
 
