@@ -2,8 +2,11 @@
 
 **Table of Contents**
 -[Part 1: Understanding BeSLab](#part-1)
+
  -[1.1Introduction: Your AI Security Lab ](#1)
+ 
   -[1.1.1 What is BeSLab and Why Use It](#1.1.1)
+  
   -[1.2.1 The Be-Secure Philosophy: Beyond a Single Tool](#1.1.2)
   -[1.3.1 Value for the CISO and Security Team](#1.1.3)
   -[1.4.1 Scope of this guide](#1.1.4)
@@ -85,29 +88,29 @@ Part 5: Visual Aids and Conclusion
 
 -[11. Works Cited](#11)
 
-## <a id="part-1-understanding-beslab">**Part 1: Understanding BeSLab**</a>
+## <a id="part-1">**Part 1: Understanding BeSLab**</a>
 
-### <a id="1-introduction-your-ai-security-lab)">**1\. Introduction: Your AI Security Lab**</a>
+### <a id="1.1">**1\. Introduction: Your AI Security Lab**</a>
 
-#### <a id="1.1">**1.1 What is BeSLab and Why Use It?**</a>  
+#### <a id="1.1.1">**1.1.1 What is BeSLab and Why Use It?**</a>  
   In today's digital world, organizations heavily rely on Open Source Software (OSS) and Artificial Intelligence (AI) / Machine Learning (ML) models. While these components accelerate innovation, they also introduce security risks from potential vulnerabilities within them and the unique ways AI models can be attacked. Effectively managing these risks demands a structured and proactive strategy.  
   Establishing a dedicated AI Security Lab, based on the BeSLab blueprint, provides an organization's security team (specifically the CISO's office) with the necessary *internal* capability. It allows the organization to systematically check, track, and reduce the security risks tied to the OSS and AI components it uses or considers using . This focus on building internal capacity is central; BeSLab facilitates the development of in-house expertise and provides direct control over the security assurance process for these critical third-party assets, moving beyond reliance on external assessments or inconsistent manual reviews.  
-#### <a id="1.2">**1.2 The Be-Secure Philosophy: Beyond a Single Tool**</a>  
+#### <a id="1.1.2">**1.1.2 The Be-Secure Philosophy: Beyond a Single Tool**</a>  
   The Be-Secure initiative aims to help organizations and the wider community strengthen open source artifacts—software, ML models, and datasets—against vulnerabilities . The BeSLab blueprint stems from this goal, offering a design for an open-source security lab.  
   It is crucial to understand that BeSLab is not a single software product that can be installed with one click. Instead, it is a *blueprint* or an *architectural pattern* . Think of it as a template defining how various tools and processes work together to create a comprehensive security assessment environment . This approach provides significant flexibility, allowing organizations to tailor the lab's capabilities. However, it also means that implementation involves assembling and integrating these components according to the blueprint's design, rather than installing a monolithic application. The core objective is to give application security and security operations teams full control and transparency over how these critical components are assessed .  
-#### **1.3 Value for the CISO and Security Teams**  
+#### <a id="1.1.3">**1.1.3 Value for the CISO and Security Teams**</a>  
   Implementing a BeSLab instance based on this blueprint delivers clear advantages for the CISO's organization and security teams :  
   * **Standardized Assurance:** Creates consistent and repeatable processes for security assessments of both OSS projects and AI models.  
   * **Centralized Visibility:** Offers a unified view through the BeSLighthouse dashboard, tracking Projects of Interest (OSSPoI), Models of Interest (OSSMoI), and related Vulnerabilities of Interest (OSSVoI) .  
   * **Reduced Risk Exposure:** Enables proactive identification and facilitates the fixing of vulnerabilities in essential software and models before attackers can exploit them.  
   * **Cost Efficiency:** Can lower the overall cost of risk assessment compared to frequent external security engagements or time-consuming manual reviews, especially as the number of tracked assets increases .  
   * **Internal Attestation:** Allows the organization to generate internal trust marks, such as a "Trusted and Verified Open Source Software" (TAVOSS) designation, for components that pass the lab's defined security checks . This TAVOSS status serves as a tangible outcome, providing a standardized way to communicate assurance levels internally and build confidence in the security posture of approved components .  
-#### **1.4 Scope of This Guide**  
+#### <a id="1.1.4">**1.1.4 Scope of This Guide**</a>  
   This document serves as a comprehensive user guide focused specifically on setting up, configuring, and operating a *private* AI Security Lab using the BeSLab blueprint within an enterprise setting. It details the *'Lite Mode'* deployment, which consolidates essential components onto a single host machine, and covers integration with GitLab Community Edition (CE) as the code collaboration platform . The guide walks through the entire lifecycle: understanding the architecture, meeting prerequisites, installation steps, onboarding users, projects, models, and tools, defining operational workflows for security assessments, generating reports (OSARs), establishing governance (RACI), and configuring default components.
 
-## <a id="2"> **2\. How BeSLab Works: Architecture and Concepts**</a>
+## <a id="1.2"> **1.2\. How BeSLab Works: Architecture and Concepts**</a>
 
-### <a id="2.1"> **2.1 The Blueprint Explained: Core Components**</a>  
+### <a id="1.2.1"> **1.2.1 The Blueprint Explained: Core Components**</a>  
   The BeSLab architecture, being a blueprint, defines how various components interact to form a working security lab . It integrates existing open-source tools with specific Be-Secure utilities and data structures to build a cohesive system for security assessment . A typical private BeSLab instance deployed in Lite Mode, as covered in this guide, includes these core parts :  
   * **Git-based Source Code Management (SCM) Platform (e.g., GitLab CE):** This is the central nervous system of the BeSLab instance. It hosts the critical datastore repositories containing configurations, definitions of assets (OSSPoI, OSSMoI), assessment playbooks, environment definitions, and the assessment results (OSARs) . Using GitLab CE provides a powerful, self-hosted platform supporting version control, collaboration, and potential CI/CD integration for automating assessment workflows.  
   * **Datastore Repositories:** These are specific Git repositories within the SCM platform designated for storing different types of lab data. Common examples include :  
@@ -121,7 +124,7 @@ Part 5: Visual Aids and Conclusion
   * **BeSEnvironment:** Represents a specific computing setup (often a container image or defined by setup scripts) containing the necessary tools, libraries, and dependencies to run a particular set of security assessments . These ensure assessments are consistent and repeatable. They are defined in the BeSEnvironment repository and managed by BeSman .  
   * **BeSPlaybook:** An automated script or workflow designed to orchestrate specific security assessment tasks . A playbook typically specifies which BeSEnvironment to use and which BeSPlugins (security tools) to run in sequence, along with configuration and data handling steps. Playbooks codify the assessment process for different asset types or security checks (e.g., SAST scan for Python code, AI model safety check).  
   * **BeSPlugin:** Represents an integration wrapper around a specific security tool (e.g., a SAST scanner like Semgrep, an SCA tool like Trivy, a secrets detector like Gitleaks, or an AI model analyzer) . These plugins are the "workhorses" that perform the actual security scans. They are called by BeSPlaybooks within the appropriate BeSEnvironment. The lab's assessment capabilities are directly determined by the range and quality of integrated BeSPlugins. The framework is extensible, allowing new tools to be added as plugins over time .  
-### <a id="2.2"> **2.2 The GitOps Foundation**<a>  
+### <a id="1.2.2"> **1.2.2 The GitOps Foundation**</a>  
   A fundamental aspect of the BeSLab architecture is its reliance on a GitOps workflow for managing the lab itself . This means that nearly all configurations, operational state definitions, asset lists, assessment playbooks, environment definitions, and even assessment results (OSARs) reside within Git repositories hosted on the SCM platform (like GitLab CE) .  
   Changes to the lab's setup—adding a new project to track, modifying an assessment playbook, updating an environment, or configuring a tool—are managed through standard Git operations: making changes, committing them with descriptive messages, and pushing them to the central repository. This approach offers significant advantages for managing the security lab infrastructure:  
   * **Auditability:** Every change is recorded in the Git history, providing a clear audit trail of who changed what and when.  
@@ -129,19 +132,19 @@ Part 5: Visual Aids and Conclusion
   * **Reproducibility:** The entire lab configuration is defined in code, making it easier to replicate the setup or recover from failures.  
   * **Collaboration:** Multiple team members can collaborate on managing the lab's configuration using familiar Git workflows.  
   * **Infrastructure-as-Code:** It treats the lab's configuration and operational definitions as code, promoting discipline, automation potential, and reliability in its management. BeSLighthouse reading directly from these repositories further reinforces this model, ensuring the dashboard always reflects the state defined in Git .  
-* **2.3 Key Terms You Need to Know**  
+### <a id="1.2.2"> **1.2.3 Key Terms You Need to Know**</a>  
   Understanding this terminology is essential for working with BeSLab :  
   * **OSSPoI (Open Source Projects of Interest):** Specific open-source software projects your organization uses or depends on, which are onboarded into the lab for security assessment and monitoring.  
   * **OSSMoI (Open Source Models of Interest):** Specific open-source AI/ML models used or considered by your organization, onboarded for security and safety assessments.  
-  * **OSSVoI (Open Source Vulnerabilities of Interest):** The specific vulnerabilities (often identified by CVEs or similar IDs) discovered within the tracked OSSPoI and OSSMoI. The lab focuses on tracking and managing these relevant vulnerabilities .  
+  * **OSSVoI (Open Source Vulnerabilities of Interest):** The specific vulnerabilities (often identified by CVEs or similar IDs) di3scovered within the tracked OSSPoI and OSSMoI. The lab focuses on tracking and managing these relevant vulnerabilities .  
   * **OSAR (Open Source Assessment Report):** The standardized report generated after a BeSPlaybook completes an assessment run . It details the scope, methods, findings (including OSSVoI), risk posture, and potentially remediation advice. OSARs should ideally follow the BeS Schema for consistency .  
   * **TAVOSS (Trusted and Verified Open Source Software):** An internal designation indicating that an OSS project or AI model has passed a defined assessment process within your BeSLab instance and meets your organization's security criteria . Achieving TAVOSS status signifies a higher level of confidence based on the internal assessment . The lab facilitates identifying or distributing these TAVOSS-approved versions internally .  
   * **OSAP (Open Source Assurance Provider):** Each BeSLab instance acts as an OSAP . In the context of this guide (a private lab), your organization functions as its own internal OSAP, providing assurance for the assets it monitors.  
   * **BeS Schema / Exchange Schema:** A standardized data format defined by Be-Secure to enable consistent exchange of information about assets, vulnerabilities, and assessments between BeSLab components and potentially other systems or labs . Adhering to this schema, even in a private deployment, promotes interoperability, allows consistent data processing and visualization (e.g., by BeSLighthouse), simplifies tool development, and ensures reports (OSARs) have a uniform structure, making the lab's data more valuable and future-proof .
 
-**Part 2: Setting Up and Configuring Your Lab**
+### <a id="part2">**Part 2: Setting Up and Configuring Your Lab**</a>
 
-**3\. Setting Up Your Private BeSLab (Lite Mode)**
+### <a id="2.1>**2.1\. Setting Up Your Private BeSLab (Lite Mode)**</a>
 
 * **3.1 Before You Begin: Prerequisites Checklist**  
   Ensuring the target environment meets all requirements before starting installation is crucial for avoiding common setup problems. A dedicated host machine (a Virtual Machine is recommended for easier management and snapshots) is needed .  
