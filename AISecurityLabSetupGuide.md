@@ -160,7 +160,7 @@
 
 ## <a id="part2">**Part 2: Setting Up and Configuring Your Lab**</a>
 
-### <a id="2.1>**2.1\. Setting Up Your Private BeSLab (Lite Mode)**</a>
+### <a id="2.1>"**2.1 Setting Up Your Private BeSLab (Lite Mode)**</a>
 
 #### <a id="2.1.1"> **2.1.1 Before You Begin: Prerequisites Checklist**</a>  
   Ensuring the target environment meets all requirements before starting installation is crucial for avoiding common setup problems. A dedicated host machine (a Virtual Machine is recommended for easier management and snapshots) is needed .  
