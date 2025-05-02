@@ -1,0 +1,54 @@
+@startuml
+!theme plain
+skinparam node {
+borderColor Black
+borderThickness 1
+}
+skinparam storage {
+borderColor Black
+borderThickness 1
+}
+skinparam interface {
+borderColor Black
+borderThickness 1
+}
+
+node "BeSLab Host (VM/Server)" as Host {
+interface "Network Interface (IP/DNS)" as HostNIC
+
+node "Container Runtime (Docker)" as Docker {
+node "GitLab CE Container" as GitLab {
+folder "Git Repositories" as GitRepos <<storage>>
+interface "Web UI/API (80/443)" as GitLabNIC
+interface "SSH (22)" as GitLabSSH
+}
+node "BeSLighthouse Container" as Lighthouse {
+interface "Web UI (3000/80)" as LighthouseNIC
+}
+node "BeSEnvironment Containers (Transient)" as EnvContainers {
+label "Runs BeSPlugins (Tools)"
+}
+}
+
+folder "BLIman / BeSman CLI Tools" as CLITools
+folder "Configuration Files (genesis.yaml)" as ConfigFiles <<storage>>
+folder "Persistent Volumes" as Volumes <<storage>> {
+storage "GitLab Data Volume" as GitLabVol
+storage "BeSLighthouse Config Volume" as LighthouseVol
+storage "Other Data/Logs" as OtherVol
+}
+
+HostNIC -- GitLabNIC
+HostNIC -- LighthouseNIC
+HostNIC -- GitLabSSH
+
+Lighthouse..> GitLab : Reads Repo Data (Git/API)
+CLITools --> Docker : Manage Containers
+CLITools --> ConfigFiles : Read Config
+GitLab..> GitLabVol : Store Data
+Lighthouse..> LighthouseVol : Store Config
+Docker..> EnvContainers : Start/Stop Assessment Envs
+EnvContainers..> GitLab : Clone Code/Assets
+}
+
+@enduml

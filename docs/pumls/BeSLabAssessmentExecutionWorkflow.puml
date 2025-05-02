@@ -1,0 +1,45 @@
+@startuml
+!theme plain
+participant "Trigger\n(Schedule/Hook/Manual)" as Trigger
+participant "BeSLab Orchestrator\n(e.g., CI Pipeline/Script)" as Orchestrator
+participant "BeSPlaybook" as Playbook
+participant "BeSman" as Besman
+participant "BeSEnvironment\n(Container)" as Env
+participant "BeSPlugin(s)" as Plugins
+participant "GitLab Server\n(Asset/Assessment Repos)" as GitLabRepo
+participant "BeSLighthouse" as Lighthouse
+
+Trigger -> Orchestrator : Initiate Assessment (Asset X, Playbook Y)
+activate Orchestrator
+Orchestrator -> Playbook : Execute Playbook Y for Asset X
+activate Playbook
+Playbook -> Besman : Request Environment Z
+activate Besman
+Besman -> Env : Create/Start Environment Z
+activate Env
+Besman --> Playbook : Environment Ready
+deactivate Besman
+Playbook -> GitLabRepo : Clone/Fetch Asset X Code/Model
+Playbook -> Env : Execute Plugin A
+activate Plugins
+Env -> Plugins : Run Tool A
+Plugins --> Env : Results A
+deactivate Plugins
+Playbook -> Env : Execute Plugin B
+activate Plugins
+Env -> Plugins : Run Tool B
+Plugins --> Env : Results B
+deactivate Plugins
+Env --> Playbook : All Plugin Results
+deactivate Env
+Playbook -> Playbook : Aggregate Results & Generate OSAR
+Playbook -> GitLabRepo : Commit OSAR to BeSAssessment Repo
+activate GitLabRepo
+GitLabRepo --> Playbook : Commit Successful
+deactivate GitLabRepo
+Playbook --> Orchestrator : Assessment Complete
+deactivate Playbook
+Orchestrator -> Lighthouse : Notify/Update Assessment Status
+deactivate Orchestrator
+
+@enduml

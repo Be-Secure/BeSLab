@@ -1,0 +1,29 @@
+@startuml
+!theme plain
+actor "User (Dev/Analyst)" as User
+participant "Local Workstation" as Local
+participant "GitLab Server\n(Asset Repo)" as GitLabRepo
+participant "BeSLab System\n(Monitor/Hook)" as BeSLabSys
+participant "BeSLighthouse" as Lighthouse
+
+User -> Local : Clone Asset Repo
+User -> Local : Edit Asset List (Add OSSPoI/OSSMoI)
+User -> Local : Git Commit
+User -> Local : Git Push
+Local -> GitLabRepo : Push Changes
+activate GitLabRepo
+
+GitLabRepo -> BeSLabSys : Notify (Webhook/Poll)
+activate BeSLabSys
+BeSLabSys -> GitLabRepo : Fetch Updated List
+BeSLabSys -> BeSLabSys : Validate New Asset Info
+alt Validation OK
+BeSLabSys -> BeSLabSys : Mark Asset as 'Onboarded' / 'Pending Scan'
+BeSLabSys -> Lighthouse : Update Asset List Cache/Display
+else Validation Failed
+BeSLabSys -> User : Notify Failure (e.g., email, comment)
+end
+deactivate BeSLabSys
+deactivate GitLabRepo
+
+@enduml
