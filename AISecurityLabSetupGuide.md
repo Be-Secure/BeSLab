@@ -242,14 +242,14 @@ This guide assumes GitLab CE will be installed by the BLIman \`launchlab\` proce
      Bash  
      bli initmode lite
 
-  6. **Initialize BeSman:** Initialize the BeS Environment Manager, usually installed by bli initmode :  
+  6. **Initialize BeSman:** Initialize the BeS Environment Manager, usually installed by bli initmode :
      Bash  
      source $HOME/.besman/bin/besman-init.sh  
      Verify initialization by checking its help command :  
      Bash  
      bes help
 
-  7. **Launch the Lab:** Start the main deployment process :  
+  8. **Launch the Lab:** Start the main deployment process :  
      Bash  
      bli launchlab  
      This command downloads Docker images, configures and starts containers (GitLab, BeSLighthouse), sets up networking/volumes, and potentially seeds initial GitLab structures . This step can take significant time. Monitor the console output for errors.  
@@ -284,7 +284,8 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 #### <a id="2.2.3">**2.2.3 Connecting BeSLighthouse to Your Data**</a>  
   BeSLighthouse needs to be configured to find the data repositories within your private GitLab instance . This step activates the dashboard by linking the visualization front-end to the Git-based data back-end.  
   1. **Locate datastore.ts:** Access the BeSLab host machine (e.g., via SSH). Find the BeSLighthouse installation directory. The exact path depends on the deployment, potentially within a Docker volume mount (check docker inspect \<container\_id\> for volume details) or a location like /opt/BeSLighthouse or /usr/local/share/beslighthouse. Inside this directory, locate the configuration file, typically src/config/datastore.ts .  
-  2. **Edit datastore.ts:** Open the file using a text editor (like nano or vim). Find the variables defining the URLs for the datastore repositories. Update these URLs to point to the repositories created in **your private GitLab instance** within the besecure-lab group .  
+  2. **Edit datastore.ts:** Open the file using a text editor (like nano or vim). Find the variables defining the URLs for the datastore repositories. Update these URLs to point to the repositories created in **your private GitLab instance** within the besecure-lab group .
+     
      * Example modification:  
        TypeScript  
        // Before modification (example pointing to public GitHub)  
@@ -296,15 +297,16 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
        export const Assessment\_Repo\_URL \= "http://\<YOUR\_GITLAB\_IP\_OR\_DNS\>/besecure-lab/BeSAssessment.git";  
        // Update other relevant repository URLs (MoI, ML assessments, etc.) similarly
 
-  3. **Restart BeSLighthouse:** Apply the changes by restarting the BeSLighthouse service or container. If using Docker:  
-     Bash  
+  4. **Restart BeSLighthouse:** Apply the changes by restarting the BeSLighthouse service or container. If using Docker:  
+
+      Bash  
      \# Find the BeSLighthouse container ID or name  
      sudo docker ps
 
      \# Restart the container  
      sudo docker restart \<container\_id\_or\_name\>
 
-  4. **Verify Connection:** Refresh the BeSLighthouse UI in your browser. Although the lists will still be empty until data is added, check the browser's developer tools (Network tab) or the container logs (sudo docker logs \<container\_id\_or\_name\>) for any errors related to accessing the configured GitLab repository URLs. Successful connection means BeSLighthouse can now read data once it's populated in the repositories.
+  5. **Verify Connection:** Refresh the BeSLighthouse UI in your browser. Although the lists will still be empty until data is added, check the browser's developer tools (Network tab) or the container logs (sudo docker logs \<container\_id\_or\_name\>) for any errors related to accessing the configured GitLab repository URLs. Successful connection means BeSLighthouse can now read data once it's populated in the repositories.
 
 ## <a id="part-3">**Part 3: Populating and Operating Your Lab**</a>
 
@@ -351,7 +353,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | Node.js Express | Common web framework for Node.js | SCA (npm), SAST (JavaScript/TS) |
 | Internal Shared Library X | Critical internal component used by many apps | SAST, SCA, Secrets Scan |
 
-  **Table 2: Example OSSPoI Candidates**
+**Table 2: Example OSSPoI Candidates**
 
 #### <a id="3.1.3">**3.1.3 Adding AI Models (OSSMoI) for Assessment**</a>  
   Similar to software projects, Open Source Models of Interest (OSSMoI) need to be onboarded for tracking and security/safety assessment .  
@@ -367,7 +369,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | GPT-2 | Foundational LLM, often used for experiments | Model Scanning, Provenance Checks |
 | Internally Fine-tuned Model Y | Model derived from OSSMoI, used in production | Model Scanning, Fine-tuning Data Privacy Review, Robustness Testing |
 
-    **Table 3: Example OSSMoI Candidates**
+**Table 3: Example OSSMoI Candidates**
 
 #### <a id="3.1.4">**3.1.4 Integrating Security Tools (BeSPlugins)**</a>  
   The actual security assessment capabilities of the BeSLab depend entirely on the integrated security tools, made available via BeSPlugins . Integrating these tools is therefore a fundamental task.  
@@ -395,7 +397,7 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
 | OWASP-ZAP-Plugin | OWASP ZAP | DAST | Dynamic analysis of web application vulnerabilities via crawling/attacking. |
 | ModelScan-Plugin | ModelScan (or similar) | AI Model Security | Scans ML models for unsafe operators, serialization issues, etc. |
 
-    **Table 4: Example Default BeSPlugins**
+**Table 4: Example Default BeSPlugins**
 
 ### <a id="3.2">**3.2. Operating Your BeSLab: Workflows in Action**</a>
 
@@ -405,8 +407,9 @@ Successful completion of these checks indicates the core BeSLab infrastructure i
   * **GitLab Merge Request (MR):** Developers or other stakeholders can submit changes to the asset list file via a GitLab Merge Request. This allows Security Analysts to review and approve the submission before it's merged into the main branch, providing an approval gate.  
   * **API Integration (Advanced):** For more sophisticated integration, scripts or internal tools could interact with the GitLab API to update the asset lists, potentially triggered by events in other systems (e.g., a new project created in an internal registry).
 
-The Git-based submission process, whether manual or via MR, is conceptually illustrated in **Diagram 3: Project/Model Onboarding Flow**  
+The Git-based submission process, whether manual or via MR, is conceptually illustrated in **Diagram 3**
 ![Project/Model Onboarding Flow (Git-based)](./docs/images/Diagram3BeSLabProjectModelOnboardingWorkflow.png)
+**Diagram 3: Project/Model Onboarding Flow**  
 
 #### <a id="3.2.2">**3.2.2 Running Security Assessments**</a>  
   Assessments are executed using the defined BeSPlaybooks, which orchestrate the use of BeSEnvironments and BeSPlugins . The separation of these components provides modularity—allowing environments to be reused across playbooks, or playbooks to run different sets of plugins—but requires careful coordination to ensure they work together correctly.  
@@ -420,8 +423,9 @@ The Git-based submission process, whether manual or via MR, is conceptually illu
     3. The playbook then executes the sequence of defined BeSPlugins (security tools) within that environment, passing the target asset (e.g., code repository path, model file location) as input to each plugin.  
     4. The playbook collects the results from each plugin.
 
-This sequence of a playbook orchestrating environments and plugins is visually depicted in **Diagram 4: Assessment Execution Flow**  
+This sequence of a playbook orchestrating environments and plugins is visually depicted in **Diagram 4**
 ![Assessment Execution Flow](./docs/images/Diagram4AssessmentExecutionWorkflow.png)
+**Diagram 4: Assessment Execution Flow**
 
 #### <a id="3.2.3">**3.2.3 Generating and Storing Reports (OSARs)**</a>  
   After the plugins within a playbook have run, the results need to be formalized into a standard report .  
@@ -440,8 +444,9 @@ This sequence of a playbook orchestrating environments and plugins is visually d
   * **Visualization:** BeSLighthouse reads the OSSVoI data from the assessment results and presents aggregated views, such as counts of vulnerabilities by severity per project .  
   * **Triage & Remediation:** Security Analysts use the OSARs and the BeSLighthouse dashboard to review new findings, validate their authenticity, prioritize them based on severity and context, assign remediation tasks (e.g., creating tickets in an issue tracker), and track the progress of fixes.
 
-The flow of identifying vulnerabilities during scans and tracking them as OSSVoI is outlined in **Diagram 5: BeSLab Vulnerability Tracking Workflow**  
+The flow of identifying vulnerabilities during scans and tracking them as OSSVoI is outlined in **Diagram 5**  
 ![Vulnerability Tracking Flow (OSSVoI)](./docs/images/Diagram5BeSLabVulnerabilityTrackingWorkflow.png)
+**Diagram 5: BeSLab Vulnerability Tracking Workflow**
 
 #### <a id="3.2.6">**3.2.6 Engagement Options (Beyond Private Use)**</a>  
   While this guide focuses on a private, internal BeSLab instance functioning as an internal OSAP , the Be-Secure ecosystem allows for potential future interactions:  
@@ -537,11 +542,12 @@ The following diagrams, referenced by their original file names in the source do
 
 #### <a id="5.1.1">**5.1.1 High-Level Enterprise View:**</a> 
 This diagram illustrates how the private BeSLab instance fits within the broader enterprise IT environment, showing potential interactions with development teams, CI/CD pipelines, and vulnerability management systems.
+
 ![High-Level Enterprise Deployment](./docs/images/Diagram1HighlevelEnterpriseDeployment.png)
  
 #### <a id="5.1.2">**5.1.2 Detailed Component Layout:**</a> 
 This diagram provides a closer look at the components running on the single host machine in the Lite Mode deployment described in this guide, showing GitLab CE, BeSLighthouse, the underlying container runtime, and their basic connections.
-*
+
 ![Detailed BeSLab Component Layout (Lite Mode Host)](./docs/images/Diagram2BeSLabComponentsLayout.png)
 
 
