@@ -169,6 +169,27 @@ BESLAB_CODECOLLAB_DATASTORES:
    - besecure-assessment-datastore
    - besecure-assets-store
    - besecure-ml-assessment-datastore
+   - besecure-ce-env-repo
+   - besecure-playbooks-store
+
+# Github token for private lab to import the repostories from
+# github to gitlab.
+BESLAB_PRIVATELAB_GITHUB_TOKEN: 
+
+# Lis of repositories which needs to imported to gitlab from github.
+BESLAB_GITHUB_IMPORTS:
+   - BeSLab
+   - BLIman
+   - BeSLighthouse
+   - BeSMan
+   - fossology
+   - criticality_score
+   - scorecard
+   - spdx-sbom-genrator
+   - sonarqube
+   - PurpleLlama
+   - garak
+   - modelbench
 
 ## List of compilers or development or runtime tools to be installed in beslab.
 #   values: - Java
@@ -235,7 +256,7 @@ BESLAB_PROXY_API_URL: https://proxyapi.o31e.com
 
 ## Configurations to be used by the dashboard tool BeSLighthouse.
 BESLAB_DASHBOARD_TOOL: BeSLighthouse
-BESLAB_DASHBOARD_PORT: 80
+BESLAB_DASHBOARD_PORT: 4002
 BESLAB_DASHBOARD_RELEASE_VERSION: 0.28.3
 BESLAB_DASHBOARD_INSTALL_PATH: /opt/BeSLighthouse
 BESLAB_DASHBOARD_API_INSTALL_PATH: /opt/BeSRestApi
