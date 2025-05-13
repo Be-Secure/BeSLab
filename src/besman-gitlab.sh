@@ -147,7 +147,7 @@ function __besman_create_gitlab_repo()
     userToken="$retrievedToken"
 
     #curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url $gitlabLocalHost'/api/v4/projects/'
-    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
+    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"private\" }" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
 
    if [[ "$returncode" =~ ^2 ]];then
       __bliman_echo_green "Project $repoName is created."
