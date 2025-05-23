@@ -53,7 +53,7 @@ function add_projects_from_file ()
         retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
         userToken="$2$retrievedToken"
    elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.bliman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
         userToken="$2$retrievedToken"
    else
        userToken="$1"
@@ -114,7 +114,7 @@ function __besman_create_gitlab_file()
     if [ -f $HOME/.besman/gitlabUserDetails ];then
         retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.bliman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
     #userToken="$retrievedToken"
 
@@ -143,7 +143,7 @@ function __besman_create_gitlab_repo()
     if [ -f $HOME/.besman/gitlabUserDetails ];then
         retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.bliman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
 
     #userToken="$retrievedToken"
@@ -170,7 +170,7 @@ function __besman_import_github_repos()
     if [ -f $HOME/.besman/gitlabUserDetails ];then
         retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.bliman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
 
     if [ -z $retrievedToken ];then
