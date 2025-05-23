@@ -50,10 +50,10 @@ function add_projects_from_file ()
 {
 
    if [ -f $HOME/.besman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
         userToken="$2$retrievedToken"
    elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
         userToken="$2$retrievedToken"
    else
        userToken="$1"
@@ -112,9 +112,9 @@ function __besman_create_gitlab_file()
     filepath=$7
 
     if [ -f $HOME/.besman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
     #userToken="$retrievedToken"
 
@@ -141,9 +141,9 @@ function __besman_create_gitlab_repo()
 
     __besman_echo_yellow "Creating gitlab repo $repoName ..."
     if [ -f $HOME/.besman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
 
     #userToken="$retrievedToken"
