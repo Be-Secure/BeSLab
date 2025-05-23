@@ -116,17 +116,19 @@ function __besman_create_gitlab_file()
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
         retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
-    userToken="$retrievedToken"
+    #userToken="$retrievedToken"
 
     # Make a request to list projects and store the response in a variable
-    response=$(curl --silent --header "PRIVATE-TOKEN: $userToken" "$gitlabLocalHost/api/v4/projects?search=$repoName")
+    response=$(curl --silent --header "PRIVATE-TOKEN: $retrievedToken" "$gitlabLocalHost/api/v4/projects?search=$repoName")
 
     # Parse the response to extract project ID
     project_id=$(echo "$response" | grep -o '"id":\s*[0-9]*' | grep -o '[0-9]*' | head -1)
 
-    __besman_echo_yellow "Creating file $filepath under project $project_id ..."
+    __besman_echo_yellow "Found project with project id $projetc_id"
+
+    __besman_echo_yellow "Creating file $filepath under project $repoName ..."
     
-    curl --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url $gitlabLocalHost'/api/v4/projects/'$project_id'/repository/files/'$filepath
+    curl --silent --request POST --header "PRIVATE-TOKEN: $retrievedToken" --header 'Content-Type: application/json' --data  "{\"branch\": \"$branchname\",\"author_name\": \"$userName\", \"content\": \"$content\", \"commit_message\": \"created initial file\" }" --url $gitlabLocalHost'/api/v4/projects/'$project_id'/repository/files/'$filepath
 
 }
 
@@ -144,10 +146,10 @@ function __besman_create_gitlab_repo()
         retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
 
-    userToken="$retrievedToken"
+    #userToken="$retrievedToken"
 
     #curl -k --silent --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\",\"namespace\": \"$userName\", \"initialize_with_readme\": \"true\", \"visibility\": \"public\" }" --url $gitlabLocalHost'/api/v4/projects/'
-    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"private\" }" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
+    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $retrievedToken" --header 'Content-Type: application/json' --data  "{\"name\": \"$repoName\", \"description\": \"$repoDesc\", \"initialize_with_readme\": \"true\", \"visibility\": \"private\" }" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
 
    if [[ "$returncode" =~ ^2 ]];then
       __bliman_echo_green "Project $repoName is created."
@@ -166,9 +168,9 @@ function __besman_import_github_repos()
 
     __besman_echo_yellow "Creating gitlab repo $repoName ..."
     if [ -f $HOME/.besman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     elif [ -f $HOME/.bliman/gitlabUserDetails ];then
-        retrievedToken=`cat /root/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
+        retrievedToken=`cat $HOME/.besman/gitlabUserDetails | grep GITLAB_USERTOKEN: | cut -d ':'  -f 2 | awk '{$1=$1};1'`
     fi
 
     if [ -z $retrievedToken ];then
@@ -176,11 +178,11 @@ function __besman_import_github_repos()
        return 1
     fi
 
-    userToken="$retrievedToken"
+    #userToken="$retrievedToken"
     declare -i githubProjectId
 
     githubProjectId=`curl -sS https://api.github.com/repos/Be-Secure/$repoName | jq '.id'`
-    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $userToken" --header 'Content-Type: application/json' --data  "{\"personal_access_token\": \"$githubToken\", \"repo_id\":  $githubProjectId , \"target_namespace\": \"$userName\", \"new_name\": \"$repoName\", \"optionalstages\": { \"single_endpoint_notes_import\": \"true\", \"attachments_import\": \"false\", \"collaborators_import\": \"false\" }}" --url "$gitlabLocalHost"'/api/v4/projects/' 2>&1)
+    returncode=$(curl -k -sS --output /dev/null --write-out '%{http_code}' --request POST --header "PRIVATE-TOKEN: $retrievedToken" --header 'Content-Type: application/json' --data  "{\"personal_access_token\": \"$githubToken\", \"repo_id\":  $githubProjectId , \"target_namespace\": \"$userName\", \"new_name\": \"$repoName\", \"optionalstages\": { \"single_endpoint_notes_import\": \"true\", \"attachments_import\": \"false\", \"collaborators_import\": \"false\" }}" --url "$gitlabLocalHost"'/api/v4/import/github' 2>&1)
 
    if [[ "$returncode" =~ ^2 ]];then
       __bliman_echo_green "Project $repoName is created."
@@ -291,12 +293,14 @@ function __besman_install_gitlab()
         if [ -z $BESLAB_PRIVATELAB_GITHUB_TOKEN ];then
            __beslab_echo_red " GITHUB Toen is needed for importing Github repos"
         else
+           sudo gitlab-rails runner "Feature.enable(:override_github_disabled)"
            old_ifs="$IFS"
            IFS=","
            for importRepoName in $BESLAB_GITHUB_IMPORTS
            do
-              __besman_import_github_repos $importRepoName $BESMAN_LAB_NAME $BESLAB_PRIVATELAB_GITHUB_TOEKN 
+              __besman_import_github_repos $importRepoName $BESMAN_LAB_NAME $BESLAB_PRIVATELAB_GITHUB_TOKEN 
            done
+           sudo gitlab-rails runner "Feature.disable(:override_github_disabled)"
         fi
 
         envpath="$HOME/.besman/envs"
@@ -307,15 +311,15 @@ function __besman_install_gitlab()
         #vulnerJson=$(cat $envpath/besman-vulner.json)
 
         sleep 10s
-        assessment_store_repo_name="besecure%dassets%dstore"
+        assessment_store_repo_name="besecure-assets-store"
         assessment_store_branch="main"
         assessment_store_email="$BESMAN_LAB_NAME@$BESMAN_LAB_NAME.com"
 
-        __besman_create_gitlab_file $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch $assessment_store_email "" "projects%2Fproject%2Dmetadata%2Ejson"
-        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "projects%2Fproject%2Dversion%2F471%2Dradius%2DVersiondetails%2Ejson"
-        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "vulnerabilities%2Fvulnerability%2Dmetadata%2Ejson"
-        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "models%2Fmodel%2Dmetadata%2Ejson"
-	     __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "datasets%2Fdataset%2Dmetadata%2Ejson"
+        __besman_create_gitlab_file $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch $assessment_store_email "" "projects%2Fproject-metadata.json"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "projects%2Fproject-version%2F471-radius-Versiondetails.json"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "vulnerabilities%2Fvulnerability-metadata.json"
+        __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "models%2Fmodel-metadata.json"
+	     __besman_create_gitlab_file  $assessment_store_repo_name $BESMAN_LAB_NAME $labToken $assessment_store_branch  $assessment_store_email "" "datasets%2Fdataset-metadata.json"
 
         [[ ! -z $BESLAB_GITLAB_USERS_FILE ]] && add_users_from_file
         [[ ! -z $BESLAB_GITLAB_PROJECTS_FILE ]] && add_projects_from_file
