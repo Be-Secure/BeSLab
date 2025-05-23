@@ -288,7 +288,7 @@ function __besman_install_gitlab()
             __besman_create_gitlab_repo $repoName $BESMAN_LAB_NAME $labToken "created $repoName for $BESMAN_LAB_NAME datastore"
         done
 
-        if [ -z $BESLAB_PRIVATELAB_GITHUB_TOKEN ];
+        if [ -z $BESLAB_PRIVATELAB_GITHUB_TOKEN ];then
            __beslab_echo_red " GITHUB Toen is needed for importing Github repos"
         else
            old_ifs="$IFS"
