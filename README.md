@@ -345,3 +345,8 @@ Execute below steps on the machine where BeSLab needs to be installed.
 10. Verify the lab installation 
     * Open GitLab. Go to browser and enter `http://gitlab-server-IP`. (Give the actual IP or domain name). Login with the default credentials (Lab name configured in genesis.yaml / Welc0me@123). Change the default password upon login.
     * Open BeSLighthouse. Go to browser and enter `http://BeSLighthouse-IP:3000`. (Give the actual IP or domain name). BeSLighthouse UI should open up. Click the "Projects Of Interest" tab and verify that it shows an empty list.
+
+
+# Sample Lab Flow
+
+![Lab flow](./docs/images/plugin3.png)
